@@ -349,7 +349,7 @@ public class UserService {
                 .orElseThrow(() -> new NotFoundException("List not found"));
 
         // Confronto corretto usando `Integer.valueOf(userId)`
-        if (!Integer.valueOf(userList.getUser().getIdUser()).equals(userId)) {
+        if (!userList.getUser().getIdUser().equals(userId)) {
             throw new UnauthorizedException("You don't have access to this list");
         }
 
@@ -361,7 +361,7 @@ public class UserService {
         UserList userList = userListRepository.findById(listId)
                 .orElseThrow(() -> new NotFoundException("List not found"));
 
-        if (!Integer.valueOf(userList.getUser().getIdUser()).equals(userId)) {
+        if (!userList.getUser().getIdUser().equals(userId)) {
             throw new UnauthorizedException("You don't have access to this list");
         }
 
