@@ -1,5 +1,0 @@
-https://imdbapi.dev/
-
-o
-
-https://www.omdbapi.com/
