@@ -1,9 +1,7 @@
-package Nextdevs.gestionaleassicurativo.dto;
+package it.cloneNetflixBackEnd.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -23,13 +21,13 @@ public class UserDto {
 //            message = "La password deve contenere almeno una lettera maiuscola, una lettera minuscola, un numero e un carattere speciale")
     private String password;
     private String avatar;
-    @NotBlank(message = "Lo username dell'utente non può essere vuoto, mancante o composto da soli spazi")
+//    @NotBlank(message = "Lo username dell'utente non può essere vuoto, mancante o composto da soli spazi")
 
-    private String username;
+//    private String username;
     private LocalDate dataNascita;
     private String provider;
     private String telefono;
     private String indirizzo;
-    private String codiceFiscale;
+//    private String codiceFiscale;
     private String statoUtente;
 }

@@ -1,4 +1,4 @@
-package Nextdevs.gestionaleassicurativo.exception;
+package it.cloneNetflixBackEnd.exception;
 
 public class UserNotFoundException  extends RuntimeException {
     public UserNotFoundException(Integer id) {

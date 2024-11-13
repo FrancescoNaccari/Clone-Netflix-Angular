@@ -1,2 +1,10 @@
-package it.cloneNetflixBackEnd.repository;public interface UserRepository {
+package it.cloneNetflixBackEnd.repository;
+
+import it.cloneNetflixBackEnd.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.Optional;
+
+public interface UserRepository extends JpaRepository<User, Integer> {
+    Optional<User> findByEmail(String email);
 }

@@ -1,4 +1,4 @@
-package Nextdevs.gestionaleassicurativo.exception;
+package it.cloneNetflixBackEnd.exception;
 
 public class UnauthorizedException extends RuntimeException{
 

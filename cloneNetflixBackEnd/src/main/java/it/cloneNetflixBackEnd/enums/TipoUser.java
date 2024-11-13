@@ -1,5 +1,5 @@
-package Nextdevs.gestionaleassicurativo.enums;
+package it.cloneNetflixBackEnd.enums;
 
 public enum TipoUser {
-    ADMIN, AGENTE,CLIENTE
+    ADMIN, USER
 }

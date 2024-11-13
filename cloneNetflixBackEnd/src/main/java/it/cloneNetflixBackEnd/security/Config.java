@@ -1,4 +1,4 @@
-package Nextdevs.gestionaleassicurativo.security;
+package it.cloneNetflixBackEnd.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
@@ -25,6 +24,8 @@ import java.util.List;
 @EnableMethodSecurity//Permette di attivare la sicurezza sui metodi del controller con il PreAuthorized
 
 public class Config implements WebMvcConfigurer {
+
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
@@ -32,7 +33,7 @@ public class Config implements WebMvcConfigurer {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/auth/**", "/public/**", "/users/**", "/options/**").permitAll() // consenti alcune rotte senza autenticazione
+                        .requestMatchers("/auth/**", "/public/**", "/users/**", "/options/**","/api/movies/search").permitAll() // consenti alcune rotte senza autenticazione
                         .anyRequest().authenticated()
                 )
                 .headers(headers -> headers

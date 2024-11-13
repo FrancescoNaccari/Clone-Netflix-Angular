@@ -1,4 +1,4 @@
-package Nextdevs.gestionaleassicurativo.exception;
+package it.cloneNetflixBackEnd.exception;
 
 public class NotFoundException extends RuntimeException{
     public NotFoundException(String message) {

@@ -1,12 +1,13 @@
-package Nextdevs.gestionaleassicurativo.controller;
+package it.cloneNetflixBackEnd.controller;
 
-import Nextdevs.gestionaleassicurativo.dto.AuthDataDto;
-import Nextdevs.gestionaleassicurativo.dto.PasswordResetRequestDto;
-import Nextdevs.gestionaleassicurativo.dto.UserDto;
-import Nextdevs.gestionaleassicurativo.dto.UserLoginDto;
-import Nextdevs.gestionaleassicurativo.exception.BadRequestException;
-import Nextdevs.gestionaleassicurativo.service.AuthService;
-import Nextdevs.gestionaleassicurativo.service.UserService;
+
+import it.cloneNetflixBackEnd.dto.AuthDataDto;
+import it.cloneNetflixBackEnd.dto.PasswordResetRequestDto;
+import it.cloneNetflixBackEnd.dto.UserDto;
+import it.cloneNetflixBackEnd.dto.UserLoginDto;
+import it.cloneNetflixBackEnd.exception.BadRequestException;
+import it.cloneNetflixBackEnd.service.AuthService;
+import it.cloneNetflixBackEnd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @RestController

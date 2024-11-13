@@ -1,11 +1,13 @@
-package Nextdevs.gestionaleassicurativo.service;
+package it.cloneNetflixBackEnd.service;
 
-import Nextdevs.gestionaleassicurativo.dto.AuthDataDto;
-import Nextdevs.gestionaleassicurativo.dto.UserDataDto;
-import Nextdevs.gestionaleassicurativo.dto.UserLoginDto;
-import Nextdevs.gestionaleassicurativo.exception.UnauthorizedException;
-import Nextdevs.gestionaleassicurativo.model.User;
-import Nextdevs.gestionaleassicurativo.security.JwtTool;
+
+import it.cloneNetflixBackEnd.dto.AuthDataDto;
+import it.cloneNetflixBackEnd.dto.UserDataDto;
+import it.cloneNetflixBackEnd.dto.UserLoginDto;
+import it.cloneNetflixBackEnd.exception.UnauthorizedException;
+
+import it.cloneNetflixBackEnd.model.User;
+import it.cloneNetflixBackEnd.security.JwtTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -37,7 +39,7 @@ public class AuthService {
                 userDataDto.setCognome(user.getCognome());
                 userDataDto.setEmail(user.getEmail());
                 userDataDto.setIdUser(user.getIdUser());
-                userDataDto.setUsername(user.getUsername());
+//                userDataDto.setUsername(user.getUsername());
                 userDataDto.setAvatar(user.getAvatar());
                 userDataDto.setDataNascita(user.getDataNascita());
                 userDataDto.setTipoUser(user.getTipoUser());

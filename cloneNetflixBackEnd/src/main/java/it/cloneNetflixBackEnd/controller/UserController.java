@@ -1,12 +1,14 @@
-package Nextdevs.gestionaleassicurativo.controller;
+package it.cloneNetflixBackEnd.controller;
 
-import Nextdevs.gestionaleassicurativo.dto.UpdatePasswordDto;
-import Nextdevs.gestionaleassicurativo.dto.UserDataDto;
-import Nextdevs.gestionaleassicurativo.dto.UserDto;
-import Nextdevs.gestionaleassicurativo.exception.BadRequestException;
-import Nextdevs.gestionaleassicurativo.exception.NotFoundException;
-import Nextdevs.gestionaleassicurativo.model.User;
-import Nextdevs.gestionaleassicurativo.service.UserService;
+
+import it.cloneNetflixBackEnd.dto.UpdatePasswordDto;
+import it.cloneNetflixBackEnd.dto.UserDataDto;
+import it.cloneNetflixBackEnd.dto.UserDto;
+import it.cloneNetflixBackEnd.exception.BadRequestException;
+import it.cloneNetflixBackEnd.exception.NotFoundException;
+import it.cloneNetflixBackEnd.model.User;
+import it.cloneNetflixBackEnd.model.UserList;
+import it.cloneNetflixBackEnd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -19,9 +21,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*", allowCredentials = "true")
@@ -30,9 +29,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-
     @GetMapping("/users")
-    @PreAuthorize("hasAnyAuthority('ADMIN','AGENTE','CLIENTE')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     public Page<User> getAllUser(@RequestParam(defaultValue = "0") int page,
                                  @RequestParam(defaultValue = "15") int size,
                                  @RequestParam(defaultValue = "id") String sortBy) {
@@ -40,7 +38,7 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN','AGENTE','CLIENTE')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     public User getUserById(@PathVariable int id) throws NotFoundException {
         Optional<User> userOptional = userService.getUserById(id);
         if (userOptional.isPresent()) {
@@ -51,7 +49,7 @@ public class UserController {
     }
 
     @PutMapping("/users/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'AGENTE', 'CLIENTE')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     public User updateUser(@PathVariable int id, @RequestBody @Validated UserDto userDto, BindingResult bindingResult) throws NotFoundException {
         if (bindingResult.hasErrors()) {
             throw new BadRequestException(bindingResult.getAllErrors().stream()
@@ -61,13 +59,13 @@ public class UserController {
     }
 
     @PatchMapping("/users/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'AGENTE', 'CLIENTE')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     public UserDataDto patchUser(@PathVariable int id, @RequestBody UserDto userDto) {
         return userService.patchUser(id, userDto);
     }
 
     @PatchMapping(value = "/users/{id}/avatar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'AGENTE', 'CLIENTE')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     public UserDataDto patchAvatarUser(@PathVariable int id, @RequestParam("file") MultipartFile avatar) throws IOException {
         return userService.patchAvatarUser(id, avatar);
     }
@@ -77,16 +75,9 @@ public class UserController {
     public String deleteUser(@PathVariable int id) throws NotFoundException {
         return userService.deleteUser(id);
     }
-//    @PatchMapping ("/users/{id}")
-//    @ResponseStatus(HttpStatus.OK)
-//    @PreAuthorize("hasAnyAuthority('ADMIN','AGENTE')")
-//    public String patchAvatarUser(@RequestBody MultipartFile avatar, @PathVariable int id) throws IOException {
-//        return userService.patchAvatarUser(id, avatar);
-//
-//    }
 
     @PatchMapping("/users/{id}/password")
-    @PreAuthorize("hasAnyAuthority('ADMIN','AGENTE','CLIENTE')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     public void updatePassword(@PathVariable int id, @RequestBody @Validated UpdatePasswordDto updatePasswordDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new BadRequestException(bindingResult.getAllErrors().stream()
@@ -95,6 +86,38 @@ public class UserController {
         userService.updatePassword(id, updatePasswordDto);
     }
 
+    @PostMapping("/users/{userId}/lists")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
+    public ResponseEntity<UserList> createList(@PathVariable Integer userId, @RequestBody String listName) {
+        UserList userList = userService.createUserList(userId, listName);
+        return ResponseEntity.ok(userList);
+    }
 
+    @PostMapping("/{userId}/lists")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
+    public ResponseEntity<UserList> createUserList(@PathVariable Integer userId, @RequestBody String listName) {
+        UserList userList = userService.createUserList(userId, listName);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userList);
+    }
 
+    @PostMapping("/{userId}/lists/{listId}/movies")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
+    public ResponseEntity<UserList> addMovieToList(@PathVariable Integer userId, @PathVariable Long listId, @RequestParam Long movieId) {
+        UserList updatedList = userService.addMovieToList(userId, listId, movieId);
+        return ResponseEntity.ok(updatedList);
+    }
+
+    @DeleteMapping("/{userId}/lists/{listId}/movies/{movieId}")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
+    public ResponseEntity<UserList> removeMovieFromList(@PathVariable Integer userId, @PathVariable Long listId, @PathVariable Long movieId) {
+        UserList updatedList = userService.removeMovieFromList(userId, listId, movieId);
+        return ResponseEntity.ok(updatedList);
+    }
+
+    @PutMapping("/{userId}/profile")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
+    public ResponseEntity<User> updateProfile(@PathVariable int userId, @RequestBody UserDto userDto) {
+        User updatedUser = userService.updateProfile(userId, userDto);
+        return ResponseEntity.ok(updatedUser);
+    }
 }

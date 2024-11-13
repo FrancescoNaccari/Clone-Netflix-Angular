@@ -1,6 +1,8 @@
-package Nextdevs.gestionaleassicurativo.model;
+package it.cloneNetflixBackEnd.model;
 
-import Nextdevs.gestionaleassicurativo.enums.TipoUser;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import it.cloneNetflixBackEnd.enums.TipoUser;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -8,6 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -16,7 +19,7 @@ import java.util.List;
 public class User implements UserDetails {
     @Id
     @GeneratedValue
-    private int idUser;
+    private Integer idUser;
     private String nome;
     private String cognome;
     private String email;
@@ -29,22 +32,26 @@ public class User implements UserDetails {
     private String provider;
     private String telefono;
     private String indirizzo;
-    private String codiceFiscale;
+//    private String codiceFiscale;
     private String statoUtente;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Policy> policies;
 
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<UserList> userLists = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Review> reviews = new ArrayList<>();
 
     @Override
     public String getPassword() {
         return password;
     }
 
-    @Override
-    public String getUsername() {
-        return username;
-    }
+//    @Override
+//    public String getUsername() {
+//        return username;
+//    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(tipoUser.name()));

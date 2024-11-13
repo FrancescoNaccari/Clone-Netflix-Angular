@@ -1,4 +1,4 @@
-package Nextdevs.gestionaleassicurativo.configuration;
+package it.cloneNetflixBackEnd.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

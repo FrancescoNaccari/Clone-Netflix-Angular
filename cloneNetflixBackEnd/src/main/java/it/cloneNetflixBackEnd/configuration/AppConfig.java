@@ -1,13 +1,12 @@
-package Nextdevs.gestionaleassicurativo.configuration;
+package it.cloneNetflixBackEnd.configuration;
 
 import com.cloudinary.Cloudinary;
-import com.stripe.Stripe;
-import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +24,10 @@ public class AppConfig {
 //    Stripe.apiKey=stripeKey;
 //}
 
-
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
     @Bean
     public Cloudinary uploader(@Value("${cloudinary.name}") String name,
                                @Value("${cloudinary.apikey}") String apikey,

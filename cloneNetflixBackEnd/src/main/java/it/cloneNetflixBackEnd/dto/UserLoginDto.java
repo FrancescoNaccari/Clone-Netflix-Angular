@@ -1,4 +1,4 @@
-package Nextdevs.gestionaleassicurativo.dto;
+package it.cloneNetflixBackEnd.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

@@ -1,4 +1,4 @@
-package Nextdevs.gestionaleassicurativo.model;
+package it.cloneNetflixBackEnd.model;
 
 import lombok.Data;
 import org.springframework.http.HttpStatus;

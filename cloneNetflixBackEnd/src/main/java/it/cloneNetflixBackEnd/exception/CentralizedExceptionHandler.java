@@ -1,6 +1,6 @@
-package Nextdevs.gestionaleassicurativo.exception;
+package it.cloneNetflixBackEnd.exception;
 
-import Nextdevs.gestionaleassicurativo.model.Error;
+import it.cloneNetflixBackEnd.model.Error;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

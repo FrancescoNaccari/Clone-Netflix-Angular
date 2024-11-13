@@ -1,6 +1,6 @@
-package Nextdevs.gestionaleassicurativo.dto;
+package it.cloneNetflixBackEnd.dto;
 
-import Nextdevs.gestionaleassicurativo.enums.TipoUser;
+import it.cloneNetflixBackEnd.enums.TipoUser;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -11,12 +11,12 @@ public class UserDataDto {
     private String nome;
     private String cognome;
     private String email;
-    private String username;
+//    private String username;
     private String avatar;
     private LocalDate dataNascita;
     private TipoUser tipoUser;
     private String telefono;
     private String indirizzo;
-    private String codiceFiscale;
+//    private String codiceFiscale;
     private String statoUtente;
 }
