@@ -36,9 +36,6 @@ public class User implements UserDetails {
     private String statoUtente;
 
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<UserList> userLists = new ArrayList<>();
 
 
     @Override

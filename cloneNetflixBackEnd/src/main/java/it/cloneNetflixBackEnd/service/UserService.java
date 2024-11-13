@@ -7,14 +7,10 @@ import it.cloneNetflixBackEnd.dto.UserDto;
 import it.cloneNetflixBackEnd.enums.TipoUser;
 import it.cloneNetflixBackEnd.exception.BadRequestException;
 import it.cloneNetflixBackEnd.exception.NotFoundException;
-import it.cloneNetflixBackEnd.exception.UnauthorizedException;
-import it.cloneNetflixBackEnd.model.Movie;
 import it.cloneNetflixBackEnd.model.PasswordResetToken;
 import it.cloneNetflixBackEnd.model.User;
-import it.cloneNetflixBackEnd.model.UserList;
 
 import it.cloneNetflixBackEnd.repository.PasswordResetTokenRepository;
-import it.cloneNetflixBackEnd.repository.UserListRepository;
 import it.cloneNetflixBackEnd.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,8 +45,6 @@ public class UserService {
 
     @Autowired
     private Cloudinary cloudinary;
-    @Autowired
-    private UserListRepository userListRepository;
 
 
     @Autowired
@@ -336,38 +330,6 @@ public class UserService {
         }
     }
 
-    public UserList createUserList(Integer userId, String listName) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found"));
-        UserList userList = new UserList();
-        userList.setListName(listName);
-        userList.setUser(user);
-        return userListRepository.save(userList);
-    }
-
-    public UserList addMovieToList(Integer userId, Long listId, Long movieId) {
-        UserList userList = userListRepository.findById(listId)
-                .orElseThrow(() -> new NotFoundException("List not found"));
-
-        // Confronto corretto usando `Integer.valueOf(userId)`
-        if (!userList.getUser().getIdUser().equals(userId)) {
-            throw new UnauthorizedException("You don't have access to this list");
-        }
-
-        return userListRepository.save(userList);
-    }
-
-
-    public UserList removeMovieFromList(Integer userId, Long listId, Long movieId) {
-        UserList userList = userListRepository.findById(listId)
-                .orElseThrow(() -> new NotFoundException("List not found"));
-
-        if (!userList.getUser().getIdUser().equals(userId)) {
-            throw new UnauthorizedException("You don't have access to this list");
-        }
-
-        userList.getMovies().removeIf(movie -> movie.getId().equals(movieId));
-        return userListRepository.save(userList);
-    }
 
     public User updateProfile(int userId, UserDto userDto) {
         User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found"));

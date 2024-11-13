@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,7 +34,7 @@ public class Config implements WebMvcConfigurer {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/auth/**", "/public/**", "/users/**", "/options/**", "/api/movies/**").permitAll()
+                        .requestMatchers("/auth/**", "/public/**", "/users/**", "/options/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .headers(headers -> headers
@@ -41,7 +42,7 @@ public class Config implements WebMvcConfigurer {
                                 .httpStrictTransportSecurity(hsts -> hsts
                                         .includeSubDomains(true)
                                         .maxAgeInSeconds(31536000))
-                                .frameOptions(frameOptions -> frameOptions.sameOrigin()) // Imposta frame options
+                                .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin) // Imposta frame options
                         // Rimuovi contentTypeOptions() se nosniff() non è disponibile
                 );
 

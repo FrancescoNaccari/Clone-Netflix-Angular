@@ -7,7 +7,6 @@ import it.cloneNetflixBackEnd.dto.UserDto;
 import it.cloneNetflixBackEnd.exception.BadRequestException;
 import it.cloneNetflixBackEnd.exception.NotFoundException;
 import it.cloneNetflixBackEnd.model.User;
-import it.cloneNetflixBackEnd.model.UserList;
 import it.cloneNetflixBackEnd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -86,33 +85,6 @@ public class UserController {
         userService.updatePassword(id, updatePasswordDto);
     }
 
-    @PostMapping("/users/{userId}/lists")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
-    public ResponseEntity<UserList> createList(@PathVariable Integer userId, @RequestBody String listName) {
-        UserList userList = userService.createUserList(userId, listName);
-        return ResponseEntity.ok(userList);
-    }
-
-    @PostMapping("/{userId}/lists")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
-    public ResponseEntity<UserList> createUserList(@PathVariable Integer userId, @RequestBody String listName) {
-        UserList userList = userService.createUserList(userId, listName);
-        return ResponseEntity.status(HttpStatus.CREATED).body(userList);
-    }
-
-    @PostMapping("/{userId}/lists/{listId}/movies")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
-    public ResponseEntity<UserList> addMovieToList(@PathVariable Integer userId, @PathVariable Long listId, @RequestParam Long movieId) {
-        UserList updatedList = userService.addMovieToList(userId, listId, movieId);
-        return ResponseEntity.ok(updatedList);
-    }
-
-    @DeleteMapping("/{userId}/lists/{listId}/movies/{movieId}")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
-    public ResponseEntity<UserList> removeMovieFromList(@PathVariable Integer userId, @PathVariable Long listId, @PathVariable Long movieId) {
-        UserList updatedList = userService.removeMovieFromList(userId, listId, movieId);
-        return ResponseEntity.ok(updatedList);
-    }
 
     @PutMapping("/{userId}/profile")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
