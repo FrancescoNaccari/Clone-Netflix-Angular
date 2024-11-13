@@ -40,8 +40,6 @@ public class User implements UserDetails {
     @JsonIgnore
     private List<UserList> userLists = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Review> reviews = new ArrayList<>();
 
     @Override
     public String getPassword() {

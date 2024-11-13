@@ -33,7 +33,7 @@ public class Config implements WebMvcConfigurer {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/auth/**", "/public/**", "/users/**", "/options/**","/api/movies/search").permitAll() // consenti alcune rotte senza autenticazione
+                        .requestMatchers("/auth/**", "/public/**", "/users/**", "/options/**", "/api/movies/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .headers(headers -> headers

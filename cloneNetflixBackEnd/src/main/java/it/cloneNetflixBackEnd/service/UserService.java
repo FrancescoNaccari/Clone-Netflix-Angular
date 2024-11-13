@@ -12,7 +12,7 @@ import it.cloneNetflixBackEnd.model.Movie;
 import it.cloneNetflixBackEnd.model.PasswordResetToken;
 import it.cloneNetflixBackEnd.model.User;
 import it.cloneNetflixBackEnd.model.UserList;
-import it.cloneNetflixBackEnd.repository.MovieRepository;
+
 import it.cloneNetflixBackEnd.repository.PasswordResetTokenRepository;
 import it.cloneNetflixBackEnd.repository.UserListRepository;
 import it.cloneNetflixBackEnd.repository.UserRepository;
@@ -52,8 +52,7 @@ public class UserService {
     @Autowired
     private UserListRepository userListRepository;
 
-    @Autowired
-    private MovieRepository movieRepository;
+
     @Autowired
     private JavaMailSenderImpl javaMailSender;
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
@@ -348,15 +347,12 @@ public class UserService {
     public UserList addMovieToList(Integer userId, Long listId, Long movieId) {
         UserList userList = userListRepository.findById(listId)
                 .orElseThrow(() -> new NotFoundException("List not found"));
-        Movie movie = movieRepository.findById(movieId)
-                .orElseThrow(() -> new NotFoundException("Movie not found"));
 
         // Confronto corretto usando `Integer.valueOf(userId)`
         if (!Integer.valueOf(userList.getUser().getIdUser()).equals(userId)) {
             throw new UnauthorizedException("You don't have access to this list");
         }
 
-        userList.getMovies().add(movie);
         return userListRepository.save(userList);
     }
 
