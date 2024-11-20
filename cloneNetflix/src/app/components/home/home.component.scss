@@ -1,46 +1,24 @@
-/* Hero Section */
-.hero-section {
-    position: relative;
-    height: 75vh;
-    background-size: cover;
-    background-position: center;
-  }
-  
-  .hero-content h1 {
-    font-size: 3rem;
-    font-weight: bold;
-  }
-  
-  .hero-content p {
-    font-size: 1.2rem;
-  }
-  
-  .hero-content button {
-    font-size: 1.2rem;
-  }
-  
-/* Scrolling Wrapper: Nascondere la Scrollbar */
+/* Scrolling Wrapper */
 .scrolling-wrapper {
     display: flex;
-    overflow-x: scroll; /* Consente lo scorrimento orizzontale */
-    scroll-behavior: smooth; /* Scorrimento fluido */
-    gap: 10px; /* Spazio tra le card */
-    align-items: center; /* Allinea verticalmente le card */
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 10px;
+    align-items: center;
     padding: 10px 0;
   
-    /* Nasconde la scrollbar su tutti i browser */
+    /* Nasconde la scrollbar */
     scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* Internet Explorer e Edge Legacy */
+    -ms-overflow-style: none; /* IE */
   }
   
   .scrolling-wrapper::-webkit-scrollbar {
-    display: none; /* Chrome, Safari e Edge */
+    display: none; /* Chrome, Safari */
   }
-  
   
   /* Card */
   .card {
-    flex: 0 0 auto; /* Impedisce che le card si ridimensionino automaticamente */
+    flex: 0 0 auto;
     width: 150px;
     height: 250px;
     overflow: hidden;
@@ -50,7 +28,7 @@
   .card img {
     width: 100%;
     height: 75%;
-    object-fit: cover; /* Mantiene proporzioni corrette */
+    object-fit: cover;
   }
   
   .card-body {
@@ -71,7 +49,7 @@
   }
   
   .card:hover {
-    transform: scale(1.1); /* Effetto zoom */
+    transform: scale(1.1);
   }
   
   /* Carousel Arrows */

@@ -37,9 +37,11 @@ export class HomeComponent implements OnInit {
 
     categoryRequests.forEach((categoryRequest, index) => {
       categoryRequest.fetch.subscribe((response: any) => {
+        const movies = response.results;
+        // Cloniamo gli ultimi 5 e i primi 5 film
         this.categories.push({
           title: categoryRequest.title,
-          movies: response.results,
+          movies: [...movies.slice(-20), ...movies, ...movies.slice(0, 20)],
         });
         if (index === categoryRequests.length - 1) this.isLoading = false;
       });
@@ -54,7 +56,13 @@ export class HomeComponent implements OnInit {
       return;
     }
 
-    carousel.scrollLeft -= 300; // Scorre a sinistra di 300px
+    // Scorri a sinistra
+    carousel.scrollLeft -= 300;
+
+    // Se siamo arrivati all'inizio, riposizioniamo al "contenuto reale" finale
+    if (carousel.scrollLeft <= 0) {
+      carousel.scrollLeft = carousel.scrollWidth / 3; // Riposiziona al contenuto reale
+    }
   }
 
   scrollRight(index: number) {
@@ -65,10 +73,16 @@ export class HomeComponent implements OnInit {
       return;
     }
 
-    carousel.scrollLeft += 300; // Scorre a destra di 300px
+    // Scorri a destra
+    carousel.scrollLeft += 300;
+
+    // Se siamo arrivati alla fine, riposizioniamo al "contenuto reale" iniziale
+    if (carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth) {
+      carousel.scrollLeft = carousel.scrollWidth / 3; // Riposiziona al contenuto reale
+    }
   }
 
   selectMovie(movie: any) {
-    this.heroMovie = movie; // Aggiorna la hero section con il film selezionato
+    this.heroMovie = movie; // Aggiorna la Hero Section con il film selezionato
   }
 }
