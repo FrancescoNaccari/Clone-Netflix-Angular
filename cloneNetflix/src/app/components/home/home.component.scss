@@ -19,15 +19,24 @@
     font-size: 1.2rem;
   }
   
-  /* Scrolling Wrapper */
-  .scrolling-wrapper {
+/* Scrolling Wrapper: Nascondere la Scrollbar */
+.scrolling-wrapper {
     display: flex;
-    overflow-x: auto; /* Consente lo scorrimento orizzontale */
-    scroll-behavior: smooth; /* Lo scorrimento è fluido */
+    overflow-x: scroll; /* Consente lo scorrimento orizzontale */
+    scroll-behavior: smooth; /* Scorrimento fluido */
     gap: 10px; /* Spazio tra le card */
-    align-items: center; /* Allinea le card verticalmente */
+    align-items: center; /* Allinea verticalmente le card */
     padding: 10px 0;
+  
+    /* Nasconde la scrollbar su tutti i browser */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer e Edge Legacy */
   }
+  
+  .scrolling-wrapper::-webkit-scrollbar {
+    display: none; /* Chrome, Safari e Edge */
+  }
+  
   
   /* Card */
   .card {
