@@ -1,0 +1,32 @@
+.login-container {
+    position: relative;
+  }
+  
+  .login-card {
+    max-width: 400px;
+    width: 100%;
+  }
+  
+  form .form-control {
+    height: 45px;
+    border-radius: 4px;
+  }
+  
+  .btn-danger {
+    background-color: #e50914;
+    border-color: #e50914;
+  }
+  
+  .btn-danger:hover {
+    background-color: #f6121d;
+    border-color: #f6121d;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  

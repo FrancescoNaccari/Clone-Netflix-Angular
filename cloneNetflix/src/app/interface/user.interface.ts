@@ -4,13 +4,13 @@ export interface User {
   cognome: string;
   email: string;
   password?: string; // Solo se necessario per aggiornamenti
-  username: string;
+  // username: string;
   avatar?: string; // URL dell'immagine avatar
   dataNascita: Date;
   provider?: string;
   telefono: string;
   indirizzo: string;
-  codiceFiscale: string;
+  // codiceFiscale: string;
   statoUtente: string; // Es: "Attivo", "Sospeso", ecc.
   tipoUser: TipoUser;
     }

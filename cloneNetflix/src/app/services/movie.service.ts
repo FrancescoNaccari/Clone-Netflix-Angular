@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment.development';
 })
 export class MovieService {
 
-  private baseUrl = 'https://api.themoviedb.org/3';
+  private baseUrl = environment.apiMoveUrl;
 
   constructor(private http: HttpClient) { }
 

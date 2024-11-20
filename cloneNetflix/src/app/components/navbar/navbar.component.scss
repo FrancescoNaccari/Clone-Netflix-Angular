@@ -1,0 +1,33 @@
+.navbar {
+    background-color: #141414 !important;
+    font-size: 14px;
+    font-weight: 500;
+  
+    .nav-link {
+      color: #e5e5e5 !important;
+      transition: color 0.3s ease;
+  
+      &:hover {
+        color: #ffffff !important;
+      }
+    }
+  
+    .navbar-brand img {
+      max-height: 100px;
+    }
+  
+    .dropdown-menu {
+      background-color: #141414;
+      border: none;
+      font-size: 14px;
+  
+      .dropdown-item {
+        color: #e5e5e5;
+        &:hover {
+          color: #ffffff;
+          background-color: transparent;
+        }
+      }
+    }
+  }
+  
