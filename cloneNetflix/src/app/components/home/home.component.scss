@@ -1,0 +1,107 @@
+.home {
+    color: white;
+    background-color: #141414;
+  
+    .banner {
+      height: 70vh;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 0 4rem;
+  
+      .banner-content {
+        max-width: 500px;
+  
+        h1 {
+          font-size: 3rem;
+          margin-bottom: 1rem;
+        }
+  
+        p {
+          font-size: 1.2rem;
+          margin-bottom: 1.5rem;
+        }
+  
+        .banner-buttons {
+          button {
+            margin-right: 1rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 5px;
+  
+            &.btn-light {
+              color: black;
+              background-color: white;
+            }
+  
+            &.btn-secondary {
+              background-color: rgba(109, 109, 110, 0.7);
+              color: white;
+            }
+          }
+        }
+      }
+    }
+  
+    .movie-sections {
+      padding: 2rem 4rem;
+  
+      .section {
+        margin-bottom: 2rem;
+  
+        h2 {
+          margin-bottom: 1rem;
+          font-size: 1.5rem;
+        }
+  
+        .row {
+          display: flex;
+          gap: 1rem;
+          flex-wrap: wrap;
+  
+          .movie-card {
+            width: 150px;
+            cursor: pointer;
+            text-align: center;
+  
+            img {
+              width: 100%;
+              height: auto;
+              border-radius: 5px;
+              transition: transform 0.3s ease;
+  
+              &:hover {
+                transform: scale(1.1);
+              }
+            }
+  
+            h4 {
+              font-size: 0.9rem;
+              margin-top: 0.5rem;
+            }
+          }
+        }
+      }
+    }
+  
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 2rem;
+  
+      button {
+        font-size: 1rem;
+      }
+    }
+  
+    .loader {
+      text-align: center;
+      font-size: 1.2rem;
+      padding: 2rem;
+    }
+  }
+  
