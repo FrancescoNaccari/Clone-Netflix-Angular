@@ -46,30 +46,29 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  selectMovie(movie: any) {
-    this.heroMovie = movie;
-  }
-
   scrollLeft(index: number) {
     const carousel = document.querySelector(`#carousel-${index}`) as HTMLElement;
-    carousel.scrollLeft -= 300;
+
+    if (!carousel) {
+      console.error(`Carosello con ID carousel-${index} non trovato.`);
+      return;
+    }
+
+    carousel.scrollLeft -= 300; // Scorre a sinistra di 300px
   }
 
   scrollRight(index: number) {
     const carousel = document.querySelector(`#carousel-${index}`) as HTMLElement;
-    carousel.scrollLeft += 300;
-  }
 
-  getVisibleMovies(category: any): any[] {
-    const screenWidth = window.innerWidth;
-    let maxCards = 6;
-
-    if (screenWidth < 768) {
-      maxCards = 2;
-    } else if (screenWidth < 1200) {
-      maxCards = 4;
+    if (!carousel) {
+      console.error(`Carosello con ID carousel-${index} non trovato.`);
+      return;
     }
 
-    return category.movies.slice(0, maxCards); // Mostra solo le prime maxCards card
+    carousel.scrollLeft += 300; // Scorre a destra di 300px
+  }
+
+  selectMovie(movie: any) {
+    this.heroMovie = movie; // Aggiorna la hero section con il film selezionato
   }
 }

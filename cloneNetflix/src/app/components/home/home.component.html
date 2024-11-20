@@ -33,7 +33,7 @@
         <div class="scrolling-wrapper d-flex" id="carousel-{{ i }}">
           <div
             class="card bg-dark text-light mx-2"
-            *ngFor="let movie of getVisibleMovies(category)"
+            *ngFor="let movie of category.movies"
             (click)="selectMovie(movie)"
           >
             <img
