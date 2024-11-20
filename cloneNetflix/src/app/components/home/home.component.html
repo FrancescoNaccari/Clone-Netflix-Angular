@@ -1,58 +1,63 @@
-<div class="home">
-    <!-- Banner -->
+<div class="container-fluid bg-dark text-light p-0">
+    <!-- Hero Section -->
     <div
-    class="banner"
-    [style.backgroundImage]="getBannerBackground()"
-  >
-  
-      <div class="banner-content">
-        <h1>{{ bannerTitle }}</h1>
-        <p>{{ bannerOverview }}</p>
-        <div class="banner-buttons">
-          <button class="btn btn-light">Guarda Ora</button>
-          <button class="btn btn-secondary">Aggiungi alla lista</button>
+      class="hero-section position-relative"
+      *ngIf="heroMovie"
+      [style.background-image]="'url(https://image.tmdb.org/t/p/original' + heroMovie.backdrop_path + ')'"
+      style="background-size: cover; background-position: center; height: 75vh;"
+    >
+      <div class="overlay position-absolute top-0 start-0 w-100 h-100 bg-gradient-dark"></div>
+      <div class="hero-content text-light position-absolute bottom-0 p-4">
+        <h1 class="display-4 fw-bold">{{ heroMovie.title }}</h1>
+        <p class="lead">{{ heroMovie.overview }}</p>
+        <div class="d-flex">
+          <button class="btn btn-light text-dark btn-lg me-3">
+            <i class="fas fa-play"></i> Play
+          </button>
+          <button class="btn btn-secondary btn-lg">
+            <i class="fas fa-plus"></i> My List
+          </button>
         </div>
       </div>
     </div>
   
-    <!-- Sezioni Film -->
-    <div class="movie-sections">
-      <!-- Popolari su Netflix -->
-      <div class="section">
-        <h2>Popolari su Netflix</h2>
-        <div *ngIf="isLoading" class="loader">Caricamento...</div>
-        <div class="row" *ngIf="!isLoading">
-          <div class="movie-card" *ngFor="let movie of popularMovies">
+    <!-- Categories with Carousel -->
+    <div *ngFor="let category of categories; let i = index" class="category-section mt-5">
+      <h2 class="px-4">{{ category.title }}</h2>
+      <div class="position-relative px-4">
+        <!-- Left Arrow -->
+        <button class="carousel-arrow left-arrow" (click)="scrollLeft(i)">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <!-- Carousel Wrapper -->
+        <div class="scrolling-wrapper d-flex" id="carousel-{{ i }}">
+          <div
+            class="card bg-dark text-light mx-2"
+            *ngFor="let movie of getVisibleMovies(category)"
+            (click)="selectMovie(movie)"
+          >
             <img
               [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
-              [alt]="movie.title"
+              class="card-img-top"
+              alt="{{ movie.title }}"
             />
-            <h4>{{ movie.title }}</h4>
+            <div class="card-body p-2">
+              <h6 class="card-title">{{ movie.title }}</h6>
+            </div>
           </div>
         </div>
-      </div>
-  
-      <!-- Serie TV popolari -->
-      <div class="section">
-        <h2>Serie TV popolari</h2>
-        <div *ngIf="isLoading" class="loader">Caricamento...</div>
-        <div class="row" *ngIf="!isLoading">
-          <div class="movie-card" *ngFor="let tv of popularTVShows">
-            <img
-              [src]="'https://image.tmdb.org/t/p/w500' + tv.poster_path"
-              [alt]="tv.name"
-            />
-            <h4>{{ tv.name }}</h4>
-          </div>
-        </div>
+        <!-- Right Arrow -->
+        <button class="carousel-arrow right-arrow" (click)="scrollRight(i)">
+          <i class="fas fa-chevron-right"></i>
+        </button>
       </div>
     </div>
   
-    <!-- Paginazione -->
-    <div class="pagination">
-      <button class="btn btn-outline-light" (click)="changePage(-1)" [disabled]="currentPage <= 1">Indietro</button>
-      <span>Pagina {{ currentPage }}</span>
-      <button class="btn btn-outline-light" (click)="changePage(1)">Avanti</button>
+    <!-- Loading Spinner -->
+    <div class="text-center py-5" *ngIf="isLoading">
+      <div class="spinner-border text-light" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
     </div>
   </div>
   
