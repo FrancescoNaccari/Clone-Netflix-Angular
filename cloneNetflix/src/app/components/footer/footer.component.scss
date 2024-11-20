@@ -1,0 +1,41 @@
+.footer {
+    background-color: #000; /* Sfondo nero */
+    color: #999; /* Testo grigio chiaro */
+  
+    .footer-link {
+      color: #999;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s ease;
+  
+      &:hover {
+        color: #fff; /* Testo bianco al passaggio del mouse */
+      }
+    }
+  
+    .form-select {
+      background-color: #000; /* Sfondo nero */
+      color: #fff; /* Testo bianco */
+      border: 1px solid #666; /* Bordo grigio */
+      font-size: 0.9rem;
+    }
+  
+    .form-select:focus {
+      border-color: #fff; /* Bordo bianco al focus */
+      box-shadow: none; /* Rimuove il glow blu predefinito */
+    }
+  
+    p, span {
+      font-size: 0.9rem; /* Dimensione più piccola per coerenza */
+    }
+  
+    ul {
+      padding: 0;
+      list-style: none;
+    }
+  
+    li {
+      margin-bottom: 0.5rem;
+    }
+  }
+  

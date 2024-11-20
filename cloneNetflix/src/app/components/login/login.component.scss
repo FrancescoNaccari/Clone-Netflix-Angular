@@ -29,4 +29,27 @@
   a:hover {
     text-decoration: underline;
   }
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('/assets/netflix-sfondo.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .login-card {
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.75);
+    color: white;
+    border-radius: 8px;
+  }
+  form .form-control:focus {
+    border-color: white !important; /* Cambia il bordo a bianco */
+    box-shadow: 2px 2px 2px 2px rgb(255, 255, 255); /* Effetto glow bianco */
+    background-color: rgb(255, 255, 255); /* Mantieni un leggero contrasto sullo sfondo */
+    color: white; /* Testo bianco */
+  }
   
