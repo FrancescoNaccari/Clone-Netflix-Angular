@@ -1,0 +1,22 @@
+{"login": {
+    "WELCOME_BACK": "Bentornato",
+    "LOGIN_WITH_YOUR_DATA": "Accedi con i tuoi dati",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "PASSWORD_TOOLTIP": "La password deve contenere almeno 8 caratteri, una lettera maiuscola, una lettera minuscola, un numero e un carattere speciale.",
+    "LOGIN": "Accedi",
+    "NO_ACCOUNT": "Non hai un account?",
+    "REGISTER": "Registrati",
+    "INVALID_EMAIL": "Email non valida",
+    "CREATE_ACCOUNT": "Crea un account",
+    "CREATE_ACCOUNT_DESC": "Compila il modulo qui sotto per creare un nuovo account.",
+    "NAME": "Nome",
+    "SURNAME": "Cognome",
+    "USERNAME": "Nome utente",
+    "AGREE_TERMS": "Accetto i",
+    "TERMS_AND_CONDITIONS": "Termini e Condizioni",
+    "REGISTRATION_SUCCESS": "Registrazione avvenuta con successo!",
+    "ALREADY_MEMBER": "Sei già un membro?",
+    "CLOSE": "Chiudi",
+"TERMS_CONTENT": "<h2>Termini e Condizioni</h2><p>1. <strong>Accettazione dei Termini</strong></p><p>Utilizzando questo servizio, accetti di essere vincolato dai presenti Termini e Condizioni.</p><p>2. <strong>Modifiche ai Termini</strong></p><p>Ci riserviamo il diritto di modificare i termini in qualsiasi momento. Le modifiche saranno efficaci immediatamente dopo la pubblicazione.</p><p>3. <strong>Privacy</strong></p><p>La tua privacy è importante per noi. Consulta la nostra <a href=\"/privacy-policy\" [routerLink]=\"['/privacy-policy']\">Politica sulla Privacy</a> per maggiori dettagli su come raccogliamo e utilizziamo le tue informazioni personali.</p><p>4. <strong>Uso Consentito</strong></p><p>Accetti di utilizzare il servizio solo per scopi leciti e conformi a tutte le leggi e regolamenti applicabili.</p><p>5. <strong>Account Utente</strong></p><p>Sei responsabile del mantenimento della riservatezza del tuo account e della tua password.</p><p>6. <strong>Contenuto Generato dagli Utenti</strong></p><p>Sei l'unico responsabile del contenuto che carichi, pubblichi o trasmetti tramite il servizio.</p><p>7. <strong>Limitazione di Responsabilità</strong></p><p>Non saremo responsabili per eventuali danni diretti, indiretti, incidentali, speciali, consequenziali o punitivi derivanti dall'uso o dall'incapacità di utilizzare il servizio.</p><p>8. <strong>Legge Applicabile</strong></p><p>Questi termini saranno regolati e interpretati secondo le leggi del paese in cui è registrata la nostra azienda.</p><p>9. <strong>Contatti</strong></p><p>Per qualsiasi domanda riguardante questi Termini e Condizioni, contattaci all'indirizzo email: brokersphere1@gmail.com.</p>"
+  }}

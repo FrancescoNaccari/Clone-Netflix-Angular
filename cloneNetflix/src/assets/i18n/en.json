@@ -1,0 +1,23 @@
+{"login": {
+    "WELCOME_BACK": "Welcome Back",
+    "LOGIN_WITH_YOUR_DATA": "Login with your data",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "PASSWORD_TOOLTIP": "The password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character.",
+    "LOGIN": "Login",
+    "NO_ACCOUNT": "Don't have an account?",
+    "REGISTER": "Register",
+    "INVALID_EMAIL": "Invalid email",
+    "CREATE_ACCOUNT": "Create an Account",
+    "CREATE_ACCOUNT_DESC": "Fill in the form below to create a new account.",
+    "NAME": "Name",
+    "SURNAME": "Surname",
+    "USERNAME": "Username",
+    "AGREE_TERMS": "I agree to the",
+    "TERMS_AND_CONDITIONS": "Terms and Conditions",
+    "REGISTRATION_SUCCESS": "Registration successful!",
+    "ALREADY_MEMBER": "Already a member?",
+    "CLOSE": "Close",
+    "TERMS_CONTENT": "<h2>Terms and Conditions</h2><p>1. <strong>Acceptance of Terms</strong></p><p>By using this service, you agree to be bound by these Terms and Conditions.</p><p>2. <strong>Changes to Terms</strong></p><p>We reserve the right to modify the terms at any time. Changes will be effective immediately upon posting.</p><p>3. <strong>Privacy</strong></p><p>Your privacy is important to us. Please refer to our <ahref=\"/privacy-policy\" [routerLink]=\"['/privacy-policy']\">Privacy Policy</ahref=> for details on how we collect and use your personal information.</p><p>4. <strong>Permitted Use</strong></p><p>You agree to use the service only for lawful purposes and in compliance with all applicable laws and regulations.</p><p>5. <strong>User Account</strong></p><p>You are responsible for maintaining the confidentiality of your account and password.</p><p>6. <strong>User-Generated Content</strong></p><p>You are solely responsible for the content you upload, publish, or transmit through the service.</p><p>7. <strong>Limitation of Liability</strong></p><p>We shall not be liable for any direct, indirect, incidental, special, consequential, or punitive damages arising out of the use or inability to use the service.</p><p>8. <strong>Governing Law</strong></p><p>These terms will be governed and construed in accordance with the laws of the country where our company is registered.</p><p>9. <strong>Contact Us</strong></p><p>For any questions regarding these Terms and Conditions, contact us at: brokersphere1@gmail.com.</p>"
+  }
+}
