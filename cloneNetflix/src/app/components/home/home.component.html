@@ -5,6 +5,9 @@
       class="col-6 col-sm-4 col-md-3 col-lg-2 movie-item"
       (mouseenter)="playTrailer(movie)"
       (mouseleave)="stopTrailer(movie)"
+      (focus)="playTrailer(movie)"
+      (blur)="stopTrailer(movie)"
+      tabindex="0"
     >
       <div class="poster-container">
         <img
@@ -12,9 +15,12 @@
           [alt]="movie.title"
           class="poster-img"
         />
+      </div>
 
-        <!-- Overlay che contiene trailer e descrizione -->
-        <div class="hover-overlay" *ngIf="movie.showTrailer">
+      <!-- Overlay espanso -->
+      <div class="expander" *ngIf="movie.showTrailer">
+        <!-- Contenuto dell'overlay -->
+        <div class="hover-overlay">
           <!-- Container per il trailer -->
           <div class="trailer-container">
             <div *ngIf="!movie.trailerUrl" class="spinner">Caricamento...</div>
@@ -29,7 +35,7 @@
 
           <!-- Overlay con le informazioni del film -->
           <div class="movie-info-overlay">
-            <div class="action-buttons"> 
+            <div class="action-buttons">
               <button class="btn btn-circle play-button">
                 <i class="bi bi-play"></i>
               </button>
@@ -43,7 +49,7 @@
                 <i class="bi bi-chevron-down"></i>
               </button>
             </div>
-            
+
             <div class="movie-details mt-2 mb-0 pb-0">
               <h4>{{ movie.title }}</h4>
               <div class="movie-meta">
@@ -54,11 +60,10 @@
               </div>
               <p class="tags">Suspense • Avvincente • Avventura</p>
             </div>
-            
           </div>
         </div>
-        <!-- Fine hover-overlay -->
       </div>
+      <!-- Fine overlay espanso -->
     </div>
   </div>
 </div>

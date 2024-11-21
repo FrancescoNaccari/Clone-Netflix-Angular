@@ -6,13 +6,11 @@
 .movie-item {
   position: relative;
   margin-bottom: 20px;
-  z-index: 1;
-  transition: transform 0.3s ease-in-out;
+  /* Rimuovi il transform per evitare problemi di layout */
 }
 
-.movie-item:hover {
-  transform: scale(2);
-  z-index: 10;
+.movie-item:focus {
+  outline: none; /* Rimuovi il bordo di focus default se desideri */
 }
 
 .poster-container {
@@ -27,26 +25,27 @@
   cursor: pointer;
 }
 
-.hover-overlay {
+.expander {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: -50px; /* Regola in base alle tue necessità */
+  left: -50px; /* Regola in base alle tue necessità */
+  width: calc(100% + 100px); /* Regola in base alle tue necessità */
+  z-index: 10;
+  background-color: #141414;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.hover-overlay {
   width: 100%;
-  height: 100%;
   background-color: rgba(0, 0, 0, 0.85);
   display: flex;
   flex-direction: column;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-}
-
-.movie-item:hover .hover-overlay {
-  opacity: 1;
 }
 
 .trailer-container {
   width: 100%;
-  height: 75%; /* Il trailer occupa il 50% dell'altezza */
+  height: 200px; /* Altezza fissa o dinamica */
   position: relative;
 }
 
@@ -57,35 +56,12 @@
 
 .movie-info-overlay {
   width: 100%;
-  height: 25%; /* La descrizione occupa il restante 50% */
   padding: 15px;
   background-color: rgba(34, 34, 34, 0.95);
   color: white;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  overflow-y: auto;
-}
-
-.movie-details {
-  flex-grow: 1;
-}
-
-.movie-details h4 {
-  font-size: 1.4rem;
-  font-weight: bold;
-}
-
-.movie-meta {
-  display: flex;
-  gap: 10px;
-  font-size: 0.9rem;
-  color: #ccc;
-}
-
-.tags {
-  font-style: italic;
-  color: #ccc;
 }
 
 .action-buttons {
@@ -105,6 +81,7 @@
   justify-content: center;
   font-size: 1.2rem;
   transition: background-color 0.3s ease;
+  border: none;
 }
 
 .btn-circle:hover {
@@ -119,8 +96,24 @@
 .more-info {
   margin-left: auto;
 }
+
+/* Responsività */
+@media (max-width: 992px) {
+  .expander {
+    width: calc(100% + 50px);
+    left: -25px;
+  }
+}
+
 @media (max-width: 768px) {
-  .movie-item:hover {
-    transform: none;
+  .expander {
+    position: static;
+    width: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  .trailer-container {
+    height: 150px;
   }
 }

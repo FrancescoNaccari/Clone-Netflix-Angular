@@ -40,7 +40,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
     });
   }
-
   getGenresString(genreIds: number[]): string {
     const genreMap: { [key: number]: string } = {
       28: 'Action',
@@ -70,7 +69,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.trailerTimeout = setTimeout(() => {
       this.moviesService.getMovieVideos(movie.id).subscribe((response: any) => {
         if (response.results.length > 0) {
-          const trailer = response.results.find((t: any) => t.type === 'Trailer' && t.site === 'YouTube');
+          const trailer = response.results.find(
+            (t: any) => t.type === 'Trailer' && t.site === 'YouTube'
+          );
           if (trailer) {
             movie.trailerUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
               `https://www.youtube.com/embed/${trailer.key}?autoplay=1`
@@ -81,10 +82,11 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
     }, 300); // Delay to reduce API calls
   }
-  
+
   stopTrailer(movie: MovieWithTrailer): void {
     clearTimeout(this.trailerTimeout);
     movie.showTrailer = false;
     movie.trailerUrl = '';
   }
+  
 }
