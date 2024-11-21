@@ -1,47 +1,63 @@
 <div class="container-fluid movies-container">
   <div class="row">
-    <div *ngFor="let movie of popularMovies" class="col-6 col-sm-4 col-md-3 col-lg-2 movie-item" (mouseenter)="playTrailer(movie)" (mouseleave)="stopTrailer(movie)">
+    <div
+      *ngFor="let movie of popularMovies"
+      class="col-6 col-sm-4 col-md-3 col-lg-2 movie-item"
+      (mouseenter)="playTrailer(movie)"
+      (mouseleave)="stopTrailer(movie)"
+    >
       <div class="poster-container">
-        <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" [alt]="movie.title" class="poster-img" />
-        <div class="trailer-overlay" *ngIf="movie.showTrailer">
-          <div *ngIf="!movie.trailerUrl" class="spinner">Caricamento...</div>
-          <iframe
-            *ngIf="movie.trailerUrl"
-            [src]="movie.trailerUrl"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
-        </div>
-        <div class="movie-info-overlay" *ngIf="movie.showTrailer">
-          <div class="movie-details">
-            <h4>{{ movie.title }}</h4>
-            <div class="movie-meta">
-              <span class="age-rating">16+</span>
-              <span class="seasons">4 stagioni</span>
-              <span class="quality">HD</span>
-              <span class="audio">Audio spaziale</span>
+        <img
+          [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+          [alt]="movie.title"
+          class="poster-img"
+        />
+
+        <!-- Overlay che contiene trailer e descrizione -->
+        <div class="hover-overlay" *ngIf="movie.showTrailer">
+          <!-- Container per il trailer -->
+          <div class="trailer-container">
+            <div *ngIf="!movie.trailerUrl" class="spinner">Caricamento...</div>
+            <iframe
+              *ngIf="movie.trailerUrl"
+              [src]="movie.trailerUrl"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+
+          <!-- Overlay con le informazioni del film -->
+          <div class="movie-info-overlay">
+            <div class="action-buttons"> 
+              <button class="btn btn-circle play-button">
+                <i class="bi bi-play"></i>
+              </button>
+              <button class="btn btn-circle add-button">
+                <i class="bi bi-plus"></i>
+              </button>
+              <button class="btn btn-circle like-button">
+                <i class="bi bi-hand-thumbs-up"></i>
+              </button>
+              <button class="btn btn-circle more-info">
+                <i class="bi bi-chevron-down"></i>
+              </button>
             </div>
-            <p class="tags">Suspense • Avvincente • Avventura</p>
-          </div>
-          <div class="action-buttons">
-            <button class="btn btn-circle play-button">
-              <i class="fas fa-play"></i>
-            </button>
-            <button class="btn btn-circle add-button">
-              <i class="fas fa-plus"></i>
-            </button>
-            <button class="btn btn-circle like-button">
-              <i class="fas fa-thumbs-up"></i>
-            </button>
-            <button class="btn btn-circle more-info">
-              <i class="fas fa-chevron-down"></i>
-            </button>
+            
+            <div class="movie-details mt-2 mb-0 pb-0">
+              <h4>{{ movie.title }}</h4>
+              <div class="movie-meta">
+                <span class="age-rating">16+</span>
+                <span class="seasons">4 stagioni</span>
+                <span class="quality">HD</span>
+                <span class="audio">Audio spaziale</span>
+              </div>
+              <p class="tags">Suspense • Avvincente • Avventura</p>
+            </div>
+            
           </div>
         </div>
-      </div>
-      <div class="movie-info text-center">
-        <h5 class="movie-title">{{ movie.title }}</h5>
+        <!-- Fine hover-overlay -->
       </div>
     </div>
   </div>

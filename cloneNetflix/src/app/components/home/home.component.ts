@@ -72,14 +72,16 @@ export class HomeComponent implements OnInit, OnDestroy {
         if (response.results.length > 0) {
           const trailer = response.results.find((t: any) => t.type === 'Trailer' && t.site === 'YouTube');
           if (trailer) {
-            movie.trailerUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${trailer.key}?autoplay=1`) as string;
+            movie.trailerUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+              `https://www.youtube.com/embed/${trailer.key}?autoplay=1`
+            );
             movie.showTrailer = true;
           }
         }
       });
     }, 300); // Delay to reduce API calls
   }
-
+  
   stopTrailer(movie: MovieWithTrailer): void {
     clearTimeout(this.trailerTimeout);
     movie.showTrailer = false;
