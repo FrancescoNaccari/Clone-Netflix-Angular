@@ -6,11 +6,15 @@
 .movie-item {
   position: relative;
   margin-bottom: 20px;
-  /* Rimuovi il transform per evitare problemi di layout */
+  z-index: 1;
+  transition: transform 0.3s ease-in-out;
+  transform-origin: center top;
 }
 
+.movie-item:hover,
 .movie-item:focus {
-  outline: none; /* Rimuovi il bordo di focus default se desideri */
+  transform: scale(1.7);
+  z-index: 10;
 }
 
 .poster-container {
@@ -23,29 +27,30 @@
   width: 100%;
   height: auto;
   cursor: pointer;
-}
-
-.expander {
-  position: absolute;
-  top: -50px; /* Regola in base alle tue necessità */
-  left: -50px; /* Regola in base alle tue necessità */
-  width: calc(100% + 100px); /* Regola in base alle tue necessità */
-  z-index: 10;
-  background-color: #141414;
-  border-radius: 8px;
-  overflow: hidden;
+  display: block;
 }
 
 .hover-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.85);
+  height: 100%;
+  background-color: rgba(20, 20, 20, 0.9);
   display: flex;
   flex-direction: column;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.movie-item:hover .hover-overlay,
+.movie-item:focus .hover-overlay {
+  opacity: 1;
 }
 
 .trailer-container {
   width: 100%;
-  height: 200px; /* Altezza fissa o dinamica */
+  height: 60%;
   position: relative;
 }
 
@@ -56,30 +61,32 @@
 
 .movie-info-overlay {
   width: 100%;
-  padding: 15px;
+  padding: 10px;
   background-color: rgba(34, 34, 34, 0.95);
   color: white;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
+  overflow-y: auto;
+  flex-grow: 1;
 }
 
 .action-buttons {
   display: flex;
-  gap: 15px;
+  gap: 10px;
   align-items: center;
 }
 
 .btn-circle {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   background-color: rgba(51, 51, 51, 0.8);
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
+  font-size: 1rem;
   transition: background-color 0.3s ease;
   border: none;
 }
@@ -97,23 +104,47 @@
   margin-left: auto;
 }
 
+.movie-details h4 {
+  font-size: 1rem;
+}
+.movie-meta{
+  font-size: 0.8rem;
+}
+.tags{
+  font-size: 0.5rem;
+}
 /* Responsività */
+@media (max-width: 1200px) {
+  .movie-item:hover,
+  .movie-item:focus {
+    transform: scale(1.4);
+  }
+}
+
 @media (max-width: 992px) {
-  .expander {
-    width: calc(100% + 50px);
-    left: -25px;
+  .movie-item:hover,
+  .movie-item:focus {
+    transform: scale(1.2);
   }
 }
 
 @media (max-width: 768px) {
-  .expander {
-    position: static;
-    width: 100%;
-    top: 0;
-    left: 0;
+  .movie-item:hover,
+  .movie-item:focus {
+    transform: none;
+  }
+
+  .btn-circle {
+    width: 25px;
+    height: 25px;
+    font-size: 0.9rem;
+  }
+
+  .movie-details h4 {
+    font-size: 0.9rem;
   }
 
   .trailer-container {
-    height: 150px;
+    height: 50%;
   }
 }
