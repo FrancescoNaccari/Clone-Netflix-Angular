@@ -4,6 +4,7 @@
       <div class="poster-container">
         <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" [alt]="movie.title" class="poster-img" />
         <div class="trailer-overlay" *ngIf="movie.showTrailer">
+          <div *ngIf="!movie.trailerUrl" class="spinner">Caricamento...</div>
           <iframe
             *ngIf="movie.trailerUrl"
             [src]="movie.trailerUrl"
@@ -13,8 +14,30 @@
           ></iframe>
         </div>
         <div class="movie-info-overlay" *ngIf="movie.showTrailer">
-          <button class="btn btn-light btn-trailer">Trailer</button>
-          <button class="btn btn-light btn-info">Altre info</button>
+          <div class="movie-details">
+            <h4>{{ movie.title }}</h4>
+            <div class="movie-meta">
+              <span class="age-rating">16+</span>
+              <span class="seasons">4 stagioni</span>
+              <span class="quality">HD</span>
+              <span class="audio">Audio spaziale</span>
+            </div>
+            <p class="tags">Suspense • Avvincente • Avventura</p>
+          </div>
+          <div class="action-buttons">
+            <button class="btn btn-circle play-button">
+              <i class="fas fa-play"></i>
+            </button>
+            <button class="btn btn-circle add-button">
+              <i class="fas fa-plus"></i>
+            </button>
+            <button class="btn btn-circle like-button">
+              <i class="fas fa-thumbs-up"></i>
+            </button>
+            <button class="btn btn-circle more-info">
+              <i class="fas fa-chevron-down"></i>
+            </button>
+          </div>
         </div>
       </div>
       <div class="movie-info text-center">

@@ -11,10 +11,12 @@ export class MoviesService {
   private bearerToken = environment.tmdbBearerToken;
 
   constructor(private http: HttpClient) {}
+
   private handleError(error: any) {
     console.error('Errore API:', error);
     return throwError(() => new Error('Errore nella richiesta API. Riprova più tardi.'));
   }
+
   private getHeaders() {
     return new HttpHeaders({
       Authorization: `Bearer ${this.bearerToken}`,
@@ -28,7 +30,6 @@ export class MoviesService {
       })
       .pipe(catchError(this.handleError));
   }
-  
 
   getPopularTVShows(page: number = 1) {
     return this.http.get(
@@ -36,23 +37,24 @@ export class MoviesService {
       { headers: this.getHeaders() }
     );
   }
+
   getGenres() {
     return this.http.get(
       `${this.apiUrl}/genre/movie/list?language=it-IT`,
       { headers: this.getHeaders() }
     );
   }
-  
+
   getMoviesByGenre(genreId: number) {
     return this.http.get(
       `${this.apiUrl}/discover/movie?with_genres=${genreId}&language=it-IT`,
       { headers: this.getHeaders() }
     );
   }
-  getMovieTrailers(movieId: number) {
+
+  getMovieVideos(movieId: number) {
     return this.http.get(`${this.apiUrl}/movie/${movieId}/videos?language=it-IT`, {
       headers: this.getHeaders(),
     });
   }
-  
 }
