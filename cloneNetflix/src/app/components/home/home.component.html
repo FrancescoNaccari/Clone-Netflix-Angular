@@ -50,13 +50,16 @@
             <div class="movie-details mt-2 mb-0 pb-0">
               <h4>{{ movie.title }}</h4>
               <div class="movie-meta">
-                <span class="age-rating">16+</span>
-                <span class="seasons">4 stagioni</span>
+                <span class="age-rating">{{ movie.ageRating }}</span>
+                <span class="seasons" *ngIf="movie.number_of_seasons">
+                  {{ movie.number_of_seasons }} stagioni
+                </span>
                 <span class="quality">HD</span>
                 <span class="audio">Audio spaziale</span>
               </div>
-              <p class="tags">Suspense • Avvincente • Avventura</p>
+              <p class="tags">{{ movie.genres }}</p>
             </div>
+            
           </div>
         </div>
         <!-- Fine hover-overlay -->

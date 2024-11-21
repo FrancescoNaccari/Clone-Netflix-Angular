@@ -57,4 +57,19 @@ export class MoviesService {
       headers: this.getHeaders(),
     });
   }
+  getMovieReleaseDates(movieId: number) {
+    return this.http
+      .get(`${this.apiUrl}/movie/${movieId}/release_dates`, {
+        headers: this.getHeaders(),
+      })
+      .pipe(catchError(this.handleError));
+  }
+  getTVShowDetails(tvId: number) {
+    return this.http
+      .get(`${this.apiUrl}/tv/${tvId}?language=it-IT`, {
+        headers: this.getHeaders(),
+      })
+      .pipe(catchError(this.handleError));
+  }
+  
 }
