@@ -1,88 +1,44 @@
 import { Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Movie } from 'src/app/interface/movie.interface';
 import { MoviesService } from 'src/app/services/movies.service';
-
+interface MovieWithTrailer extends Movie {
+  showTrailer?: boolean;
+  trailerUrl?: string | SafeResourceUrl;}
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  heroMovie: any = null;
-  categories: { title: string; movies: any[] }[] = [];
-  isLoading = true;
+  popularMovies: MovieWithTrailer[] = [];
 
-  @ViewChildren('carousel') carousels!: QueryList<ElementRef>;
-
-  constructor(private moviesService: MoviesService) {}
+  constructor(private moviesService: MoviesService, private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
-    this.loadHeroMovie();
-    this.loadCategories();
+    this.loadPopularMovies();
   }
 
-  loadHeroMovie() {
+  loadPopularMovies(): void {
     this.moviesService.getPopularMovies().subscribe((response: any) => {
-      const movies = response.results;
-      this.heroMovie = movies[Math.floor(Math.random() * movies.length)];
+      this.popularMovies = response.results;
     });
   }
 
-  loadCategories() {
-    const categoryRequests = [
-      { title: 'Popular on Netflix', fetch: this.moviesService.getPopularMovies() },
-      { title: 'Top Rated', fetch: this.moviesService.getMoviesByGenre(18) },
-      { title: 'Action Movies', fetch: this.moviesService.getMoviesByGenre(28) }
-    ];
-
-    categoryRequests.forEach((categoryRequest, index) => {
-      categoryRequest.fetch.subscribe((response: any) => {
-        const movies = response.results;
-        // Cloniamo gli ultimi 5 e i primi 5 film
-        this.categories.push({
-          title: categoryRequest.title,
-          movies: [...movies.slice(-20), ...movies, ...movies.slice(0, 20)],
-        });
-        if (index === categoryRequests.length - 1) this.isLoading = false;
-      });
+  playTrailer(movie: MovieWithTrailer): void {
+    this.moviesService.getMovieTrailers(movie.id).subscribe((response: any) => {
+      if (response.results.length > 0) {
+        const trailer = response.results.find((t: any) => t.type === 'Trailer' && t.site === 'YouTube');
+        if (trailer) {
+          movie.trailerUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${trailer.key}?autoplay=1`) as string;
+          movie.showTrailer = true;
+        }
+      }
     });
   }
 
-  scrollLeft(index: number) {
-    const carousel = document.querySelector(`#carousel-${index}`) as HTMLElement;
-
-    if (!carousel) {
-      console.error(`Carosello con ID carousel-${index} non trovato.`);
-      return;
-    }
-
-    // Scorri a sinistra
-    carousel.scrollLeft -= 300;
-
-    // Se siamo arrivati all'inizio, riposizioniamo al "contenuto reale" finale
-    if (carousel.scrollLeft <= 0) {
-      carousel.scrollLeft = carousel.scrollWidth / 3; // Riposiziona al contenuto reale
-    }
-  }
-
-  scrollRight(index: number) {
-    const carousel = document.querySelector(`#carousel-${index}`) as HTMLElement;
-
-    if (!carousel) {
-      console.error(`Carosello con ID carousel-${index} non trovato.`);
-      return;
-    }
-
-    // Scorri a destra
-    carousel.scrollLeft += 300;
-
-    // Se siamo arrivati alla fine, riposizioniamo al "contenuto reale" iniziale
-    if (carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth) {
-      carousel.scrollLeft = carousel.scrollWidth / 3; // Riposiziona al contenuto reale
-    }
-  }
-
-  selectMovie(movie: any) {
-    this.heroMovie = movie; // Aggiorna la Hero Section con il film selezionato
+  stopTrailer(movie: MovieWithTrailer): void {
+    movie.showTrailer = false;
+    movie.trailerUrl = '';
   }
 }

@@ -1,103 +1,70 @@
-/* Scrolling Wrapper */
-.scrolling-wrapper {
-    display: flex;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    gap: 10px;
-    align-items: center;
-    padding: 10px 0;
-  
-    /* Nasconde la scrollbar */
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE */
-  }
-  
-  .scrolling-wrapper::-webkit-scrollbar {
-    display: none; /* Chrome, Safari */
-  }
-  
-  /* Card */
-  .card {
-    flex: 0 0 auto;
-    width: 150px;
-    height: 250px;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-  }
-  
-  .card img {
-    width: 100%;
-    height: 75%;
-    object-fit: cover;
-  }
-  
-  .card-body {
-    height: 25%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  
-  .card-title {
-    font-size: 0.9rem;
-    text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  
-  .card:hover {
-    transform: scale(1.1);
-  }
-  
-  /* Carousel Arrows */
-  .carousel-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    border: none;
-    color: white;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 10;
-  }
-  
-  .left-arrow {
-    left: 0;
-  }
-  
-  .right-arrow {
-    right: 0;
-  }
-  
-  .carousel-arrow:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-  }
-  
-  /* Responsive Breakpoints */
-  @media (max-width: 1200px) {
-    .card {
-      width: 130px;
-      height: 220px;
+.movies-container {
+  padding: 20px;
+
+  .movie-item {
+    position: relative;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease-in-out;
+
+    &:hover {
+      transform: scale(1.15);
+      z-index: 10;
+    }
+
+    .poster-container {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+
+      .poster-img {
+        width: 100%;
+        cursor: pointer;
+        transition: opacity 0.3s ease;
+
+        &:hover {
+          opacity: 0.3;
+        }
+      }
+
+      .trailer-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(0, 0, 0, 0.7);
+
+        iframe {
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      .movie-info-overlay {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 10px;
+
+        .btn {
+          background-color: rgba(255, 255, 255, 0.8);
+          font-size: 0.9rem;
+        }
+      }
     }
   }
-  
-  @media (max-width: 768px) {
-    .card {
-      width: 110px;
-      height: 180px;
-    }
-  
-    .card-title {
-      font-size: 0.8rem;
+
+  .movie-info {
+    margin-top: 10px;
+
+    .movie-title {
+      font-size: 1rem;
+      color: #fff;
     }
   }
-  
+}

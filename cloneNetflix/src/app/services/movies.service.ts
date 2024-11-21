@@ -49,5 +49,10 @@ export class MoviesService {
       { headers: this.getHeaders() }
     );
   }
+  getMovieTrailers(movieId: number) {
+    return this.http.get(`${this.apiUrl}/movie/${movieId}/videos?language=it-IT`, {
+      headers: this.getHeaders(),
+    });
+  }
   
 }
