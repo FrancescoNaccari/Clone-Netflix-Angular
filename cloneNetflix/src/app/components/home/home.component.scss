@@ -9,6 +9,7 @@
   z-index: 1;
   transition: transform 0.3s ease-in-out;
   transform-origin: center top;
+  max-width: 230px;
 }
 
 .movie-item:hover,
