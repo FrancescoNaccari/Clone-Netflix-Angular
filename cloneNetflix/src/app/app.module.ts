@@ -17,7 +17,6 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TokenInterceptor } from './interceptor/token.interceptor';
 import { LoginComponent } from './components/login/login.component';
 import { GoogleLoginComponent } from './components/login/google-login/google-login.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -48,7 +47,6 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient],
       },
     }),
-    NgbModule,
   ],
   providers: [  {
     provide: HTTP_INTERCEPTORS,

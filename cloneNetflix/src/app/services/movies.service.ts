@@ -38,13 +38,6 @@ export class MoviesService {
     );
   }
 
-  getTrendingMovies() {
-    return this.http.get(
-      `${this.apiUrl}/trending/all/day?language=it-IT`,
-      { headers: this.getHeaders() }
-    );
-  }
-
   getGenres() {
     return this.http.get(
       `${this.apiUrl}/genre/movie/list?language=it-IT`,
@@ -64,13 +57,6 @@ export class MoviesService {
       headers: this.getHeaders(),
     });
   }
-
-  getTVShowVideos(tvId: number) {
-    return this.http.get(`${this.apiUrl}/tv/${tvId}/videos?language=it-IT`, {
-      headers: this.getHeaders(),
-    });
-  }
-
   getMovieReleaseDates(movieId: number) {
     return this.http
       .get(`${this.apiUrl}/movie/${movieId}/release_dates`, {
@@ -78,7 +64,6 @@ export class MoviesService {
       })
       .pipe(catchError(this.handleError));
   }
-
   getTVShowDetails(tvId: number) {
     return this.http
       .get(`${this.apiUrl}/tv/${tvId}?language=it-IT`, {
@@ -86,4 +71,5 @@ export class MoviesService {
       })
       .pipe(catchError(this.handleError));
   }
+  
 }
