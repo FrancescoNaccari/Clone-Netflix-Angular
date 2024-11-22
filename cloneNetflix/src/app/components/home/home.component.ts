@@ -4,15 +4,12 @@ import { forkJoin } from 'rxjs';
 import { Movie } from 'src/app/interface/movie.interface';
 import { MoviesService } from 'src/app/services/movies.service';
 interface MovieWithTrailer extends Movie {
-  id: number;
-  title: string;
-  poster_path: string;
-  overview: string;
   showTrailer?: boolean;
-  trailerUrl?: SafeResourceUrl | string;
+  trailerUrl?: string | SafeResourceUrl;
   genres?: string;
   ageRating?: string;
   number_of_seasons?: number;
+
 }
 
 @Component({
@@ -21,40 +18,51 @@ interface MovieWithTrailer extends Movie {
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
+  popularMovies: MovieWithTrailer[] = [];
   featuredMovie: MovieWithTrailer | undefined;
-  movieCategories: { name: string; movies: MovieWithTrailer[] }[] = [];
+  movieCategories: { name: string, movies: MovieWithTrailer[] }[] = [];
   private trailerTimeout: any;
-
   constructor(private moviesService: MoviesService, private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
-    this.loadMovies();
+    this.loadPopularMovies();
   }
 
   ngOnDestroy(): void {
-    clearTimeout(this.trailerTimeout);
+    // Clean up movie trailers when component is destroyed
+    this.popularMovies.forEach(movie => {
+      movie.showTrailer = false;
+      movie.trailerUrl = '';
+    });
   }
 
-  loadMovies(): void {
+  loadPopularMovies(): void {
     forkJoin({
       movies: this.moviesService.getPopularMovies(),
-      tvShows: this.moviesService.getPopularTVShows()
+      tvShows: this.moviesService.getPopularTVShows(),
     }).subscribe(({ movies, tvShows }: any) => {
-      const combined = [...movies.results, ...tvShows.results];
-      const moviesWithGenres = combined.map((movie: any) => ({
-        ...movie,
-        genres: this.getGenres(movie.genre_ids)
-      }));
-      this.featuredMovie = moviesWithGenres[0];
+      const combinedResults = [...movies.results, ...tvShows.results];
+      this.popularMovies = combinedResults.map((item: any) => {
+        return {
+          ...item,
+          genres: this.getGenresString(item.genre_ids ?? []),
+          number_of_seasons: item.number_of_seasons,
+        };
+      });
+
+      // Setting the featured movie for the cover
+      this.featuredMovie = this.popularMovies[0];
+
+      // Categorizing movies into sections
       this.movieCategories = [
-        { name: 'Novità su Netflix', movies: moviesWithGenres.slice(0, 10) },
-        { name: 'Sport e Fitness', movies: moviesWithGenres.slice(10, 20) },
-        { name: 'I più cercati', movies: moviesWithGenres.slice(20, 30) }
+        { name: 'Novità su Netflix', movies: this.popularMovies.slice(0, 10) },
+        { name: 'Sport e fitness', movies: this.popularMovies.slice(10, 20) },
+        { name: 'I più cercati', movies: this.popularMovies.slice(20, 30) },
       ];
     });
   }
   
-  getGenres(genreIds: number[]): string {
+  getGenresString(genreIds: number[]): string {
     const genreMap: { [key: number]: string } = {
       28: 'Azione',
       12: 'Avventura',
@@ -102,12 +110,5 @@ export class HomeComponent implements OnInit, OnDestroy {
     movie.showTrailer = false;
     movie.trailerUrl = '';
   }
-
-  scrollCarousel(categoryName: string, direction: 'prev' | 'next'): void {
-    const carousel = document.getElementById('carousel-' + categoryName);
-    if (carousel) {
-      const scrollAmount = 300;
-      carousel.scrollLeft += direction === 'next' ? scrollAmount : -scrollAmount;
-    }
-  }
+  
 }
