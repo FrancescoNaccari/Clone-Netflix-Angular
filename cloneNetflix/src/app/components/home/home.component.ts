@@ -65,7 +65,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   scrollLeft(categoryName: string): void {
     const container = this.getCategoryCarousel(categoryName);
     if (container) {
-      container.scrollBy({ left: -300, behavior: 'smooth' });
+      container.scrollBy({ left: -500, behavior: 'smooth' });
     }
   }
 
