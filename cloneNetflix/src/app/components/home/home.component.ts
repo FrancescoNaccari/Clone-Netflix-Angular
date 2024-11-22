@@ -1,59 +1,59 @@
-import { Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { forkJoin } from 'rxjs';
 import { Movie } from 'src/app/interface/movie.interface';
 import { MoviesService } from 'src/app/services/movies.service';
+
 interface MovieWithTrailer extends Movie {
   showTrailer?: boolean;
   trailerUrl?: string | SafeResourceUrl;
   genres?: string;
   ageRating?: string;
   number_of_seasons?: number;
-
 }
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit, OnDestroy {
   popularMovies: MovieWithTrailer[] = [];
   featuredMovie: MovieWithTrailer | undefined;
-  movieCategories: { name: string, movies: MovieWithTrailer[] }[] = [];
+  movieCategories: { name: string; movies: MovieWithTrailer[] }[] = [];
   private trailerTimeout: any;
-  constructor(private moviesService: MoviesService, private sanitizer: DomSanitizer) {}
+  @ViewChildren('carouselContainer') carouselContainers!: QueryList<ElementRef>;
+
+  constructor(
+    private moviesService: MoviesService,
+    private sanitizer: DomSanitizer
+  ) {}
 
   ngOnInit(): void {
-    this.loadPopularMovies();
+    this.loadMovies();
   }
 
   ngOnDestroy(): void {
-    // Clean up movie trailers when component is destroyed
-    this.popularMovies.forEach(movie => {
+    // Stop any trailers playing when the component is destroyed
+    this.popularMovies.forEach((movie) => {
       movie.showTrailer = false;
       movie.trailerUrl = '';
     });
   }
 
-  loadPopularMovies(): void {
+  loadMovies(): void {
     forkJoin({
       movies: this.moviesService.getPopularMovies(),
       tvShows: this.moviesService.getPopularTVShows(),
     }).subscribe(({ movies, tvShows }: any) => {
       const combinedResults = [...movies.results, ...tvShows.results];
-      this.popularMovies = combinedResults.map((item: any) => {
-        return {
-          ...item,
-          genres: this.getGenresString(item.genre_ids ?? []),
-          number_of_seasons: item.number_of_seasons,
-        };
-      });
+      this.popularMovies = combinedResults.map((item: any) => ({
+        ...item,
+        genres: this.getGenresString(item.genre_ids ?? []),
+      }));
 
-      // Setting the featured movie for the cover
       this.featuredMovie = this.popularMovies[0];
 
-      // Categorizing movies into sections
       this.movieCategories = [
         { name: 'Novità su Netflix', movies: this.popularMovies.slice(0, 10) },
         { name: 'Sport e fitness', movies: this.popularMovies.slice(10, 20) },
@@ -61,7 +61,25 @@ export class HomeComponent implements OnInit, OnDestroy {
       ];
     });
   }
-  
+
+  scrollLeft(categoryName: string): void {
+    const container = this.getCategoryCarousel(categoryName);
+    if (container) {
+      container.scrollBy({ left: -300, behavior: 'smooth' });
+    }
+  }
+
+  scrollRight(categoryName: string): void {
+    const container = this.getCategoryCarousel(categoryName);
+    if (container) {
+      container.scrollBy({ left: 300, behavior: 'smooth' });
+    }
+  }
+
+  private getCategoryCarousel(categoryName: string): HTMLElement | null {
+    const index = this.movieCategories.findIndex((category) => category.name === categoryName);
+    return this.carouselContainers.toArray()[index]?.nativeElement ?? null;
+  }
   getGenresString(genreIds: number[]): string {
     const genreMap: { [key: number]: string } = {
       28: 'Azione',
@@ -84,8 +102,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       10752: 'Guerra',
       37: 'Western',
     };
-    
-    return genreIds.map(id => genreMap[id]).filter(Boolean).join(' • ');
+
+    return genreIds.map((id) => genreMap[id]).filter(Boolean).join(' • ');
   }
 
   playTrailer(movie: MovieWithTrailer): void {
@@ -103,12 +121,12 @@ export class HomeComponent implements OnInit, OnDestroy {
           }
         }
       });
-    }, 300);
+    }, 300); // Delay to prevent spamming API calls
   }
+
   stopTrailer(movie: MovieWithTrailer): void {
     clearTimeout(this.trailerTimeout);
     movie.showTrailer = false;
     movie.trailerUrl = '';
   }
-  
 }

@@ -1,78 +1,83 @@
-<!-- Cover principale in stile Netflix -->
 <div class="hero-section" *ngIf="featuredMovie">
-  <img [src]="'https://image.tmdb.org/t/p/w1280' + featuredMovie.poster_path" [alt]="featuredMovie.title" class="hero-img" />
+  <img
+    [src]="'https://image.tmdb.org/t/p/w1280' + featuredMovie.poster_path"
+    [alt]="featuredMovie.title"
+    class="hero-img"
+  />
   <div class="hero-content">
     <h1>{{ featuredMovie.title }}</h1>
     <p>{{ featuredMovie.overview }}</p>
-    <button class="btn play-now">Guarda Ora</button>
+    <button class="btn play-now">
+      <i class="fas fa-play"></i> Guarda Ora
+    </button>
+    <button class="btn more-info">
+      <i class="fas fa-info-circle"></i> Altre Info
+    </button>
   </div>
 </div>
 
-
-<!-- Carousel per i film e serie TV -->
-<div class="container-fluid movies-container">
-  <div class="row" *ngFor="let category of movieCategories">
+<div class="movies-container">
+  <div *ngFor="let category of movieCategories; let i = index" class="category-section">
     <h2 class="category-title">{{ category.name }}</h2>
-    <div class="category-carousel d-flex">
-      <div
-        *ngFor="let movie of category.movies"
-        class="col-6 col-sm-4 col-md-3 col-lg-2 movie-item"
-        (mouseenter)="playTrailer(movie)"
-        (mouseleave)="stopTrailer(movie)"
-        tabindex="0"
-      >
-        <div class="poster-container">
-          <img
-            [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
-            [alt]="movie.title"
-            class="poster-img"
-          />
+    <div class="carousel-wrapper">
+      <!-- Freccia sinistra -->
+      <button class="arrow left-arrow" (click)="scrollLeft(category.name)">
+        <i class="fas fa-chevron-left"></i>
+      </button>
 
-          <!-- Overlay con trailer e informazioni -->
-          <div class="hover-overlay" *ngIf="movie.showTrailer">
-            <div class="trailer-container">
-              <div *ngIf="!movie.trailerUrl" class="spinner">Caricamento...</div>
-              <iframe
-                *ngIf="movie.trailerUrl"
-                [src]="movie.trailerUrl"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-              ></iframe>
-            </div>
-
-            <!-- Informazioni aggiuntive del film -->
-            <div class="movie-info-overlay">
-              <div class="action-buttons">
-                <button class="btn btn-circle play-button">
-                  <i class="bi bi-play"></i>
-                </button>
-                <button class="btn btn-circle add-button">
-                  <i class="bi bi-plus"></i>
-                </button>
-                <button class="btn btn-circle like-button">
-                  <i class="bi bi-hand-thumbs-up"></i>
-                </button>
-                <button class="btn btn-circle more-info">
-                  <i class="bi bi-chevron-down"></i>
-                </button>
+      <!-- Carosello -->
+      <div class="category-carousel" #carouselContainer>
+        <div
+          *ngFor="let movie of category.movies"
+          class="movie-item"
+          (mouseenter)="playTrailer(movie)"
+          (mouseleave)="stopTrailer(movie)"
+        >
+          <!-- Poster del film -->
+          <div class="poster-container">
+            <img
+              [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+              [alt]="movie.title"
+              class="poster-img"
+            />
+            <!-- Overlay -->
+            <div class="hover-overlay" *ngIf="movie.showTrailer">
+              <div class="trailer-container">
+                <iframe
+                  *ngIf="movie.trailerUrl"
+                  [src]="movie.trailerUrl"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                ></iframe>
               </div>
-
-              <div class="movie-details mt-2 mb-0 pb-0">
-                <h4>{{ movie.title }}</h4>
-                <div class="movie-meta">
-                  <span class="age-rating">{{ movie.ageRating }}</span>
-                  <span class="seasons" *ngIf="movie.number_of_seasons">
-                    {{ movie.number_of_seasons }} stagioni
-                  </span>
-                  <span class="quality">HD</span>
+              <div class="movie-info-overlay">
+                <h3>{{ movie.title }}</h3>
+                <p>{{ movie.genres }}</p>
+                <div class="action-buttons">
+                  <button class="btn-circle play-button">
+                    <i class="fas fa-play"></i>
+                  </button>
+                  <button class="btn-circle">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                  <button class="btn-circle">
+                    <i class="fas fa-thumbs-up"></i>
+                  </button>
+                  <button class="btn-circle more-info">
+                    <i class="fas fa-chevron-down"></i>
+                  </button>
                 </div>
-                <p class="tags">{{ movie.genres }}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- Freccia destra -->
+      <button class="arrow right-arrow" (click)="scrollRight(category.name)">
+        <i class="fas fa-chevron-right"></i>
+      </button>
     </div>
   </div>
 </div>

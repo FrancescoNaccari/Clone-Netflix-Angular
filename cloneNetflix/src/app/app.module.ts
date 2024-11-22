@@ -18,7 +18,8 @@ import { TokenInterceptor } from './interceptor/token.interceptor';
 import { LoginComponent } from './components/login/login.component';
 import { GoogleLoginComponent } from './components/login/google-login/google-login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -37,6 +38,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   imports: [
     BrowserModule,
     AppRoutingModule,
+    CarouselModule.forRoot(),
     FormsModule,
     HttpClientModule,
     SocialLoginModule,
@@ -49,6 +51,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       },
     }),
     NgbModule,
+    BrowserAnimationsModule,
   ],
   providers: [  {
     provide: HTTP_INTERCEPTORS,
