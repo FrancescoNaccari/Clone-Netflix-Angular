@@ -1,18 +1,28 @@
+<<<<<<< HEAD
 /* Hero Section (Cover Principale) */
 .hero-section {
   position: relative;
   height: 70vh;
   overflow: hidden;
+=======
+.hero-section {
+  position: relative;
+  height: 500px;
+>>>>>>> d1f6a41 (home V0.11)
 
   .hero-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+<<<<<<< HEAD
     filter: brightness(70%);
+=======
+>>>>>>> d1f6a41 (home V0.11)
   }
 
   .hero-content {
     position: absolute;
+<<<<<<< HEAD
     bottom: 50px;
     left: 50px;
     color: white;
@@ -26,19 +36,32 @@
     p {
       font-size: 1.2rem;
       margin-bottom: 20px;
+=======
+    bottom: 20px;
+    left: 20px;
+    color: white;
+
+    h1 {
+      font-size: 2rem;
+>>>>>>> d1f6a41 (home V0.11)
     }
 
     .play-now {
       background-color: #e50914;
       color: white;
       border: none;
+<<<<<<< HEAD
       padding: 10px 30px;
       font-size: 1rem;
+=======
+      padding: 10px 20px;
+>>>>>>> d1f6a41 (home V0.11)
       cursor: pointer;
     }
   }
 }
 
+<<<<<<< HEAD
 /* Spazio tra le sezioni */
 .spacer {
   height: 20px;
@@ -68,6 +91,8 @@ ngb-carousel {
 }
 
 /* Movies Container */
+=======
+>>>>>>> d1f6a41 (home V0.11)
 .movies-container {
   padding: 20px;
   overflow: visible;
@@ -81,6 +106,7 @@ ngb-carousel {
   transition: transform 0.3s ease-in-out;
   transform-origin: center top;
   max-width: 230px;
+<<<<<<< HEAD
 
   &:hover,
   &:focus {
@@ -90,6 +116,16 @@ ngb-carousel {
 }
 
 /* Poster Container */
+=======
+
+  &:hover,
+  &:focus {
+    transform: scale(1.6);
+    z-index: 10;
+  }
+}
+
+>>>>>>> d1f6a41 (home V0.11)
 .poster-container {
   position: relative;
   border-radius: 8px;
@@ -116,6 +152,7 @@ ngb-carousel {
   flex-direction: column;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
+<<<<<<< HEAD
 
   &:hover,
   &:focus {
@@ -124,10 +161,20 @@ ngb-carousel {
 }
 
 /* Trailer Container */
+=======
+
+  &:hover,
+  &:focus {
+    opacity: 1;
+  }
+}
+
+>>>>>>> d1f6a41 (home V0.11)
 .trailer-container {
   width: 100%;
   height: 60%;
   position: relative;
+<<<<<<< HEAD
 
   iframe {
     width: 100%;
@@ -136,6 +183,15 @@ ngb-carousel {
 }
 
 /* Movie Info Overlay */
+=======
+
+  iframe {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+>>>>>>> d1f6a41 (home V0.11)
 .movie-info-overlay {
   width: 100%;
   padding: 10px;
@@ -153,6 +209,7 @@ ngb-carousel {
   display: flex;
   gap: 10px;
   align-items: center;
+<<<<<<< HEAD
 
   .btn-circle {
     width: 25px;
@@ -215,18 +272,45 @@ ngb-carousel {
   .movie-item:focus {
     transform: none;
   }
+=======
+>>>>>>> d1f6a41 (home V0.11)
 
   .btn-circle {
     width: 25px;
     height: 25px;
-    font-size: 0.9rem;
+    border-radius: 50%;
+    background-color: rgba(51, 51, 51, 0.8);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    border: none;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.9);
+      color: black;
+    }
   }
 
-  .movie-details h4 {
-    font-size: 0.9rem;
+  .play-button {
+    background-color: #e50914;
   }
 
-  .trailer-container {
-    height: 50%;
+  .more-info {
+    margin-left: auto;
   }
+}
+
+.movie-details h4 {
+  font-size: 0.7rem;
+}
+
+.movie-meta {
+  font-size: 0.5rem;
+}
+
+.tags {
+  font-size: 0.5rem;
 }

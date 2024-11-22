@@ -1,10 +1,6 @@
-<!-- Cover principale (Hero Section) -->
+<!-- Cover principale in stile Netflix -->
 <div class="hero-section" *ngIf="featuredMovie">
-  <img
-    [src]="'https://image.tmdb.org/t/p/original' + featuredMovie.backdrop_path"
-    [alt]="featuredMovie.title"
-    class="hero-img"
-  />
+  <img [src]="'https://image.tmdb.org/t/p/w1280' + featuredMovie.poster_path" [alt]="featuredMovie.title" class="hero-img" />
   <div class="hero-content">
     <h1>{{ featuredMovie.title }}</h1>
     <p>{{ featuredMovie.overview }}</p>
@@ -12,27 +8,8 @@
   </div>
 </div>
 
-<!-- Spazio tra la cover e il carosello -->
-<div class="spacer"></div>
 
-<!-- Carosello -->
-<ngb-carousel
-  *ngIf="carouselItems && carouselItems.length"
-  [interval]="5000"
-  [showNavigationArrows]="true"
-  [showNavigationIndicators]="true"
->
-  <ng-template ngbSlide *ngFor="let item of carouselItems">
-    <img [src]="item.imageUrl" alt="{{ item.title }}" class="d-block w-100" />
-    <div class="carousel-caption">
-      <h3>{{ item.title }}</h3>
-      <p>{{ item.description }}</p>
-    </div>
-  </ng-template>
-</ngb-carousel>
-
-
-<!-- Contenitore dei film e delle serie TV -->
+<!-- Carousel per i film e serie TV -->
 <div class="container-fluid movies-container">
   <div class="row" *ngFor="let category of movieCategories">
     <h2 class="category-title">{{ category.name }}</h2>
@@ -94,7 +71,6 @@
               </div>
             </div>
           </div>
-          <!-- Fine hover-overlay -->
         </div>
       </div>
     </div>
