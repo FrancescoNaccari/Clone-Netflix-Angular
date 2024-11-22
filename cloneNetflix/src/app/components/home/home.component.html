@@ -8,71 +8,77 @@
   </div>
 </div>
 
-
 <!-- Carousel per i film e serie TV -->
 <div class="container-fluid movies-container">
   <div class="row" *ngFor="let category of movieCategories">
     <h2 class="category-title">{{ category.name }}</h2>
-    <div class="category-carousel d-flex">
-      <div
-        *ngFor="let movie of category.movies"
-        class="col-6 col-sm-4 col-md-3 col-lg-2 movie-item"
-        (mouseenter)="playTrailer(movie)"
-        (mouseleave)="stopTrailer(movie)"
-        tabindex="0"
-      >
-        <div class="poster-container">
-          <img
-            [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
-            [alt]="movie.title"
-            class="poster-img"
-          />
+    <div class="category-carousel">
+      <button class="carousel-control-prev" (click)="scrollCarousel(category.name, 'prev')">
+        <span class="carousel-arrow">&#8249;</span>
+      </button>
+      <div class="carousel" [id]="'carousel-' + category.name">
+        <div
+          *ngFor="let movie of category.movies"
+          class="movie-item"
+          (mouseenter)="playTrailer(movie)"
+          (mouseleave)="stopTrailer(movie)"
+        >
+          <div class="poster-container">
+            <img
+              [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+              [alt]="movie.title"
+              class="poster-img"
+            />
 
-          <!-- Overlay con trailer e informazioni -->
-          <div class="hover-overlay" *ngIf="movie.showTrailer">
-            <div class="trailer-container">
-              <div *ngIf="!movie.trailerUrl" class="spinner">Caricamento...</div>
-              <iframe
-                *ngIf="movie.trailerUrl"
-                [src]="movie.trailerUrl"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-              ></iframe>
-            </div>
-
-            <!-- Informazioni aggiuntive del film -->
-            <div class="movie-info-overlay">
-              <div class="action-buttons">
-                <button class="btn btn-circle play-button">
-                  <i class="bi bi-play"></i>
-                </button>
-                <button class="btn btn-circle add-button">
-                  <i class="bi bi-plus"></i>
-                </button>
-                <button class="btn btn-circle like-button">
-                  <i class="bi bi-hand-thumbs-up"></i>
-                </button>
-                <button class="btn btn-circle more-info">
-                  <i class="bi bi-chevron-down"></i>
-                </button>
+            <!-- Overlay con trailer e informazioni -->
+            <div class="hover-overlay" *ngIf="movie.showTrailer">
+              <div class="trailer-container">
+                <div *ngIf="!movie.trailerUrl" class="spinner">Caricamento...</div>
+                <iframe
+                  *ngIf="movie.trailerUrl"
+                  [src]="movie.trailerUrl"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                ></iframe>
               </div>
 
-              <div class="movie-details mt-2 mb-0 pb-0">
-                <h4>{{ movie.title }}</h4>
-                <div class="movie-meta">
-                  <span class="age-rating">{{ movie.ageRating }}</span>
-                  <span class="seasons" *ngIf="movie.number_of_seasons">
-                    {{ movie.number_of_seasons }} stagioni
-                  </span>
-                  <span class="quality">HD</span>
+              <!-- Informazioni aggiuntive del film -->
+              <div class="movie-info-overlay">
+                <div class="action-buttons">
+                  <button class="btn btn-circle play-button">
+                    <i class="bi bi-play"></i>
+                  </button>
+                  <button class="btn btn-circle add-button">
+                    <i class="bi bi-plus"></i>
+                  </button>
+                  <button class="btn btn-circle like-button">
+                    <i class="bi bi-hand-thumbs-up"></i>
+                  </button>
+                  <button class="btn btn-circle more-info">
+                    <i class="bi bi-chevron-down"></i>
+                  </button>
                 </div>
-                <p class="tags">{{ movie.genres }}</p>
+
+                <div class="movie-details mt-2 mb-0 pb-0">
+                  <h4>{{ movie.title }}</h4>
+                  <div class="movie-meta">
+                    <span class="age-rating">{{ movie.ageRating }}</span>
+                    <span class="seasons" *ngIf="movie.number_of_seasons">
+                      {{ movie.number_of_seasons }} stagioni
+                    </span>
+                    <span class="quality">HD</span>
+                  </div>
+                  <p class="tags">{{ movie.genres }}</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <button class="carousel-control-next" (click)="scrollCarousel(category.name, 'next')">
+        <span class="carousel-arrow">&#8250;</span>
+      </button>
     </div>
   </div>
 </div>
