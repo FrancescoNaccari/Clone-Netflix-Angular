@@ -1,38 +1,79 @@
+/* Hero Section (Cover Principale) */
 .hero-section {
   position: relative;
-  height: 500px;
+  height: 70vh;
+  overflow: hidden;
 
   .hero-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    filter: brightness(70%);
   }
 
   .hero-content {
     position: absolute;
-    bottom: 20px;
-    left: 20px;
+    bottom: 50px;
+    left: 50px;
     color: white;
+    max-width: 50%;
 
     h1 {
-      font-size: 2rem;
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
     }
 
     .play-now {
       background-color: #e50914;
       color: white;
       border: none;
-      padding: 10px 20px;
+      padding: 10px 30px;
+      font-size: 1rem;
       cursor: pointer;
     }
   }
 }
 
+/* Spazio tra le sezioni */
+.spacer {
+  height: 20px;
+}
+
+/* Carosello */
+ngb-carousel {
+  margin-bottom: 40px;
+
+  .carousel-caption {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+
+    h3 {
+      color: #fff;
+    }
+
+    p {
+      color: #ddd;
+    }
+  }
+
+  img {
+    height: 400px;
+    object-fit: cover;
+  }
+}
+
+/* Movies Container */
 .movies-container {
   padding: 20px;
   overflow: visible;
 }
 
+/* Movie Item */
 .movie-item {
   position: relative;
   margin-bottom: 20px;
@@ -48,12 +89,14 @@
   }
 }
 
+/* Poster Container */
 .poster-container {
   position: relative;
   border-radius: 8px;
   overflow: hidden;
 }
 
+/* Poster Image */
 .poster-img {
   width: 100%;
   height: auto;
@@ -61,6 +104,7 @@
   display: block;
 }
 
+/* Hover Overlay */
 .hover-overlay {
   position: absolute;
   top: 0;
@@ -79,6 +123,7 @@
   }
 }
 
+/* Trailer Container */
 .trailer-container {
   width: 100%;
   height: 60%;
@@ -90,6 +135,7 @@
   }
 }
 
+/* Movie Info Overlay */
 .movie-info-overlay {
   width: 100%;
   padding: 10px;
@@ -102,6 +148,7 @@
   flex-grow: 1;
 }
 
+/* Action Buttons */
 .action-buttons {
   display: flex;
   gap: 10px;
@@ -135,6 +182,7 @@
   }
 }
 
+/* Movie Details */
 .movie-details h4 {
   font-size: 0.7rem;
 }
@@ -145,4 +193,40 @@
 
 .tags {
   font-size: 0.5rem;
+}
+
+/* Responsività */
+@media (max-width: 1200px) {
+  .movie-item:hover,
+  .movie-item:focus {
+    transform: scale(1.4);
+  }
+}
+
+@media (max-width: 992px) {
+  .movie-item:hover,
+  .movie-item:focus {
+    transform: scale(1.2);
+  }
+}
+
+@media (max-width: 768px) {
+  .movie-item:hover,
+  .movie-item:focus {
+    transform: none;
+  }
+
+  .btn-circle {
+    width: 25px;
+    height: 25px;
+    font-size: 0.9rem;
+  }
+
+  .movie-details h4 {
+    font-size: 0.9rem;
+  }
+
+  .trailer-container {
+    height: 50%;
+  }
 }
