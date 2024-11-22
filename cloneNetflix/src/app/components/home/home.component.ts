@@ -19,8 +19,9 @@ interface MovieWithTrailer extends Movie {
 })
 export class HomeComponent implements OnInit, OnDestroy {
   popularMovies: MovieWithTrailer[] = [];
+  featuredMovie: MovieWithTrailer | undefined;
+  movieCategories: { name: string, movies: MovieWithTrailer[] }[] = [];
   private trailerTimeout: any;
-
   constructor(private moviesService: MoviesService, private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
@@ -48,6 +49,16 @@ export class HomeComponent implements OnInit, OnDestroy {
           number_of_seasons: item.number_of_seasons,
         };
       });
+
+      // Setting the featured movie for the cover
+      this.featuredMovie = this.popularMovies[0];
+
+      // Categorizing movies into sections
+      this.movieCategories = [
+        { name: 'Novità su Netflix', movies: this.popularMovies.slice(0, 10) },
+        { name: 'Sport e fitness', movies: this.popularMovies.slice(10, 20) },
+        { name: 'I più cercati', movies: this.popularMovies.slice(20, 30) },
+      ];
     });
   }
   
@@ -79,11 +90,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   playTrailer(movie: MovieWithTrailer): void {
     this.trailerTimeout = setTimeout(() => {
-      forkJoin({
-        videos: this.moviesService.getMovieVideos(movie.id),
-        releaseDates: this.moviesService.getMovieReleaseDates(movie.id),
-      }).subscribe(({ videos, releaseDates }: any) => {
-        // Gestione dei video
+      this.moviesService.getMovieVideos(movie.id).subscribe((videos: any) => {
         if (videos.results.length > 0) {
           const trailer = videos.results.find(
             (t: any) => t.type === 'Trailer' && t.site === 'YouTube'
@@ -95,18 +102,8 @@ export class HomeComponent implements OnInit, OnDestroy {
             movie.showTrailer = true;
           }
         }
-  
-        // Estrazione dell'età consigliata per l'Italia
-        const italianRelease = releaseDates.results.find(
-          (r: any) => r.iso_3166_1 === 'IT'
-        );
-        if (italianRelease && italianRelease.release_dates.length > 0) {
-          movie.ageRating = italianRelease.release_dates[0].certification || 'N/D';
-        } else {
-          movie.ageRating = 'N/D';
-        }
       });
-    }, 300); // Delay per ridurre le chiamate API
+    }, 300);
   }
   stopTrailer(movie: MovieWithTrailer): void {
     clearTimeout(this.trailerTimeout);

@@ -1,3 +1,33 @@
+.hero-section {
+  position: relative;
+  height: 500px;
+
+  .hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-content {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: white;
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    .play-now {
+      background-color: #e50914;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+  }
+}
+
 .movies-container {
   padding: 20px;
   overflow: visible;
@@ -10,12 +40,12 @@
   transition: transform 0.3s ease-in-out;
   transform-origin: center top;
   max-width: 230px;
-}
 
-.movie-item:hover,
-.movie-item:focus {
-  transform: scale(1.6);
-  z-index: 10;
+  &:hover,
+  &:focus {
+    transform: scale(1.6);
+    z-index: 10;
+  }
 }
 
 .poster-container {
@@ -42,22 +72,22 @@
   flex-direction: column;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
-}
 
-.movie-item:hover .hover-overlay,
-.movie-item:focus .hover-overlay {
-  opacity: 1;
+  &:hover,
+  &:focus {
+    opacity: 1;
+  }
 }
 
 .trailer-container {
   width: 100%;
   height: 60%;
   position: relative;
-}
 
-.trailer-container iframe {
-  width: 100%;
-  height: 100%;
+  iframe {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .movie-info-overlay {
@@ -76,76 +106,43 @@
   display: flex;
   gap: 10px;
   align-items: center;
-}
-
-.btn-circle {
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  background-color: rgba(51, 51, 51, 0.8);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
-  border: none;
-}
-
-.btn-circle:hover {
-  background-color: rgba(255, 255, 255, 0.9);
-  color: black;
-}
-
-.play-button {
-  background-color: #e50914;
-}
-
-.more-info {
-  margin-left: auto;
-}
-
-.movie-details h4 {
-  font-size: .7rem;
-}
-.movie-meta{
-  font-size: 0.5rem;
-}
-.tags{
-  font-size: 0.5rem;
-}
-/* Responsività */
-@media (max-width: 1200px) {
-  .movie-item:hover,
-  .movie-item:focus {
-    transform: scale(1.4);
-  }
-}
-
-@media (max-width: 992px) {
-  .movie-item:hover,
-  .movie-item:focus {
-    transform: scale(1.2);
-  }
-}
-
-@media (max-width: 768px) {
-  .movie-item:hover,
-  .movie-item:focus {
-    transform: none;
-  }
 
   .btn-circle {
     width: 25px;
     height: 25px;
-    font-size: 0.9rem;
+    border-radius: 50%;
+    background-color: rgba(51, 51, 51, 0.8);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    border: none;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.9);
+      color: black;
+    }
   }
 
-  .movie-details h4 {
-    font-size: 0.9rem;
+  .play-button {
+    background-color: #e50914;
   }
 
-  .trailer-container {
-    height: 50%;
+  .more-info {
+    margin-left: auto;
   }
+}
+
+.movie-details h4 {
+  font-size: 0.7rem;
+}
+
+.movie-meta {
+  font-size: 0.5rem;
+}
+
+.tags {
+  font-size: 0.5rem;
 }
