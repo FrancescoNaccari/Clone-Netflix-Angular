@@ -19,7 +19,10 @@
 <div class="carousel-section ms-3 p-5" *ngIf="movieCategories.length > 0">
   <div *ngFor="let category of movieCategories">
     <h2 class="category-title">{{ category.name }}</h2>
+  
+  
     <carousel [itemsPerSlide]="6" [interval]="0" [noWrap]="false" [startFromIndex]="0">
+      
       <ng-container *ngFor="let movie of category.movies">
         <slide>
           <div class="movie-item">
@@ -44,6 +47,7 @@
                   <h3>{{ movie.title }}</h3>
                   <p>{{ movie.genres }}</p>
                   <!-- Additional buttons/actions -->
+                   
                 </div>
               </div>
             </div>
@@ -51,5 +55,7 @@
         </slide>
       </ng-container>
     </carousel>
+
+    
   </div>
 </div>

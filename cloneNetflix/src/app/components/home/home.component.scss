@@ -310,15 +310,18 @@ body {
 }
 
 .left-arrow {
-  left: -80px; /* Regola la distanza dalla sinistra */
+  left: 10px; /* Posiziona la freccia sinistra dentro il carousel */
 }
 
 .right-arrow {
-  right: -80px; /* Regola la distanza dalla destra */
+  right: 10px !important; /* Posiziona la freccia destra dentro il carousel */
 }
-
-.carousel-control-prev, .carousel-control-next  {
-  right: -55px!important;
-color: #f40612;}
-
-
+.arrow {
+  top: 45%; /* Sposta le frecce leggermente più in basso */
+}
+.carousel-wrapper {
+  overflow: visible;
+}
+.carousel-wrapper {
+  overflow: hidden;
+}

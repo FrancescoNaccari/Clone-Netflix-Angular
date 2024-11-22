@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { forkJoin } from 'rxjs';
 import { Movie } from 'src/app/interface/movie.interface';
@@ -16,6 +16,9 @@ interface MovieWithTrailer extends Movie {
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
+  encapsulation: ViewEncapsulation.None, // Disabilita la scoping degli stili
+
+
 })
 export class HomeComponent implements OnInit, OnDestroy {
   popularMovies: MovieWithTrailer[] = [];
@@ -63,23 +66,24 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   scrollLeft(categoryName: string): void {
-    const container = this.getCategoryCarousel(categoryName);
-    if (container) {
-      container.scrollBy({ left: -500, behavior: 'smooth' });
-    }
+  const container = this.getCategoryCarousel(categoryName);
+  if (container) {
+    container.scrollBy({ left: -500, behavior: 'smooth' });
   }
+}
 
-  scrollRight(categoryName: string): void {
-    const container = this.getCategoryCarousel(categoryName);
-    if (container) {
-      container.scrollBy({ left: 300, behavior: 'smooth' });
-    }
+scrollRight(categoryName: string): void {
+  const container = this.getCategoryCarousel(categoryName);
+  if (container) {
+    container.scrollBy({ left: 500, behavior: 'smooth' });
   }
+}
 
-  private getCategoryCarousel(categoryName: string): HTMLElement | null {
-    const index = this.movieCategories.findIndex((category) => category.name === categoryName);
-    return this.carouselContainers.toArray()[index]?.nativeElement ?? null;
-  }
+private getCategoryCarousel(categoryName: string): HTMLElement | null {
+  const index = this.movieCategories.findIndex((category) => category.name === categoryName);
+  return this.carouselContainers.toArray()[index]?.nativeElement ?? null;
+}
+
   
   getGenresString(genreIds: number[]): string {
     const genreMap: { [key: number]: string } = {
