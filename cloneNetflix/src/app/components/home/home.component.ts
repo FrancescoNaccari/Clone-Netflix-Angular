@@ -55,9 +55,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.featuredMovie = this.popularMovies[0];
 
       this.movieCategories = [
-        { name: 'Novità su Netflix', movies: this.popularMovies.slice(0, 10) },
-        { name: 'Sport e fitness', movies: this.popularMovies.slice(10, 20) },
-        { name: 'I più cercati', movies: this.popularMovies.slice(20, 30) },
+        { name: 'Novità su Netflix', movies: this.popularMovies.slice(0, 12) },
+        { name: 'Sport e fitness', movies: this.popularMovies.slice(12, 24) },
+        { name: 'I più cercati', movies: this.popularMovies.slice(24, 36) },
       ];
     });
   }
@@ -80,6 +80,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     const index = this.movieCategories.findIndex((category) => category.name === categoryName);
     return this.carouselContainers.toArray()[index]?.nativeElement ?? null;
   }
+  
   getGenresString(genreIds: number[]): string {
     const genreMap: { [key: number]: string } = {
       28: 'Azione',
@@ -104,6 +105,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     };
 
     return genreIds.map((id) => genreMap[id]).filter(Boolean).join(' • ');
+  }
+
+  chunkArray(array: any[], size: number): any[][] {
+    const result = [];
+    for (let i = 0; i < array.length; i += size) {
+      result.push(array.slice(i, i + size));
+    }
+    return result;
   }
 
   playTrailer(movie: MovieWithTrailer): void {

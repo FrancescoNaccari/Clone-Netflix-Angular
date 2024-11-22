@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -38,6 +38,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ModalModule.forRoot(),
     CarouselModule.forRoot(),
     FormsModule,
     HttpClientModule,
