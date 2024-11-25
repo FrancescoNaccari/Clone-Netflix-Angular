@@ -82,20 +82,14 @@
     <div class="similar-titles mt-4">
       <h3>Altri titoli simili</h3>
       <div class="row">
-        <div
-          class="col-12 col-sm-6 col-md-4 mb-4"
-          *ngFor="let movie of similarMovies"
-        >
-          <div class="similar-movie-item text-center">
-            <img
-              [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
-              [alt]="movie.title"
-              class="poster-img img-fluid"
-            />
+        <div class="col-12 col-sm-6 col-md-4 mb-4" *ngFor="let movie of similarMovies">
+          <div class="similar-movie-item">
+            <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" [alt]="movie.title" class="poster-img img-fluid" />
             <p class="movie-title mt-2">{{ movie.title }}</p>
           </div>
         </div>
       </div>
+      
     </div>
 <!-- Footer -->
 <div class="modal-footer-info mt-4">
