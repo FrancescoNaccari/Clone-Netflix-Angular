@@ -6,5 +6,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./gestisci-pagamento.component.scss']
 })
 export class GestisciPagamentoComponent {
+  metodoPagamento = {
+    tipo: 'Mastercard',
+    numero: '****8523',
+  };
 
+  aggiornaMetodo() {
+    console.log('Aggiorna metodo di pagamento');
+    // Logica per aggiornare il metodo di pagamento
+  }
+
+  aggiungiMetodo() {
+    console.log('Aggiungi un nuovo metodo di pagamento');
+    // Logica per aggiungere un nuovo metodo di pagamento
+  }
 }

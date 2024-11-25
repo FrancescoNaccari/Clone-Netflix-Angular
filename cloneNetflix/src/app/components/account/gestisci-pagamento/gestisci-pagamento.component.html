@@ -1,1 +1,40 @@
-<p>gestisci-pagamento works!</p>
+<div class="container-fluid bg-white p-5 text-black">
+    <div class="container mt-5 text-center">
+        <div class="d-flex justify-content-center">
+          <img
+            src="https://via.placeholder.com/80" 
+            alt="Payment Icon"
+            class="mb-4"
+          /><!-- Sostituisci con l'immagine corretta -->
+        </div>
+        <h2 class="mb-3">Gestisci metodo di pagamento</h2>
+        <p class="text-muted">Stabilisci la modalità di pagamento dell'abbonamento.</p>
+      
+        <!-- Metodo di pagamento -->
+        <div class="card mx-auto mt-4 shadow-sm" style="max-width: 600px;">
+          <div class="card-body d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Mastercard_2019_logo.svg"
+                alt="Mastercard Logo"
+                style="height: 30px; margin-right: 15px;"
+              />
+              <span>Mastercard ****8523</span>
+            </div>
+            <div>
+              <button class="btn btn-outline-primary btn-sm" (click)="aggiornaMetodo()">
+                Aggiorna
+              </button>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Aggiungi metodo di pagamento -->
+        <div class="mt-4">
+          <a href="#" class="text-decoration-none" (click)="aggiungiMetodo()">
+            <i class="bi bi-plus-circle"></i> Aggiungi il metodo di pagamento
+          </a>
+        </div>
+      </div>
+      
+</div>
