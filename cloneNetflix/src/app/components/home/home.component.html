@@ -23,7 +23,7 @@
     <carousel [itemsPerSlide]="6" [interval]="0" [noWrap]="false" [startFromIndex]="0">
       <ng-container *ngFor="let movie of category.movies">
         <slide>
-          <div class="movie-item" (click)="openModal(movie)">
+          <div class="movie-item" *ngIf="movie.poster_path; else noMovie" (click)="openModal(movie)">
             <div class="poster-container">
               <img
                 [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
@@ -32,6 +32,13 @@
               />
             </div>
           </div>
+          <ng-template #noMovie>
+            <div class="movie-item">
+              <div class="poster-container">
+                <p class="text-white">Non disponibile</p>
+              </div>
+            </div>
+          </ng-template>
         </slide>
       </ng-container>
     </carousel>
@@ -42,26 +49,24 @@
 <ng-template #movieModal>
   <div class="modal-header">
     <h4 class="modal-title text-white">{{ selectedMovie?.title }}</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
   </div>
-  <div class="modal-body">
-    <div class="trailer-container" *ngIf="selectedMovie?.trailerUrl; else noTrailer">
-      <iframe
-        [src]="selectedMovie?.trailerUrl"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-      ></iframe>
-    </div>
-    <ng-template #noTrailer>
-      <p class="text-white">Trailer non disponibile per questo film.</p>
-    </ng-template>
-    <div class="movie-info-overlay mt-3">
-      <p>{{ selectedMovie?.overview }}</p>
-      <p><strong>Generi:</strong> {{ selectedMovie?.genres }}</p>
-    </div>
+<div class="modal-body">
+  <div *ngIf="selectedMovie?.trailerUrl; else noTrailer">
+    <iframe
+      [src]="selectedMovie?.trailerUrl"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe>
   </div>
-  <div class="modal-footer">
-    <button class="btn btn-danger" (click)="closeModal()">Chiudi</button>
+  <ng-template #noTrailer>
+    <p class="text-white">Trailer non disponibile per questo film.</p>
+  </ng-template>
+  <div class="movie-info-overlay mt-3">
+    <p>{{ selectedMovie?.overview || 'Descrizione non disponibile.' }}</p>
+    <p><strong>Generi:</strong> {{ selectedMovie?.genres || 'Generi non disponibili.' }}</p>
   </div>
+</div>
+
+
 </ng-template>

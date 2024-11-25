@@ -55,13 +55,32 @@ export class HomeComponent implements OnInit, OnDestroy {
       tvShows: this.moviesService.getPopularTVShows(),
     }).subscribe(({ movies, tvShows }: any) => {
       const combinedResults = [...movies.results, ...tvShows.results];
-      this.popularMovies = combinedResults.map((item: any) => ({
-        ...item,
-        genres: this.getGenresString(item.genre_ids ?? []),
-      }));
-
+  
+      // Filtra i film validi e crea un array di backup
+      const validMovies = combinedResults.filter((movie: any) => movie.poster_path && movie.title);
+      const backupMovies = combinedResults.filter((movie: any) => !movie.poster_path || !movie.title);
+  
+      // Sostituisci i film non validi con i backup
+      const normalizedMovies = combinedResults.map((movie: any) => {
+        if (movie.poster_path && movie.title) {
+          return {
+            ...movie,
+            genres: this.getGenresString(movie.genre_ids ?? []),
+          };
+        } else {
+          // Prendi un film di backup valido
+          const backupMovie = validMovies.pop();
+          return backupMovie
+            ? { ...backupMovie, genres: this.getGenresString(backupMovie.genre_ids ?? []) }
+            : { title: 'Non disponibile', poster_path: null };
+        }
+      });
+  
+      // Imposta i film caricati
+      this.popularMovies = normalizedMovies;
+  
       this.featuredMovie = this.popularMovies[0];
-
+  
       this.movieCategories = [
         { name: 'Novità su Netflix', movies: this.popularMovies.slice(0, 12) },
         { name: 'Sport e fitness', movies: this.popularMovies.slice(12, 24) },
@@ -69,6 +88,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       ];
     });
   }
+  
+  
 
   scrollLeft(categoryName: string): void {
   const container = this.getCategoryCarousel(categoryName);
