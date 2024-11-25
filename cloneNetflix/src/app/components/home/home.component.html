@@ -1,4 +1,4 @@
-<div class="hero-section " *ngIf="featuredMovie">
+<div class="hero-section" *ngIf="featuredMovie">
   <img [src]="'https://image.tmdb.org/t/p/w1280' + featuredMovie.poster_path" [alt]="featuredMovie.title"
     class="hero-img" />
   <div class="hero-content">
@@ -41,8 +41,9 @@
 
 <!-- Modale -->
 <ng-template #movieModal>
-
-  <div class="modal-body modal-content-custom mx-auto">
+  <div class="modal fade show" tabindex="-1" role="dialog" style="display: block;">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content modal-content-custom">
     <!-- <div class="d-flex justify-content-between"> 
       <h2 class="movie-title m-2 ms-4">{{ selectedMovie?.title }}</h2>
 
@@ -50,13 +51,16 @@
 
     </div> -->
     <!-- Trailer -->
-    <div class="hero-section-modal">
-      <div class="trailer-container">
-        <iframe *ngIf="selectedMovie?.trailerUrl" [src]="selectedMovie?.trailerUrl" frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen class="trailer-frame"></iframe>
-      </div>
-    </div>
+    <div class="trailer-container">
+      <iframe
+        *ngIf="selectedMovie?.trailerUrl"
+        [src]="selectedMovie?.trailerUrl"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        class="trailer-frame"
+      ></iframe>
+    </div>   
 
     <!-- Dettagli del film -->
     <div class="movie-details mt-4 px-4">
@@ -117,8 +121,8 @@
         {{ selectedMovie?.ageRatingDescription }}
       </p>
     </div>
-
-
+  </div>
+</div>
   </div>
 
 </ng-template>
