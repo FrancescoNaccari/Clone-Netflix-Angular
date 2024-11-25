@@ -1,0 +1,57 @@
+<div class="container-fluid text-dark p-5 bg-white">
+    <h2 class="mb-3 pt-5">Modifica piano</h2>
+    <p class="text-muted">
+      Goditi intrattenimento, giochi ed eventi in diretta illimitati con ogni piano.
+    </p>
+  
+    <!-- Piano Attuale -->
+    <div class="card mb-4 border-primary">
+      <div class="card-body">
+        <h5 class="card-title d-flex justify-content-between align-items-center">
+          Premium
+          <span class="badge badge-primary">Massima qualità</span>
+        </h5>
+        <p class="card-text text-muted">4K + HDR</p>
+        <p class="card-text">
+          <i class="bi bi-check-circle-fill text-success"></i> Massima qualità audio e video
+        </p>
+        <p class="card-text">
+          <i class="bi bi-check-circle-fill text-success"></i> Guarda senza pubblicità
+        </p>
+        <p class="card-text">
+          <i class="bi bi-check-circle-fill text-success"></i> Scarica su 6 dispositivi
+        </p>
+        <p class="card-text text-right font-weight-bold">19,99 €/mese</p>
+      </div>
+    </div>
+  
+    <!-- Scegli un piano -->
+    <h5 class="mb-3">Scegli un piano da confrontare</h5>
+    <div class="list-group mb-4">
+      <label class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <input type="radio" name="piano" class="form-check-input mr-3" />
+          <span>Standard</span>
+          <p class="mb-0 text-muted">1080p</p>
+        </div>
+        <span>13,99 €/mese</span>
+      </label>
+      <label class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <input type="radio" name="piano" class="form-check-input mr-3" />
+          <span>Standard con pubblicità</span>
+          <p class="mb-0 text-muted">1080p</p>
+        </div>
+        <span>6,99 €/mese</span>
+      </label>
+    </div>
+  
+    <!-- Dettagli -->
+    <p class="text-muted">
+      La disponibilità di Full HD (1080p), Ultra HD (4K) e HDR dipende dalla tua connessione Internet e dalle capacità del tuo dispositivo. Non tutti i contenuti sono disponibili in tutte le risoluzioni. Per ulteriori dettagli leggi le nostre <a href="#" class="text-decoration-none">Condizioni di utilizzo</a>.
+    </p>
+  
+    <!-- Pulsante Continua -->
+    <button class="btn btn-primary btn-lg btn-block mb-5" [disabled]="!selezione">Continua e confronta</button>
+</div>
+  

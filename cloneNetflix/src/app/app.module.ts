@@ -20,6 +20,9 @@ import { GoogleLoginComponent } from './components/login/google-login/google-log
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { ModificaPianoComponent } from './components/account/modifica-piano/modifica-piano.component';
+import { AbbonamentoComponent } from './components/account/abbonamento/abbonamento.component';
+import { UtentExtraComponent } from './components/account/utent-extra/utent-extra.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -33,6 +36,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     NavbarComponent,
     LoginComponent,
     GoogleLoginComponent,
+    ModificaPianoComponent,
+    AbbonamentoComponent,
+    UtentExtraComponent,
     
   ],
   imports: [

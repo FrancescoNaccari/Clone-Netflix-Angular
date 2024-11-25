@@ -1,0 +1,71 @@
+<div class="container-fluid p-5 bg-white">
+    <h2 class="mb-4">Abbonamento</h2>
+  
+    <!-- Dettagli piano -->
+    <div class="card mb-4 border-light shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Piano Premium</h5>
+        <p class="text-muted">
+          Risoluzione video 4K con audio spaziale, visione senza pubblicità e molto altro.
+        </p>
+        <ul class="list-unstyled mb-3">
+          <li>
+            <a [routerLink]="['/modifica-piano']"class="text-decoration-none">
+              Modifica piano
+              <i class="bi bi-chevron-right float-right"></i>
+            </a>
+          </li>
+          <li>
+            <a [routerLink]="['/utentExtra']" class="text-decoration-none">
+              Acquista uno slot per utente extra
+              <span class="badge badge-primary ml-2">Nuovo</span>
+              <i class="bi bi-chevron-right float-right"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  
+    <!-- Dati di pagamento -->
+    <div class="card mb-4 border-light shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Dati di pagamento</h5>
+        <div class="mb-3">
+          <p class="mb-1">Prossimo pagamento</p>
+          <p class="text-muted">23 dicembre 2024</p>
+          <p>
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Mastercard_2019_logo.svg"
+              alt="Mastercard Logo"
+              style="height: 20px;"
+            />
+            **** 8523
+          </p>
+        </div>
+        <ul class="list-unstyled">
+          <li>
+            <a href="#" class="text-decoration-none">
+              Gestisci metodo di pagamento
+              <i class="bi bi-chevron-right float-right"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="text-decoration-none">
+              Riscatta codice regalo o promozionale
+              <i class="bi bi-chevron-right float-right"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="text-decoration-none">
+              Visualizza cronologia dei pagamenti
+              <i class="bi bi-chevron-right float-right"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  
+    <!-- Disdici abbonamento -->
+    <button class="btn btn-danger btn-block">Disdici abbonamento</button>
+  </div>
+  
