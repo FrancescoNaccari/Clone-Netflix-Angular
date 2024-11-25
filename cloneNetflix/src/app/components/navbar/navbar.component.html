@@ -25,7 +25,7 @@
             <a
               class="nav-link"
               [ngClass]="{ active: currentFilter === 'all' }"
-              href="#"
+              [routerLink]="['/home']"
               (click)="setFilter('all', $event)"
             >Home</a>
           </li>
@@ -33,7 +33,7 @@
             <a
               class="nav-link"
               [ngClass]="{ active: currentFilter === 'tvshows' }"
-              href="#"
+              [routerLink]="['/home']"
               (click)="setFilter('tvshows', $event)"
             >Serie TV</a>
           </li>
@@ -41,7 +41,7 @@
             <a
               class="nav-link"
               [ngClass]="{ active: currentFilter === 'movies' }"
-              href="#"
+              [routerLink]="['/home']"
               (click)="setFilter('movies', $event)"
             >Film</a>
           </li>
@@ -49,7 +49,7 @@
             <a
               class="nav-link"
               [ngClass]="{ active: currentFilter === 'new' }"
-              href="#"
+              [routerLink]="['/home']"
               (click)="setFilter('new', $event)"
             >Nuovi e Popolari</a>
           </li>

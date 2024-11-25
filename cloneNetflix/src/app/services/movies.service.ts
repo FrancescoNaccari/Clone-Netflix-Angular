@@ -40,14 +40,14 @@ export class MoviesService {
 
   getTrendingMovies() {
     return this.http.get(
-      `${this.apiUrl}/trending/all/day?language=it-IT`,
+      `${this.apiUrl}/trending/all/day`,
       { headers: this.getHeaders() }
     );
   }
 
   getGenres() {
     return this.http.get(
-      `${this.apiUrl}/genre/movie/list?language=it-IT`,
+      `${this.apiUrl}/genre/movie/list`,
       { headers: this.getHeaders() }
     );
   }
@@ -60,13 +60,13 @@ export class MoviesService {
   }
 
   getMovieVideos(movieId: number) {
-    return this.http.get(`${this.apiUrl}/movie/${movieId}/videos?language=it-IT`, {
+    return this.http.get(`${this.apiUrl}/movie/${movieId}/videos`, {
       headers: this.getHeaders(),
     });
   }
 
   getTVShowVideos(tvId: number) {
-    return this.http.get(`${this.apiUrl}/tv/${tvId}/videos?language=it-IT`, {
+    return this.http.get(`${this.apiUrl}/tv/${tvId}/videos`, {
       headers: this.getHeaders(),
     });
   }
@@ -81,7 +81,7 @@ export class MoviesService {
 
   getTVShowDetails(tvId: number) {
     return this.http
-      .get(`${this.apiUrl}/tv/${tvId}?language=it-IT`, {
+      .get(`${this.apiUrl}/tv/${tvId}`, {
         headers: this.getHeaders(),
       })
       .pipe(catchError(this.handleError));
@@ -111,14 +111,14 @@ export class MoviesService {
 
   // Metodo per ottenere i generi dei film
   getMovieGenres() {
-    return this.http.get(`${this.apiUrl}/genre/movie/list?language=it-IT`, {
+    return this.http.get(`${this.apiUrl}/genre/movie/list`, {
       headers: this.getHeaders(),
     });
   }
 
   // Metodo per ottenere i generi delle serie TV
   getTVGenres() {
-    return this.http.get(`${this.apiUrl}/genre/tv/list?language=it-IT`, {
+    return this.http.get(`${this.apiUrl}/genre/tv/list`, {
       headers: this.getHeaders(),
     });
   }

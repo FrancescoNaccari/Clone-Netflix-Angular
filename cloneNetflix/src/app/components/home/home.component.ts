@@ -41,6 +41,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   displayedSimilarMovies: MovieWithTrailer[] = [];
   showAllSimilarMovies: boolean = false;
   private filterSubscription!: Subscription;
+  private genresMap: { [key: number]: string } = {};
 
   constructor(
     private moviesService: MoviesService,
@@ -110,37 +111,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  loadMoviesByType(type: 'movie' | 'tv'): void {
-    const selectedGenreIds = [28, 35, 18, 10751, 27]; // Generi selezionati
-    const genreObservables =
-      type === 'movie'
-        ? selectedGenreIds.map((genreId) => this.moviesService.getMoviesByGenre(genreId))
-        : selectedGenreIds.map((genreId) => this.moviesService.getTVShowsByGenre(genreId));
 
-    const getGenres =
-      type === 'movie' ? this.moviesService.getMovieGenres() : this.moviesService.getTVGenres();
-
-    getGenres.subscribe((genreData: any) => {
-      const genres = genreData.genres;
-
-      forkJoin(genreObservables).subscribe((genreMoviesArrays: any[]) => {
-        this.movieCategories = genreMoviesArrays.map((moviesData: any, index: number) => {
-          const genreId = selectedGenreIds[index];
-          const genreName = genres.find((g: any) => g.id === genreId)?.name || 'Sconosciuto';
-          const movies = moviesData.results.map((movie: any) => ({
-            ...movie,
-            title: movie.title || movie.name,
-            release_date: movie.release_date || movie.first_air_date,
-            genres: this.getGenresString(movie.genre_ids ?? []),
-          }));
-          return { name: genreName, movies };
-        });
-
-        // Impostiamo il primo film come featured
-        this.featuredMovie = this.movieCategories[0].movies[0];
-      });
-    });
-  }
 
   private processMovies(movies: any[]): void {
     const validMovies = movies.filter(
@@ -181,31 +152,57 @@ export class HomeComponent implements OnInit, OnDestroy {
     return this.carouselContainers.toArray()[index]?.nativeElement ?? null;
   }
 
-  getGenresString(genreIds: number[]): string {
-    const genreMap: { [key: number]: string } = {
-      28: 'Azione',
-      12: 'Avventura',
-      16: 'Animazione',
-      35: 'Commedia',
-      80: 'Crime',
-      99: 'Documentario',
-      18: 'Dramma',
-      10751: 'Famiglia',
-      14: 'Fantasy',
-      36: 'Storia',
-      27: 'Horror',
-      10402: 'Musica',
-      9648: 'Mistero',
-      10749: 'Romantico',
-      878: 'Fantascienza',
-      10770: 'Film TV',
-      53: 'Thriller',
-      10752: 'Guerra',
-      37: 'Western',
-    };
+  loadMoviesByType(type: 'movie' | 'tv'): void {
+    let selectedGenreIds: number[] = [];
+    if (type === 'movie') {
+      // ID dei generi per i film
+      selectedGenreIds = [28, 35, 18, 10751, 27]; // Azione, Commedia, Dramma, Famiglia, Horror
+    } else {
+      // ID dei generi per le serie TV
+      selectedGenreIds = [10759, 35, 18, 10751, 16]; // Azione & Avventura, Commedia, Dramma, Famiglia, Animazione
+    }
 
+    const genreObservables =
+      type === 'movie'
+        ? selectedGenreIds.map((genreId) => this.moviesService.getMoviesByGenre(genreId))
+        : selectedGenreIds.map((genreId) => this.moviesService.getTVShowsByGenre(genreId));
+
+    const getGenres =
+      type === 'movie' ? this.moviesService.getMovieGenres() : this.moviesService.getTVGenres();
+
+    getGenres.subscribe((genreData: any) => {
+      const genres = genreData.genres;
+
+      // Popoliamo la mappa dei generi
+      genres.forEach((genre: any) => {
+        this.genresMap[genre.id] = genre.name;
+      });
+
+      forkJoin(genreObservables).subscribe((genreMoviesArrays: any[]) => {
+        this.movieCategories = genreMoviesArrays
+          .map((moviesData: any, index: number) => {
+            const genreId = selectedGenreIds[index];
+            const genreName = this.genresMap[genreId] || 'Sconosciuto';
+            const movies =
+              moviesData.results?.map((movie: any) => ({
+                ...movie,
+                title: movie.title || movie.name,
+                release_date: movie.release_date || movie.first_air_date,
+                genres: this.getGenresString(movie.genre_ids ?? []),
+              })) || [];
+            return { name: genreName, movies };
+          })
+          .filter((category) => category.movies.length > 0); // Filtra le categorie senza film/serie
+
+        // Impostiamo il primo elemento come featured
+        this.featuredMovie = this.movieCategories[0]?.movies[0];
+      });
+    });
+  }
+
+  getGenresString(genreIds: number[]): string {
     return genreIds
-      .map((id) => genreMap[id])
+      .map((id) => this.genresMap[id])
       .filter(Boolean)
       .join(' • ');
   }
