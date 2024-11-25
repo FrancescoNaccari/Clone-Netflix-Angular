@@ -273,7 +273,7 @@ private getCategoryCarousel(categoryName: string): HTMLElement | null {
       this.updateDisplayedSimilarMovies(); // Mostra solo 3 file inizialmente
     });
     
-    this.modalService.show(this.movieModal);
+    this.modalRef = this.modalService.show(this.movieModal);
   }
   
   
@@ -292,7 +292,10 @@ private getCategoryCarousel(categoryName: string): HTMLElement | null {
   
   
   closeModal(): void {
-    this.modalRef?.hide();
-    this.selectedMovie = undefined;
+    if (this.modalRef) {
+      this.modalRef.hide(); // Nascondi la modale
+    }
+    this.selectedMovie = undefined; // Resetta i dati del film selezionato
   }
+  
 }

@@ -1,9 +1,6 @@
-<div class="hero-section" *ngIf="featuredMovie"> 
-  <img
-    [src]="'https://image.tmdb.org/t/p/w1280' + featuredMovie.poster_path"
-    [alt]="featuredMovie.title"
-    class="hero-img"
-  />
+<div class="hero-section" *ngIf="featuredMovie">
+  <img [src]="'https://image.tmdb.org/t/p/w1280' + featuredMovie.poster_path" [alt]="featuredMovie.title"
+    class="hero-img" />
   <div class="hero-content">
     <h1>{{ featuredMovie.title }}</h1>
     <p>{{ featuredMovie.overview }}</p>
@@ -25,11 +22,8 @@
         <slide>
           <div class="movie-item" *ngIf="movie.poster_path; else noMovie" (click)="openModal(movie)">
             <div class="poster-container">
-              <img
-                [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
-                [alt]="movie.title"
-                class="poster-img"
-              />
+              <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" [alt]="movie.title"
+                class="poster-img" />
             </div>
           </div>
           <ng-template #noMovie>
@@ -47,27 +41,21 @@
 
 <!-- Modale -->
 <ng-template #movieModal>
-  <div class="modal-header">
-    <h4 class="modal-title text-white">{{ selectedMovie?.title }}</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
-  </div>
-  <div class="modal-body modal-content-custom">
+ 
+  <div class="modal-body modal-content-custom mx-auto">
+<div class="d-flex justify-content-end ">     <button type="button" class="btn-close m-2 text-bg-light rounded-circle" aria-label="Close" (click)="closeModal()"></button>
+</div>
     <!-- Trailer -->
     <div class="hero-section-modal">
       <div class="trailer-container">
-        <iframe
-          *ngIf="selectedMovie?.trailerUrl"
-          [src]="selectedMovie?.trailerUrl"
-          frameborder="0"
+        <iframe *ngIf="selectedMovie?.trailerUrl" [src]="selectedMovie?.trailerUrl" frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-          class="trailer-frame"
-        ></iframe>
+          allowfullscreen class="trailer-frame"></iframe>
       </div>
     </div>
-  
+
     <!-- Dettagli del film -->
-    <div class="movie-details mt-4">
+    <div class="movie-details mt-4 px-4">
       <h2 class="movie-title">{{ selectedMovie?.title }}</h2>
       <div class="movie-info-line">
         <span>{{ selectedMovie?.release_date | date: 'yyyy' }}</span>
@@ -77,57 +65,54 @@
         {{ selectedMovie?.overview || 'Descrizione non disponibile.' }}
       </p>
     </div>
-  
+
     <!-- Film simili -->
-    <div class="similar-titles mt-4">
+    <div class="similar-titles mt-4 px-4">
       <h3>Altri titoli simili</h3>
       <div class="row">
-        <div class="col-12 col-sm-6 col-md-4 mb-4" *ngFor="let movie of displayedSimilarMovies">
-          <div class="similar-movie-item">
-            <img
-              [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
-              [alt]="movie.title"
-              class="poster-img img-fluid"
-            />
-            <p class="movie-title mt-2">{{ movie.title }}</p>
+        <div class="col-12 col-sm-6 col-md-4 mb-4 " *ngFor="let movie of displayedSimilarMovies">
+          <div class="similar-movie-item p-0 pb-3 text-start">
+            <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" [alt]="movie.title"
+              class="poster-img img-fluid" />
+            <p class="movie-title mt-2 px-2">{{ movie.title }}</p>
+            <!-- <p class="px-2">{{movie.overview}}</p> -->
           </div>
         </div>
       </div>
       <!-- Pulsante Mostra/Nascondi -->
-      <div class="text-center mt-3">
+      <div class="text-center mt-3 px-4">
         <button class="btn btn-outline-light" (click)="toggleShowAllSimilarMovies()">
           {{ showAllSimilarMovies ? 'Mostra meno' : 'Mostra tutti' }}
         </button>
       </div>
     </div>
-    
-<!-- Footer -->
-<div class="modal-footer-info mt-4">
-  <h4>Info su {{ selectedMovie?.title }}</h4>
-  <p><strong>Regia:</strong> {{ selectedMovie?.director }}</p>
-  <p>
-    <strong>Cast:</strong> {{ selectedMovie?.cast }}
-  </p>
-  <p>
-    <strong>Sceneggiatura:</strong> {{ selectedMovie?.screenplay }}
-  </p>
-  <p>
-    <strong>Generi:</strong> {{ selectedMovie?.genres }}
-  </p>
-  <p>
-    <strong>Caratteristiche:</strong> {{ selectedMovie?.features }}
-  </p>
-  <p>
-    <strong>Classificazione per età:</strong>
-    <span class="age-classification">
-      {{ selectedMovie?.ageRating }}
-    </span>
-    {{ selectedMovie?.ageRatingDescription }}
-  </p>
-</div>
 
-    
+    <!-- Footer -->
+    <div class="modal-footer-info mt-4 mb-2 pb-4 px-4">
+      <h4>Info su {{ selectedMovie?.title }}</h4>
+      <p><strong>Regia:</strong> {{ selectedMovie?.director }}</p>
+      <p>
+        <strong>Cast:</strong> {{ selectedMovie?.cast }}
+      </p>
+      <p>
+        <strong>Sceneggiatura:</strong> {{ selectedMovie?.screenplay }}
+      </p>
+      <p>
+        <strong>Generi:</strong> {{ selectedMovie?.genres }}
+      </p>
+      <p>
+        <strong>Caratteristiche:</strong> {{ selectedMovie?.features }}
+      </p>
+      <p>
+        <strong>Classificazione per età:</strong>
+        <span class="age-classification">
+          {{ selectedMovie?.ageRating }}
+        </span>
+        {{ selectedMovie?.ageRatingDescription }}
+      </p>
+    </div>
+
+
   </div>
-  
-</ng-template>
 
+</ng-template>
