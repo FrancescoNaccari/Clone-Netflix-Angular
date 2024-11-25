@@ -109,8 +109,7 @@ body {
 
 /* Modale */
 .modal-content-custom {
-  background-color: #141414;
-  color: white;
+  background-color: #141414!important;
   border-radius: 10px;
   width: 45rem;
   padding: 0;
@@ -238,15 +237,16 @@ body {
 
 .modal-content-custom {
   background-color: #141414;
-  color: white;
   border-radius: 10px;
-  width: 45rem;
   padding: 0;
-  margin: 0 auto; /* Aggiungi questa linea */
 }
 /* Contenitore genitore della modale */
 .modal-dialog {
   display: flex;
   justify-content: center;
   align-items: center; /* Se vuoi centrare anche verticalmente */
+}
+.modal-content{
+  background-color: #141414;
+
 }
