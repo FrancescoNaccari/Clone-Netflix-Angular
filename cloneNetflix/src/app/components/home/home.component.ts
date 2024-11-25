@@ -29,19 +29,18 @@ interface MovieWithTrailer extends Movie {
 
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  popularMovies: MovieWithTrailer[] = [];
-  featuredMovie: MovieWithTrailer | undefined;
   movieCategories: { name: string; movies: MovieWithTrailer[] }[] = [];
-  private trailerTimeout: any;
-  @ViewChildren('carouselContainer') carouselContainers!: QueryList<ElementRef>;
-  modalRef?: BsModalRef;
+  featuredMovie?: MovieWithTrailer;
   selectedMovie?: MovieWithTrailer;
-  @ViewChild('movieModal') movieModal!: TemplateRef<any>;
   similarMovies: MovieWithTrailer[] = [];
   displayedSimilarMovies: MovieWithTrailer[] = [];
-  showAllSimilarMovies: boolean = false;
+  showAllSimilarMovies = false;
+  modalRef?: BsModalRef;
   private filterSubscription!: Subscription;
   private genresMap: { [key: number]: string } = {};
+
+  @ViewChildren('carouselContainer') carouselContainers!: QueryList<ElementRef>;
+  @ViewChild('movieModal') movieModal!: TemplateRef<any>;
 
   constructor(
     private moviesService: MoviesService,
@@ -51,7 +50,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    // Iscriviti all'Observable del filtro
     this.filterSubscription = this.filterService.filter$.subscribe((filter) => {
       this.loadMovies(filter);
     });
@@ -60,75 +58,86 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // Annulla la sottoscrizione al filtro per evitare memory leaks
     if (this.filterSubscription) {
       this.filterSubscription.unsubscribe();
     }
-    // Ferma eventuali trailer in riproduzione
-    this.popularMovies.forEach((movie) => {
-      movie.showTrailer = false;
-      movie.trailerUrl = '';
-    });
   }
 
   loadMovies(filter: FilterType): void {
-    if (filter === 'all' || filter === 'new') {
-      // Selezioniamo alcuni generi per la home page
-      const selectedGenreIds = [28, 35, 18, 10751, 27]; // Azione, Commedia, Dramma, Famiglia, Horror
+    const type = filter === 'tvshows' ? 'tv' : 'movie';
 
-      // Recuperiamo i film per ogni genere
-      const genreObservables = selectedGenreIds.map((genreId) =>
-        this.moviesService.getMoviesByGenre(genreId)
-      );
-
-      // Recuperiamo i nomi dei generi
-      this.moviesService.getMovieGenres().subscribe((genreData: any) => {
-        const genres = genreData.genres;
-
-        forkJoin(genreObservables).subscribe((genreMoviesArrays: any[]) => {
-          this.movieCategories = genreMoviesArrays.map((moviesData: any, index: number) => {
-            const genreId = selectedGenreIds[index];
-            const genreName = genres.find((g: any) => g.id === genreId)?.name || 'Sconosciuto';
-            const movies = moviesData.results.map((movie: any) => ({
-              ...movie,
-              title: movie.title || movie.name,
-              release_date: movie.release_date || movie.first_air_date,
-              genres: this.getGenresString(movie.genre_ids ?? []),
-            }));
-            return { name: genreName, movies };
-          });
-
-          // Impostiamo il primo film come featured
-          this.featuredMovie = this.movieCategories[0].movies[0];
-        });
-      });
-    } else if (filter === 'movies') {
-      // Simile al caso 'all', ma focalizzato sui film
-      this.loadMoviesByType('movie');
-    } else if (filter === 'tvshows') {
-      // Carichiamo le serie TV per genere
-      this.loadMoviesByType('tv');
+    if (filter === 'new') {
+      this.loadTrendingContent(type);
+    } else {
+      this.loadContentByType(type);
     }
   }
 
+  private loadContentByType(type: 'movie' | 'tv'): void {
+    const selectedGenreIds = this.getSelectedGenreIds(type);
 
+    const genreObservables =
+      type === 'movie'
+        ? selectedGenreIds.map((id) => this.moviesService.getMoviesByGenre(id))
+        : selectedGenreIds.map((id) => this.moviesService.getTVShowsByGenre(id));
 
-  private processMovies(movies: any[]): void {
-    const validMovies = movies.filter(
-      (movie: any) => movie.poster_path && (movie.title || movie.name)
-    );
-    this.popularMovies = validMovies.map((movie: any) => ({
+    const getGenres =
+      type === 'movie' ? this.moviesService.getMovieGenres() : this.moviesService.getTVGenres();
+
+    getGenres.subscribe((genreData: any) => {
+      const genres = genreData.genres;
+
+      genres.forEach((genre: any) => {
+        this.genresMap[genre.id] = genre.name;
+      });
+
+      forkJoin(genreObservables).subscribe((genreMoviesArrays: any[]) => {
+        this.movieCategories = genreMoviesArrays
+          .map((moviesData: any, index: number) => {
+            const genreId = selectedGenreIds[index];
+            const genreName = this.genresMap[genreId] || 'Sconosciuto';
+            const movies =
+              moviesData.results?.map((movie: any) => this.mapMovieData(movie)) || [];
+            return { name: genreName, movies };
+          })
+          .filter((category) => category.movies.length > 0);
+
+        this.featuredMovie = this.movieCategories[0]?.movies[0];
+      });
+    });
+  }
+
+  private loadTrendingContent(type: 'movie' | 'tv'): void {
+    const trendingObservable =
+      type === 'movie'
+        ? this.moviesService.getTrendingMovies()
+        : this.moviesService.getTrendingTVShows();
+
+    trendingObservable.subscribe((data: any) => {
+      const movies = data.results?.map((movie: any) => this.mapMovieData(movie)) || [];
+      this.movieCategories = [{ name: 'Popolari', movies }];
+
+      this.featuredMovie = movies[0];
+    });
+  }
+
+  private mapMovieData(movie: any): MovieWithTrailer {
+    return {
       ...movie,
       title: movie.title || movie.name,
       release_date: movie.release_date || movie.first_air_date,
       genres: this.getGenresString(movie.genre_ids ?? []),
-    }));
+    };
+  }
 
-    this.featuredMovie = this.popularMovies[0];
+  private getSelectedGenreIds(type: 'movie' | 'tv'): number[] {
+    return type === 'movie'
+      ? [28, 35, 18, 10751, 27] // Azione, Commedia, Dramma, Famiglia, Horror
+      : [10759, 35, 18, 10751, 16]; // Azione & Avventura, Commedia, Dramma, Famiglia, Animazione
+  }
 
-    this.movieCategories = [
-      { name: 'Categorie', movies: this.popularMovies },
-    ];
+  getGenresString(genreIds: number[]): string {
+    return genreIds.map((id) => this.genresMap[id]).filter(Boolean).join(' • ');
   }
 
   scrollLeft(categoryName: string): void {
@@ -146,113 +155,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   private getCategoryCarousel(categoryName: string): HTMLElement | null {
-    const index = this.movieCategories.findIndex(
-      (category) => category.name === categoryName
-    );
+    const index = this.movieCategories.findIndex((category) => category.name === categoryName);
     return this.carouselContainers.toArray()[index]?.nativeElement ?? null;
-  }
-
-  loadMoviesByType(type: 'movie' | 'tv'): void {
-    let selectedGenreIds: number[] = [];
-    if (type === 'movie') {
-      // ID dei generi per i film
-      selectedGenreIds = [28, 35, 18, 10751, 27]; // Azione, Commedia, Dramma, Famiglia, Horror
-    } else {
-      // ID dei generi per le serie TV
-      selectedGenreIds = [10759, 35, 18, 10751, 16]; // Azione & Avventura, Commedia, Dramma, Famiglia, Animazione
-    }
-
-    const genreObservables =
-      type === 'movie'
-        ? selectedGenreIds.map((genreId) => this.moviesService.getMoviesByGenre(genreId))
-        : selectedGenreIds.map((genreId) => this.moviesService.getTVShowsByGenre(genreId));
-
-    const getGenres =
-      type === 'movie' ? this.moviesService.getMovieGenres() : this.moviesService.getTVGenres();
-
-    getGenres.subscribe((genreData: any) => {
-      const genres = genreData.genres;
-
-      // Popoliamo la mappa dei generi
-      genres.forEach((genre: any) => {
-        this.genresMap[genre.id] = genre.name;
-      });
-
-      forkJoin(genreObservables).subscribe((genreMoviesArrays: any[]) => {
-        this.movieCategories = genreMoviesArrays
-          .map((moviesData: any, index: number) => {
-            const genreId = selectedGenreIds[index];
-            const genreName = this.genresMap[genreId] || 'Sconosciuto';
-            const movies =
-              moviesData.results?.map((movie: any) => ({
-                ...movie,
-                title: movie.title || movie.name,
-                release_date: movie.release_date || movie.first_air_date,
-                genres: this.getGenresString(movie.genre_ids ?? []),
-              })) || [];
-            return { name: genreName, movies };
-          })
-          .filter((category) => category.movies.length > 0); // Filtra le categorie senza film/serie
-
-        // Impostiamo il primo elemento come featured
-        this.featuredMovie = this.movieCategories[0]?.movies[0];
-      });
-    });
-  }
-
-  getGenresString(genreIds: number[]): string {
-    return genreIds
-      .map((id) => this.genresMap[id])
-      .filter(Boolean)
-      .join(' • ');
-  }
-
-  chunkArray(array: any[], size: number): any[][] {
-    const result = [];
-    for (let i = 0; i < array.length; i += size) {
-      result.push(array.slice(i, i + size));
-    }
-    return result;
-  }
-
-  playTrailer(movie: MovieWithTrailer): void {
-    this.moviesService.getMovieVideos(movie.id).subscribe((videos: any) => {
-      if (videos.results && videos.results.length > 0) {
-        const officialTrailer = videos.results.find(
-          (t: any) =>
-            t.type === 'Trailer' &&
-            t.site === 'YouTube' &&
-            t.official === true
-        );
-
-        const fallbackTrailer = videos.results.find(
-          (t: any) => t.type === 'Trailer' && t.site === 'YouTube'
-        );
-
-        const selectedTrailer = officialTrailer || fallbackTrailer;
-
-        if (selectedTrailer) {
-          movie.trailerUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-            `https://www.youtube.com/embed/${selectedTrailer.key}`
-          );
-          movie.showTrailer = true;
-        } else {
-          console.warn(`Nessun trailer valido trovato per: ${movie.title}`);
-          movie.trailerUrl = undefined;
-          movie.showTrailer = false;
-        }
-      } else {
-        console.warn(`Nessun video trovato per: ${movie.title}`);
-        movie.trailerUrl = undefined;
-        movie.showTrailer = false;
-      }
-    });
-  }
-
-  stopTrailer(movie: MovieWithTrailer): void {
-    clearTimeout(this.trailerTimeout);
-    movie.showTrailer = false;
-    movie.trailerUrl = '';
   }
 
   openModal(movie: MovieWithTrailer): void {
@@ -263,7 +167,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.selectedMovie = {
       ...movie,
-      id: movie.id,
       runtime: 0,
       features: 'Non disponibile',
       ageRating: 'Tutti',
@@ -287,23 +190,15 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     // Recupera il cast e la crew
     this.moviesService.getMovieCredits(movie.id).subscribe((credits: any) => {
-      const directors = credits.crew.filter(
-        (c: any) => c.job === 'Director'
-      );
-      const screenwriters = credits.crew.filter(
-        (c: any) => c.job === 'Screenplay'
-      );
+      const directors = credits.crew.filter((c: any) => c.job === 'Director');
+      const screenwriters = credits.crew.filter((c: any) => c.job === 'Screenplay');
       const topCast = credits.cast.slice(0, 5);
 
       this.selectedMovie = {
         ...this.selectedMovie!,
-        director:
-          directors.map((d: any) => d.name).join(', ') || 'Non disponibile',
-        screenplay:
-          screenwriters.map((s: any) => s.name).join(', ') ||
-          'Non disponibile',
-        cast:
-          topCast.map((c: any) => c.name).join(', ') || 'Non disponibile',
+        director: directors.map((d: any) => d.name).join(', ') || 'Non disponibile',
+        screenplay: screenwriters.map((s: any) => s.name).join(', ') || 'Non disponibile',
+        cast: topCast.map((c: any) => c.name).join(', ') || 'Non disponibile',
       };
     });
 
@@ -321,9 +216,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     // Recupera i film simili
     this.moviesService.getSimilarMovies(movie.id).subscribe((response: any) => {
-      const filteredSimilarMovies = response.results.filter(
-        (item: any) => item.poster_path
-      );
+      const filteredSimilarMovies = response.results.filter((item: any) => item.poster_path);
 
       this.similarMovies = filteredSimilarMovies.map((item: any) => ({
         id: item.id,
@@ -359,5 +252,4 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
     this.selectedMovie = undefined;
   }
-  
 }

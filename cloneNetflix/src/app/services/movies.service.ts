@@ -131,5 +131,11 @@ export class MoviesService {
       headers: this.getHeaders(),
     });
   }
-  
+   // Metodo per ottenere le serie TV di tendenza
+   getTrendingTVShows() {
+    return this.http.get(`${this.apiUrl}/trending/tv/day?language=it-IT`, {
+      headers: this.getHeaders(),
+    });
+  }
+
 }
