@@ -1,0 +1,27 @@
+.container {
+    max-width: 800px;
+    margin: auto;
+  }
+  
+  .card {
+    border-radius: 10px;
+  }
+  
+  .list-group-item {
+    cursor: pointer;
+  }
+  
+  .list-group-item:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .btn-danger {
+    font-weight: bold;
+  }
+  
+  h5 {
+    font-weight: bold;
+  }
+  i{
+    margin-right: 10px;
+  }
