@@ -36,6 +36,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     selectedMovie?: MovieWithTrailer;
     @ViewChild('movieModal') movieModal!: TemplateRef<any>; 
     similarMovies: MovieWithTrailer[] = [];
+
+    displayedSimilarMovies: MovieWithTrailer[] = [];
+    showAllSimilarMovies: boolean = false;
+
+
   constructor(
     private moviesService: MoviesService,
     private sanitizer: DomSanitizer,
@@ -254,22 +259,34 @@ private getCategoryCarousel(categoryName: string): HTMLElement | null {
   
     // Recupera i film simili
     this.moviesService.getSimilarMovies(movie.id).subscribe((response: any) => {
-      this.similarMovies = response.results.map((item: any) => ({
-        id: item.id,
-        title: item.title || 'Titolo non disponibile',
-        poster_path: item.poster_path || '/assets/placeholder.png',
-        overview: item.overview || 'Descrizione non disponibile',
-        release_date: item.release_date || 'Data non disponibile',
-        genres: this.getGenresString(item.genre_ids || []),
-      }));
+      this.similarMovies = response.results
+        .filter((item: any) => item.poster_path && item.title) // Filtra solo i film con immagine e titolo
+        .map((item: any) => ({
+          id: item.id,
+          title: item.title || 'Titolo non disponibile',
+          poster_path: item.poster_path,
+          overview: item.overview || 'Descrizione non disponibile',
+          release_date: item.release_date || 'Data non disponibile',
+          genres: this.getGenresString(item.genre_ids || []),
+        }));
+    
+      this.updateDisplayedSimilarMovies(); // Mostra solo 3 file inizialmente
     });
-  
-    // Mostra la modale
+    
     this.modalService.show(this.movieModal);
   }
   
   
-  
+  updateDisplayedSimilarMovies(): void {
+    this.displayedSimilarMovies = this.showAllSimilarMovies
+      ? this.similarMovies
+      : this.similarMovies.slice(0, 9); // Mostra solo i primi 9 film
+  }
+
+  toggleShowAllSimilarMovies(): void {
+    this.showAllSimilarMovies = !this.showAllSimilarMovies;
+    this.updateDisplayedSimilarMovies();
+  }
   
   
   

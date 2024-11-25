@@ -235,3 +235,36 @@ body {
     font-size: 0.8rem;
   }
 }
+.similar-titles {
+  margin-top: 20px;
+}
+
+.similar-movie-item {
+  background-color: #202020;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+}
+
+.similar-movie-item .poster-img {
+  border-radius: 8px;
+}
+
+.similar-movie-item .movie-title {
+  font-size: 0.9rem;
+  color: #ddd;
+  margin-top: 10px;
+}
+
+.text-center .btn-outline-light {
+  color: white;
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 0.5rem 1.5rem;
+}
+
+.text-center .btn-outline-light:hover {
+  background-color: #e50914;
+  border-color: #e50914;
+  color: white;
+}
