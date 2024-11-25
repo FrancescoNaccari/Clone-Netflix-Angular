@@ -62,32 +62,15 @@ body {
   background-color: #f40612;
 }
 
-.hero-content .btn i {
-  margin-right: 10px;
-}
-
-.hero-content .more-info {
-  background-color: rgba(51, 51, 51, 0.8);
-}
-
-.hero-content .more-info:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
 /* Container generale dei film */
 .movies-container {
   padding: 40px 20px;
 }
 
 /* Sezione categorie */
-.category-section {
-  margin-bottom: 40px;
-}
-
 .category-title {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #fff;
   margin-bottom: 20px;
 }
 
@@ -119,11 +102,10 @@ body {
 
 .poster-img {
   width: 100%;
-  aspect-ratio: 2 / 3; /* Mantiene un rapporto di 2:3 (larghezza:altezza) */
-  object-fit: cover; /* Assicura che l'immagine riempia il contenitore */
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
   border-radius: 8px;
-  }
-
+}
 
 .hover-overlay {
   position: absolute;
@@ -143,53 +125,9 @@ body {
   opacity: 1;
 }
 
-.trailer-container {
-  height: 60%;
-}
-
-.trailer-container iframe {
-  width: 100%;
-  height: 100%;
-}
-
 .movie-info-overlay {
   padding: 10px;
-  color: #fff;
   background-color: rgba(0, 0, 0, 0.9);
-  display: flex;
-  flex-direction: column;
-}
-
-.movie-info-overlay h3 {
-  margin-bottom: 10px;
-}
-
-/* Bottone azioni */
-.action-buttons {
-  display: flex;
-  gap: 10px;
-}
-
-.btn-circle {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  background-color: rgba(51, 51, 51, 0.8);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 1.2rem;
-  transition: background-color 0.3s;
-}
-
-.btn-circle:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-.play-button {
-  background-color: #e50914;
 }
 
 /* Top 10 Grid */
@@ -197,7 +135,6 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 20px;
-  margin-top: 20px;
 }
 
 .top-10-item {
@@ -220,21 +157,8 @@ body {
   color: #fff;
 }
 
-.movie-info h3 {
-  font-size: 1rem;
-}
-
-.movie-info p {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.7);
-}
-
 /* Media Queries */
 @media (max-width: 1200px) {
-  .movie-item:hover {
-    transform: scale(1.1);
-  }
-
   .hero-content h1 {
     font-size: 2.5rem;
   }
@@ -249,10 +173,6 @@ body {
 }
 
 @media (max-width: 992px) {
-  .movie-item:hover {
-    transform: scale(1.05);
-  }
-
   .hero-content h1 {
     font-size: 2rem;
   }
@@ -267,10 +187,6 @@ body {
 }
 
 @media (max-width: 768px) {
-  .movie-item:hover {
-    transform: none;
-  }
-
   .top-10-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -281,15 +197,13 @@ body {
   position: relative;
   display: flex;
   align-items: center;
-  overflow: visible;
-
+  overflow: hidden;
 }
 
 .arrow {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.7); /* Colore di sfondo più evidente */
+  top: 45%;
+  background-color: rgba(0, 0, 0, 0.7);
   color: white;
   border: none;
   width: 60px;
@@ -299,29 +213,33 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 999; /* Assicurati che le frecce siano visibili sopra il contenuto */
+  z-index: 999;
   transition: all 0.3s ease-in-out;
 }
 
 .arrow:hover {
   background-color: rgba(255, 255, 255, 0.9);
   color: black;
-  transform: translateY(-50%) scale(1.1); /* Effetto hover per enfatizzare */
+  transform: scale(1.1);
 }
 
 .left-arrow {
-  left: 10px; /* Posiziona la freccia sinistra dentro il carousel */
+  left: 10px;
 }
 
 .right-arrow {
-  right: 10px !important; /* Posiziona la freccia destra dentro il carousel */
+  right: 10px;
 }
-.arrow {
-  top: 45%; /* Sposta le frecce leggermente più in basso */
+.modal-content {
+  background-color: #141414;
+  color: #fff;
+  border-radius: 10px;
 }
-.carousel-wrapper {
-  overflow: visible;
+
+.modal-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
-.carousel-wrapper {
-  overflow: hidden;
+
+.modal-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
 }

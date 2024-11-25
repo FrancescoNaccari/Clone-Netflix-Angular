@@ -19,43 +19,49 @@
 <div class="carousel-section ms-3 p-5" *ngIf="movieCategories.length > 0">
   <div *ngFor="let category of movieCategories">
     <h2 class="category-title">{{ category.name }}</h2>
-  
-  
+
     <carousel [itemsPerSlide]="6" [interval]="0" [noWrap]="false" [startFromIndex]="0">
-      
       <ng-container *ngFor="let movie of category.movies">
         <slide>
-          <div class="movie-item">
+          <div class="movie-item" (click)="openModal(movie)">
             <div class="poster-container">
               <img
                 [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
                 [alt]="movie.title"
                 class="poster-img"
               />
-              <!-- Overlay with trailer or other content -->
-              <div class="hover-overlay" *ngIf="movie.showTrailer">
-                <div class="trailer-container">
-                  <iframe
-                    *ngIf="movie.trailerUrl"
-                    [src]="movie.trailerUrl"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                  ></iframe>
-                </div>
-                <div class="movie-info-overlay">
-                  <h3>{{ movie.title }}</h3>
-                  <p>{{ movie.genres }}</p>
-                  <!-- Additional buttons/actions -->
-                   
-                </div>
-              </div>
             </div>
           </div>
         </slide>
       </ng-container>
     </carousel>
-
-    
   </div>
 </div>
+
+<!-- Modale -->
+<ng-template #movieModal>
+  <div class="modal-header">
+    <h4 class="modal-title text-white">{{ selectedMovie?.title }}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+  </div>
+  <div class="modal-body">
+    <div class="trailer-container" *ngIf="selectedMovie?.trailerUrl; else noTrailer">
+      <iframe
+        [src]="selectedMovie?.trailerUrl"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+    <ng-template #noTrailer>
+      <p class="text-white">Trailer non disponibile per questo film.</p>
+    </ng-template>
+    <div class="movie-info-overlay mt-3">
+      <p>{{ selectedMovie?.overview }}</p>
+      <p><strong>Generi:</strong> {{ selectedMovie?.genres }}</p>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger" (click)="closeModal()">Chiudi</button>
+  </div>
+</ng-template>

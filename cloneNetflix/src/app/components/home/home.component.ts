@@ -1,5 +1,6 @@
-import { Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, QueryList, TemplateRef, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { forkJoin } from 'rxjs';
 import { Movie } from 'src/app/interface/movie.interface';
 import { MoviesService } from 'src/app/services/movies.service';
@@ -26,10 +27,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   movieCategories: { name: string; movies: MovieWithTrailer[] }[] = [];
   private trailerTimeout: any;
   @ViewChildren('carouselContainer') carouselContainers!: QueryList<ElementRef>;
+  modalRef?: BsModalRef;
+    selectedMovie?: MovieWithTrailer;
+    @ViewChild('movieModal') movieModal!: TemplateRef<any>; 
 
   constructor(
     private moviesService: MoviesService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private modalService: BsModalService
   ) {}
 
   ngOnInit(): void {
@@ -120,26 +125,59 @@ private getCategoryCarousel(categoryName: string): HTMLElement | null {
   }
 
   playTrailer(movie: MovieWithTrailer): void {
-    this.trailerTimeout = setTimeout(() => {
-      this.moviesService.getMovieVideos(movie.id).subscribe((videos: any) => {
-        if (videos.results.length > 0) {
-          const trailer = videos.results.find(
-            (t: any) => t.type === 'Trailer' && t.site === 'YouTube'
+    this.moviesService.getMovieVideos(movie.id).subscribe((videos: any) => {
+      console.log('Risposta video API:', videos); // Debug per verificare i dati ricevuti
+  
+      if (videos.results && videos.results.length > 0) {
+        // Trova un trailer ufficiale se disponibile
+        const officialTrailer = videos.results.find(
+          (t: any) =>
+            t.type === 'Trailer' &&
+            t.site === 'YouTube' &&
+            t.official === true
+        );
+  
+        // Se non ci sono trailer ufficiali, trova il primo trailer generico
+        const fallbackTrailer = videos.results.find(
+          (t: any) => t.type === 'Trailer' && t.site === 'YouTube'
+        );
+  
+        const selectedTrailer = officialTrailer || fallbackTrailer;
+  
+        if (selectedTrailer) {
+          movie.trailerUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+            `https://www.youtube.com/embed/${selectedTrailer.key}`
           );
-          if (trailer) {
-            movie.trailerUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-              `https://www.youtube.com/embed/${trailer.key}?autoplay=1`
-            );
-            movie.showTrailer = true;
-          }
+          movie.showTrailer = true;
+        } else {
+          console.warn(`Nessun trailer valido trovato per il film: ${movie.title}`);
+          movie.trailerUrl = undefined;
+          movie.showTrailer = false;
         }
-      });
-    }, 300); // Delay to prevent spamming API calls
+      } else {
+        console.warn(`Nessun video trovato per il film: ${movie.title}`);
+        movie.trailerUrl = undefined;
+        movie.showTrailer = false;
+      }
+    });
   }
+  
+  
 
   stopTrailer(movie: MovieWithTrailer): void {
     clearTimeout(this.trailerTimeout);
     movie.showTrailer = false;
     movie.trailerUrl = '';
+  }
+
+  openModal(movie: MovieWithTrailer): void {
+    this.selectedMovie = movie;
+    this.playTrailer(movie);
+    this.modalRef = this.modalService.show(this.movieModal); // Usa il riferimento del template
+  }
+  
+  closeModal(): void {
+    this.modalRef?.hide();
+    this.selectedMovie = undefined;
   }
 }
