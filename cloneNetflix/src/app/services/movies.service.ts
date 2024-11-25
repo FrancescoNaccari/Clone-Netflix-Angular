@@ -86,4 +86,24 @@ export class MoviesService {
       })
       .pipe(catchError(this.handleError));
   }
+  getSimilarMovies(movieId: number) {
+    return this.http.get<any>(`${this.apiUrl}/movie/${movieId}/similar`, {
+      headers: this.getHeaders(),
+      params: {
+        language: 'it-IT', // Lingua italiana
+      },
+    }).pipe(catchError(this.handleError));
+  }
+  getMovieDetails(movieId: number) {
+    return this.http.get<any>(`${this.apiUrl}/movie/${movieId}`, {
+      headers: this.getHeaders(),
+      params: { language: 'it-IT' },
+    });
+  }
+  
+  getMovieCredits(movieId: number) {
+    return this.http.get<any>(`${this.apiUrl}/movie/${movieId}/credits`, {
+      headers: this.getHeaders(),
+    });
+  }
 }

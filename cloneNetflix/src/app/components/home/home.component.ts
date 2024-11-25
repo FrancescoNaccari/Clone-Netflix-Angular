@@ -10,7 +10,12 @@ interface MovieWithTrailer extends Movie {
   trailerUrl?: string | SafeResourceUrl;
   genres?: string;
   ageRating?: string;
-  number_of_seasons?: number;
+  ageRatingDescription?: string;
+  director?: string;
+  cast?: string;
+  screenplay?: string;
+  features?: string;
+  runtime?: number;
 }
 
 @Component({
@@ -30,7 +35,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   modalRef?: BsModalRef;
     selectedMovie?: MovieWithTrailer;
     @ViewChild('movieModal') movieModal!: TemplateRef<any>; 
-
+    similarMovies: MovieWithTrailer[] = [];
   constructor(
     private moviesService: MoviesService,
     private sanitizer: DomSanitizer,
@@ -192,10 +197,82 @@ private getCategoryCarousel(categoryName: string): HTMLElement | null {
   }
 
   openModal(movie: MovieWithTrailer): void {
-    this.selectedMovie = movie;
-    this.playTrailer(movie);
-    this.modalRef = this.modalService.show(this.movieModal); // Usa il riferimento del template
+    if (!movie.id) {
+      console.error('Errore: il film selezionato non ha un ID valido.');
+      return;
+    }
+  
+    this.selectedMovie = {
+      ...movie,
+      id: movie.id, // Assicurati che `id` sia presente
+      runtime: 0, // Placeholder
+      features: 'Non disponibile', // Placeholder
+      ageRating: 'Tutti', // Placeholder
+      ageRatingDescription: 'Adatto a tutti', // Placeholder
+    };
+  
+    // Recupera i dettagli del film
+    this.moviesService.getMovieDetails(movie.id).subscribe((details: any) => {
+      this.selectedMovie = {
+        ...this.selectedMovie!,
+        runtime: details.runtime || 120,
+        features: details.keywords?.keywords
+          ? details.keywords.keywords.map((k: any) => k.name).join(', ')
+          : 'Non disponibile',
+        ageRating: details.adult ? '18+' : 'Tutti',
+        ageRatingDescription: details.adult
+          ? 'Visione riservata ai maggiori di 18 anni'
+          : 'Adatto a tutti',
+      };
+    });
+  
+    // Recupera il cast e la crew
+    this.moviesService.getMovieCredits(movie.id).subscribe((credits: any) => {
+      const directors = credits.crew.filter((c: any) => c.job === 'Director');
+      const screenwriters = credits.crew.filter((c: any) => c.job === 'Screenplay');
+      const topCast = credits.cast.slice(0, 5);
+  
+      this.selectedMovie = {
+        ...this.selectedMovie!,
+        director: directors.map((d: any) => d.name).join(', ') || 'Non disponibile',
+        screenplay: screenwriters.map((s: any) => s.name).join(', ') || 'Non disponibile',
+        cast: topCast.map((c: any) => c.name).join(', ') || 'Non disponibile',
+      };
+    });
+  
+    // Recupera il trailer
+    this.moviesService.getMovieVideos(movie.id).subscribe((videos: any) => {
+      const trailer = videos.results.find(
+        (t: any) => t.type === 'Trailer' && t.site === 'YouTube'
+      );
+      if (trailer) {
+        this.selectedMovie!.trailerUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+          `https://www.youtube.com/embed/${trailer.key}?autoplay=1`
+        );
+      }
+    });
+  
+    // Recupera i film simili
+    this.moviesService.getSimilarMovies(movie.id).subscribe((response: any) => {
+      this.similarMovies = response.results.map((item: any) => ({
+        id: item.id,
+        title: item.title || 'Titolo non disponibile',
+        poster_path: item.poster_path || '/assets/placeholder.png',
+        overview: item.overview || 'Descrizione non disponibile',
+        release_date: item.release_date || 'Data non disponibile',
+        genres: this.getGenresString(item.genre_ids || []),
+      }));
+    });
+  
+    // Mostra la modale
+    this.modalService.show(this.movieModal);
   }
+  
+  
+  
+  
+  
+  
   
   closeModal(): void {
     this.modalRef?.hide();
