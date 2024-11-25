@@ -22,21 +22,40 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" [routerLink]="['/home']">Home</a>
+            <a
+              class="nav-link"
+              [ngClass]="{ active: currentFilter === 'all' }"
+              href="#"
+              (click)="setFilter('all', $event)"
+            >Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Serie TV</a>
+            <a
+              class="nav-link"
+              [ngClass]="{ active: currentFilter === 'tvshows' }"
+              href="#"
+              (click)="setFilter('tvshows', $event)"
+            >Serie TV</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Film</a>
+            <a
+              class="nav-link"
+              [ngClass]="{ active: currentFilter === 'movies' }"
+              href="#"
+              (click)="setFilter('movies', $event)"
+            >Film</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Nuovi e Popolari</a>
+            <a
+              class="nav-link"
+              [ngClass]="{ active: currentFilter === 'new' }"
+              href="#"
+              (click)="setFilter('new', $event)"
+            >Nuovi e Popolari</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">La Mia Lista</a>
-          </li>
+          <!-- ... altri elementi ... -->
         </ul>
+        
   
         <!-- Icone a destra -->
         <div class="d-flex align-items-center">

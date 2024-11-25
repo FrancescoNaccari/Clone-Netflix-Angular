@@ -106,4 +106,30 @@ export class MoviesService {
       headers: this.getHeaders(),
     });
   }
+
+
+
+  // Metodo per ottenere i generi dei film
+  getMovieGenres() {
+    return this.http.get(`${this.apiUrl}/genre/movie/list?language=it-IT`, {
+      headers: this.getHeaders(),
+    });
+  }
+
+  // Metodo per ottenere i generi delle serie TV
+  getTVGenres() {
+    return this.http.get(`${this.apiUrl}/genre/tv/list?language=it-IT`, {
+      headers: this.getHeaders(),
+    });
+  }
+
+
+
+  // Metodo per ottenere le serie TV per genere
+  getTVShowsByGenre(genreId: number) {
+    return this.http.get(`${this.apiUrl}/discover/tv?with_genres=${genreId}&language=it-IT`, {
+      headers: this.getHeaders(),
+    });
+  }
+  
 }
