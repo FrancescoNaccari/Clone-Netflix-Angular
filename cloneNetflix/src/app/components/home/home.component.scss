@@ -157,12 +157,17 @@ body {
   font-size: 0.85rem;
   color: #ccc;
   line-height: 1.2;
+
+}
+.similar-movie-item .movie-description {
+  font-size: 0.85rem;
+  color: #ccc;
+  line-height: 1.2;
   height: 2.4em; /* Limita a due righe */
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
 /* Similar Movies */
 .similar-titles {
   margin-top: 20px;
@@ -182,6 +187,8 @@ body {
   text-align: left;
   display: flex;
   flex-direction: column;
+  max-height: 367px;
+
 }
 
 .similar-movie-item .poster-img {

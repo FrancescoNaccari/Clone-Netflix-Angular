@@ -78,23 +78,28 @@
     <div class="similar-titles mt-4 px-4">
       <h3>Altri titoli simili</h3>
       <div class="row">
-        <div class="col-12 col-sm-6 col-md-4 mb-4" *ngFor="let similarMovie of displayedSimilarMovies">
-          <div class="similar-movie-item p-2 text-start">
-            <div class="poster-container">
-              <img [src]="'https://image.tmdb.org/t/p/w500' + similarMovie.poster_path" [alt]="similarMovie.title"
-                class="poster-img img-fluid" />
-              <div class="movie-details-overlay">
-                <span>{{ similarMovie.release_date | date: 'yyyy' }}</span>
-                <span>{{ similarMovie.runtime ? similarMovie.runtime + ' min' : 'ND' }}</span>
+        <ng-container *ngIf="displayedSimilarMovies.length > 0; else noSimilarMovies">
+          <div class="col-12 col-sm-6 col-md-4 mb-4" *ngFor="let similarMovie of displayedSimilarMovies">
+            <div class="similar-movie-item p-2 text-start">
+              <div class="poster-container">
+                <img [src]="'https://image.tmdb.org/t/p/w500' + similarMovie.poster_path" [alt]="similarMovie.title"
+                  class="poster-img img-fluid" />
+                <div class="movie-details-overlay">
+                  <span>{{ similarMovie.release_date | date: 'yyyy' }}</span>
+                  <span>{{ similarMovie.runtime ? similarMovie.runtime + ' min' : 'ND' }}</span>
+                </div>
               </div>
+              <p class="movie-title mt-2">{{ similarMovie.title }}</p>
+              <p class="movie-description">{{ similarMovie.overview }}</p>
             </div>
-            <p class="movie-title mt-2">{{ similarMovie.title }}</p>
-            <p class="movie-description">{{ similarMovie.overview }}</p>
           </div>
-        </div>
+        </ng-container>
+        <!-- Messaggio nel caso non ci siano film simili -->
+        <ng-template #noSimilarMovies>
+          <p>Nessun titolo simile disponibile.</p>
+        </ng-template>
       </div>
     </div>
-
 
 
     <!-- Footer -->
