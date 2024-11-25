@@ -8,6 +8,10 @@ import { AccountComponent } from './components/account/account.component';
 import { ModificaPianoComponent } from './components/account/modifica-piano/modifica-piano.component';
 import { AbbonamentoComponent } from './components/account/abbonamento/abbonamento.component';
 import { UtentExtraComponent } from './components/account/utent-extra/utent-extra.component';
+import { AggiornaPasswordComponent } from './components/account/aggiorna-password/aggiorna-password.component';
+import { GestisciDispositiviComponent } from './components/account/gestisci-dispositivi/gestisci-dispositivi.component';
+import { GestisciPagamentoComponent } from './components/account/gestisci-pagamento/gestisci-pagamento.component';
+import { ImpostazioniComponent } from './components/account/impostazioni/impostazioni.component';
 
 const routes: Routes = [
   // { path: "", component: DashboardComponent , canActivate: [AuthGuard] },
@@ -19,6 +23,10 @@ const routes: Routes = [
   {path:'modifica-piano', component: ModificaPianoComponent},
   {path:'abbonamento', component: AbbonamentoComponent},
   {path:'utentExtra', component: UtentExtraComponent},
+  {path:'aggiorna-password', component: AggiornaPasswordComponent},
+  {path:'gestisci-dispositivi', component: GestisciDispositiviComponent},
+  {path:'gestisci-pagamenti', component: GestisciPagamentoComponent},
+  {path:'impostazioni', component: ImpostazioniComponent},
 
 ];
 

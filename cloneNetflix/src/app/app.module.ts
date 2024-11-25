@@ -23,6 +23,10 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { ModificaPianoComponent } from './components/account/modifica-piano/modifica-piano.component';
 import { AbbonamentoComponent } from './components/account/abbonamento/abbonamento.component';
 import { UtentExtraComponent } from './components/account/utent-extra/utent-extra.component';
+import { GestisciPagamentoComponent } from './components/account/gestisci-pagamento/gestisci-pagamento.component';
+import { GestisciDispositiviComponent } from './components/account/gestisci-dispositivi/gestisci-dispositivi.component';
+import { AggiornaPasswordComponent } from './components/account/aggiorna-password/aggiorna-password.component';
+import { ImpostazioniComponent } from './components/account/impostazioni/impostazioni.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -39,6 +43,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     ModificaPianoComponent,
     AbbonamentoComponent,
     UtentExtraComponent,
+    GestisciPagamentoComponent,
+    GestisciDispositiviComponent,
+    AggiornaPasswordComponent,
+    ImpostazioniComponent,
     
   ],
   imports: [
