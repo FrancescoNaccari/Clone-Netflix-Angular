@@ -272,3 +272,120 @@ body {
   border-color: #e50914;
   color: white;
 }
+.similar-movie-item {
+  background-color: #202020;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  padding: 10px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.similar-movie-item .poster-container {
+  position: relative;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.similar-movie-item .poster-img {
+  border-radius: 8px;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.similar-movie-item .movie-details-overlay {
+  position: absolute;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  font-size: 0.8rem;
+}
+
+.similar-movie-item .movie-details-overlay .age-rating,
+.similar-movie-item .movie-details-overlay .release-date,
+.similar-movie-item .movie-details-overlay .runtime {
+  margin: 0;
+  padding: 0;
+}
+
+.similar-movie-item .movie-title {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.similar-movie-item .movie-description {
+  font-size: 0.85rem;
+  color: #ccc;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.similar-titles .text-truncate {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.movie-details-overlay {
+  position: absolute;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  font-size: 0.85rem;
+}
+.similar-movie-item .movie-title {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  margin: 10px 0 5px;
+}
+
+.similar-movie-item .movie-description {
+  font-size: 0.85rem;
+  color: #ccc;
+  line-height: 1.2;
+  height: 2.4em; /* Limita a due righe */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.similar-movie-item .movie-title {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  margin: 10px 0 5px;
+}
+
+.similar-movie-item .movie-description {
+  font-size: 0.85rem;
+  color: #ccc;
+  line-height: 1.2;
+  height: 2.4em; /* Limita a due righe */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.similar-titles .row > .col-md-4 {
+  margin-bottom: 20px;
+  padding-right: 10px;
+}
+.similar-movie-item .poster-img {
+  height: 300px; /* Altezza standard */
+  object-fit: cover;
+  border-radius: 8px;
+}

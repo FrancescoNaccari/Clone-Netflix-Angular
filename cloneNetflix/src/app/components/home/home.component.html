@@ -41,10 +41,14 @@
 
 <!-- Modale -->
 <ng-template #movieModal>
- 
+
   <div class="modal-body modal-content-custom mx-auto">
-<div class="d-flex justify-content-end ">     <button type="button" class="btn-close m-2 text-bg-light rounded-circle" aria-label="Close" (click)="closeModal()"></button>
-</div>
+    <!-- <div class="d-flex justify-content-between"> 
+      <h2 class="movie-title m-2 ms-4">{{ selectedMovie?.title }}</h2>
+
+      <button type="button" class="btn-close m-2 text-bg-light rounded-circle" aria-label="Close" (click)="closeModal()"></button>
+
+    </div> -->
     <!-- Trailer -->
     <div class="hero-section-modal">
       <div class="trailer-container">
@@ -70,22 +74,24 @@
     <div class="similar-titles mt-4 px-4">
       <h3>Altri titoli simili</h3>
       <div class="row">
-        <div class="col-12 col-sm-6 col-md-4 mb-4 " *ngFor="let movie of displayedSimilarMovies">
-          <div class="similar-movie-item p-0 pb-3 text-start">
-            <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" [alt]="movie.title"
-              class="poster-img img-fluid" />
-            <p class="movie-title mt-2 px-2">{{ movie.title }}</p>
-            <!-- <p class="px-2">{{movie.overview}}</p> -->
+        <div class="col-12 col-sm-6 col-md-4 mb-4" *ngFor="let similarMovie of displayedSimilarMovies">
+          <div class="similar-movie-item p-2 text-start">
+            <div class="poster-container">
+              <img [src]="'https://image.tmdb.org/t/p/w500' + similarMovie.poster_path" [alt]="similarMovie.title"
+                class="poster-img img-fluid" />
+              <div class="movie-details-overlay">
+                <span>{{ similarMovie.release_date | date: 'yyyy' }}</span>
+                <span>{{ similarMovie.runtime ? similarMovie.runtime + ' min' : 'ND' }}</span>
+              </div>
+            </div>
+            <p class="movie-title mt-2">{{ similarMovie.title }}</p>
+            <p class="movie-description">{{ similarMovie.overview }}</p>
           </div>
         </div>
       </div>
-      <!-- Pulsante Mostra/Nascondi -->
-      <div class="text-center mt-3 px-4">
-        <button class="btn btn-outline-light" (click)="toggleShowAllSimilarMovies()">
-          {{ showAllSimilarMovies ? 'Mostra meno' : 'Mostra tutti' }}
-        </button>
-      </div>
     </div>
+
+
 
     <!-- Footer -->
     <div class="modal-footer-info mt-4 mb-2 pb-4 px-4">
