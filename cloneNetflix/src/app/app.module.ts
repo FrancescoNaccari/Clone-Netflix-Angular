@@ -31,6 +31,7 @@ import { AggiornaPasswordComponent } from './components/account/aggiorna-passwor
 import { ImpostazioniComponent } from './components/account/impostazioni/impostazioni.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { SicurezzaComponent } from './components/account/sicurezza/sicurezza.component';
+import { SearchResultsComponent } from './components/search-results/search-results.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -54,6 +55,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ImpostazioniComponent,
     SidebarComponent,
     SicurezzaComponent,
+    SearchResultsComponent,
     
   ],
   imports: [

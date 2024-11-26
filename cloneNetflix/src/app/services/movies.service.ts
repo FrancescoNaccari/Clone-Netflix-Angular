@@ -137,5 +137,14 @@ export class MoviesService {
       headers: this.getHeaders(),
     });
   }
-
+  searchMovies(query: string) {
+    return this.http.get(`${this.apiUrl}/search/movie`, {
+      headers: this.getHeaders(),
+      params: {
+        query: query,
+        language: 'it-IT',
+      },
+    });
+  }
+  
 }

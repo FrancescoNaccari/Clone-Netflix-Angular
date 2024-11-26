@@ -60,10 +60,18 @@
         <!-- Icone a destra -->
         <div class="d-flex align-items-center">
           <!-- Cerca -->
-          <a href="#" class="nav-link me-3">
-            <i class="bi bi-search" style="font-size: 20px;"></i>
-          </a>
-  
+          <div class="search-container">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Cerca film o serie TV"
+              [(ngModel)]="searchQuery"
+              (keyup.enter)="searchMovies()"
+            />
+            <button class="btn btn-outline-light" (click)="searchMovies()">
+              <i class="bi bi-search"></i>
+            </button>
+          </div>
           <!-- Profilo utente -->
           <div class="dropdown">
             <a

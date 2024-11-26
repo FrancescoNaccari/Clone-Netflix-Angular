@@ -14,12 +14,14 @@ import { ImpostazioniComponent } from './components/account/impostazioni/imposta
 import { ProfileComponent } from './components/account/profile/profile.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { SicurezzaComponent } from './components/account/sicurezza/sicurezza.component';
+import { SearchResultsComponent } from './components/search-results/search-results.component';
 
 const routes: Routes = [
   // { path: "", component: DashboardComponent , canActivate: [AuthGuard] },
 
   { path: "login", component: LoginComponent },
   { path: '', component: HomeComponent },
+  { path: 'search', component: SearchResultsComponent },
   // {path: 'account', component: AccountComponent},
   // { path: "profilo", component: ProfileComponent },
   // {path:'modifica-piano', component: ModificaPianoComponent},
