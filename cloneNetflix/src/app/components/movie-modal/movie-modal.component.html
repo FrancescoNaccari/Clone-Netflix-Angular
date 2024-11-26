@@ -29,12 +29,12 @@
       <h3>Altri titoli simili</h3>
       <div class="row">
         <ng-container *ngIf="displayedSimilarMovies.length > 0; else noSimilarMovies">
-          <div class="col-12 col-sm-6 col-md-4 mb-4" *ngFor="let similarMovie of displayedSimilarMovies">
+          <div class="col-12 col-sm-6 col-md-4 mb-4 " *ngFor="let similarMovie of displayedSimilarMovies">
             <div class="similar-movie-item p-2 text-start" (click)="openSimilarMovie(similarMovie)">
-              <div class="poster-container">
+              <div class="poster-container ">
                 <img [src]="'https://image.tmdb.org/t/p/w500' + similarMovie.poster_path" [alt]="similarMovie.title"
                   class="poster-img img-fluid" />
-                <div class="movie-details-overlay">
+                <div class="movie-details-overlay mt-1 d-flex justify-content-between pe-1">
                   <span>{{ similarMovie.release_date | date: 'yyyy' }}</span>
                   <span>{{ similarMovie.runtime ? similarMovie.runtime + ' min' : 'ND' }}</span>
                 </div>

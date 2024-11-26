@@ -60,17 +60,17 @@
         <!-- Icone a destra -->
         <div class="d-flex align-items-center">
           <!-- Cerca -->
-          <div class="search-container">
-            <input
+          <div class="search-container d-flex ">
+            <button class="btn btn-outline-light " (click)="searchMovies()">
+              <i class="bi bi-search"></i>
+            </button> <input
               type="text"
-              class="form-control"
+              class="form-control mx-2"
               placeholder="Cerca film o serie TV"
               [(ngModel)]="searchQuery"
               (keyup.enter)="searchMovies()"
             />
-            <button class="btn btn-outline-light" (click)="searchMovies()">
-              <i class="bi bi-search"></i>
-            </button>
+           
           </div>
           <!-- Profilo utente -->
           <div class="dropdown">
