@@ -1,26 +1,45 @@
-.sidebar {
-    width: 250px;
-    min-height: 100vh;
-    border-right: 1px solid #ddd;
+/* Stile per la barra di navigazione orizzontale */
+.navigation-bar {
+    border-bottom: 2px solid #ddd;
+    padding: 10px 0;
+  }
+  
+  .nav {
+    font-size: 1rem;
+    font-weight: bold;
   }
   
   .nav-link {
-    font-size: 1rem;
-    font-weight: 500;
+    color: #000;
+    padding: 10px 15px;
+    transition: color 0.3s ease-in-out, border-bottom 0.3s ease-in-out;
   }
   
   .nav-link:hover {
-    background-color: #f8f9fa;
-    border-radius: 5px;
+    color: #d9230f; /* Colore rosso per hover */
+    border-bottom: 2px solid #d9230f;
   }
   
-  .bi {
-    font-size: 1.2rem;
-    vertical-align: middle;
-    margin-right: 10px;
+  .nav-link.active {
+    color: #d9230f; /* Colore rosso per il link attivo */
+    border-bottom: 2px solid #d9230f;
   }
   
-  .content {
-    background-color: #fff;
+  /* Nascondi la sidebar su schermi piccoli */
+  @media (max-width: 768px) {
+    .sidebar {
+      display: none;
+    }
+  
+    .navigation-bar {
+      display: block;
+    }
+  }
+  
+  /* Nascondi la barra orizzontale su schermi grandi */
+  @media (min-width: 769px) {
+    .navigation-bar {
+      display: none;
+    }
   }
   

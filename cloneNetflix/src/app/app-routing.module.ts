@@ -18,8 +18,8 @@ import { SicurezzaComponent } from './components/account/sicurezza/sicurezza.com
 const routes: Routes = [
   // { path: "", component: DashboardComponent , canActivate: [AuthGuard] },
 
-  { path: "", component: LoginComponent },
-  { path: 'home', component: HomeComponent },
+  { path: "login", component: LoginComponent },
+  { path: '', component: HomeComponent },
   // {path: 'account', component: AccountComponent},
   // { path: "profilo", component: ProfileComponent },
   // {path:'modifica-piano', component: ModificaPianoComponent},
