@@ -32,6 +32,7 @@ import { ImpostazioniComponent } from './components/account/impostazioni/imposta
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { SicurezzaComponent } from './components/account/sicurezza/sicurezza.component';
 import { SearchResultsComponent } from './components/search-results/search-results.component';
+import { MovieModalComponent } from './components/movie-modal/movie-modal.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -56,6 +57,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SidebarComponent,
     SicurezzaComponent,
     SearchResultsComponent,
+    MovieModalComponent,
     
   ],
   imports: [

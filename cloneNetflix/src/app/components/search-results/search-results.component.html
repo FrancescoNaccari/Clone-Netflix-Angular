@@ -1,12 +1,12 @@
-<div class="container mt-5">
-    <h1>Risultati per "{{ searchQuery }}"</h1>
+<div class="container mt-5 pt-5">
+    <h1 class="my-3">Risultati per "{{ searchQuery }}"</h1>
     <div class="row">
       <div class="col-md-3 mb-4" *ngFor="let movie of searchResults">
-        <div class="movie-card">
+        <div class="movie-card"(click)="openModal(movie)">
           <img
-            [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+            [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" 
             [alt]="movie.title"
-            class="img-fluid"
+            class="img-fluid" 
           />
           <h5>{{ movie.title }}</h5>
           <p>{{ movie.release_date | date: 'yyyy' }}</p>
@@ -14,4 +14,8 @@
       </div>
     </div>
   </div>
-  
+  <app-movie-modal
+  *ngIf="isModalOpen"
+  [movie]="selectedMovie!"
+  (close)="closeModal()"
+></app-movie-modal>

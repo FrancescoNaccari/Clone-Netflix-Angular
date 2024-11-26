@@ -1,24 +1,15 @@
 import { Component, ElementRef, OnDestroy, OnInit, QueryList, TemplateRef, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { forkJoin, Subscription } from 'rxjs';
+import { MovieWithTrailer } from 'src/app/interface/movie-with-trailer.interface';
 import { Movie } from 'src/app/interface/movie.interface';
 import { FilterService, FilterType } from 'src/app/services/filter.service';
 import { MoviesService } from 'src/app/services/movies.service';
+import { MovieModalComponent } from '../movie-modal/movie-modal.component';
 
-interface MovieWithTrailer extends Movie {
-  showTrailer?: boolean;
-  trailerUrl?: string | SafeResourceUrl;
-  genres?: string;
-  genre_ids?: number[];
-  ageRating?: string;
-  ageRatingDescription?: string;
-  director?: string;
-  cast?: string;
-  screenplay?: string;
-  features?: string;
-  runtime?: number;
-}
+
 
 @Component({
   selector: 'app-home',
@@ -31,7 +22,6 @@ interface MovieWithTrailer extends Movie {
 export class HomeComponent implements OnInit, OnDestroy {
   movieCategories: { name: string; movies: MovieWithTrailer[] }[] = [];
   featuredMovie?: MovieWithTrailer;
-  selectedMovie?: MovieWithTrailer;
   similarMovies: MovieWithTrailer[] = [];
   displayedSimilarMovies: MovieWithTrailer[] = [];
   showAllSimilarMovies = false;
@@ -39,14 +29,16 @@ export class HomeComponent implements OnInit, OnDestroy {
   private filterSubscription!: Subscription;
   private genresMap: { [key: number]: string } = {};
 
+  selectedMovie?: MovieWithTrailer;
+  isModalOpen = false;
+
   @ViewChildren('carouselContainer') carouselContainers!: QueryList<ElementRef>;
   @ViewChild('movieModal') movieModal!: TemplateRef<any>;
 
   constructor(
     private moviesService: MoviesService,
-    private sanitizer: DomSanitizer,
-    private modalService: BsModalService,
-    private filterService: FilterService
+    private filterService: FilterService,
+    private modalService:NgbModal
   ) {}
 
   ngOnInit(): void {
@@ -160,79 +152,15 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   openModal(movie: MovieWithTrailer): void {
-    if (!movie.id) {
-      console.error('Errore: il film selezionato non ha un ID valido.');
-      return;
-    }
+    // this.selectedMovie = movie;
+    // this.isModalOpen = true;
+    let modale=this.modalService.open(MovieModalComponent,{size:'lg',centered:true})
+    modale.componentInstance.movie=movie;
+  }
 
-    this.selectedMovie = {
-      ...movie,
-      runtime: 0,
-      features: 'Non disponibile',
-      ageRating: 'Tutti',
-      ageRatingDescription: 'Adatto a tutti',
-    };
-
-    // Recupera i dettagli del film
-    this.moviesService.getMovieDetails(movie.id).subscribe((details: any) => {
-      this.selectedMovie = {
-        ...this.selectedMovie!,
-        runtime: details.runtime || 120,
-        features: details.keywords?.keywords
-          ? details.keywords.keywords.map((k: any) => k.name).join(', ')
-          : 'Non disponibile',
-        ageRating: details.adult ? '18+' : 'Tutti',
-        ageRatingDescription: details.adult
-          ? 'Visione riservata ai maggiori di 18 anni'
-          : 'Adatto a tutti',
-      };
-    });
-
-    // Recupera il cast e la crew
-    this.moviesService.getMovieCredits(movie.id).subscribe((credits: any) => {
-      const directors = credits.crew.filter((c: any) => c.job === 'Director');
-      const screenwriters = credits.crew.filter((c: any) => c.job === 'Screenplay');
-      const topCast = credits.cast.slice(0, 5);
-
-      this.selectedMovie = {
-        ...this.selectedMovie!,
-        director: directors.map((d: any) => d.name).join(', ') || 'Non disponibile',
-        screenplay: screenwriters.map((s: any) => s.name).join(', ') || 'Non disponibile',
-        cast: topCast.map((c: any) => c.name).join(', ') || 'Non disponibile',
-      };
-    });
-
-    // Recupera il trailer
-    this.moviesService.getMovieVideos(movie.id).subscribe((videos: any) => {
-      const trailer = videos.results.find(
-        (t: any) => t.type === 'Trailer' && t.site === 'YouTube'
-      );
-      if (trailer) {
-        this.selectedMovie!.trailerUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-          `https://www.youtube.com/embed/${trailer.key}?autoplay=1`
-        );
-      }
-    });
-
-    // Recupera i film simili
-    this.moviesService.getSimilarMovies(movie.id).subscribe((response: any) => {
-      const filteredSimilarMovies = response.results.filter((item: any) => item.poster_path);
-
-      this.similarMovies = filteredSimilarMovies.map((item: any) => ({
-        id: item.id,
-        title: item.title || item.name || 'Titolo non disponibile',
-        poster_path: item.poster_path,
-        overview: item.overview || 'Descrizione non disponibile',
-        release_date: item.release_date || item.first_air_date || 'ND',
-        runtime: item.runtime || 'ND',
-        ageRating: item.ageRating || 'ND',
-        genres: this.getGenresString(item.genre_ids || []),
-      }));
-
-      this.updateDisplayedSimilarMovies();
-    });
-
-    this.modalRef = this.modalService.show(this.movieModal);
+  closeModal(): void {
+    this.isModalOpen = false;
+    this.selectedMovie = undefined;
   }
 
   updateDisplayedSimilarMovies(): void {
@@ -246,10 +174,4 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.updateDisplayedSimilarMovies();
   }
 
-  closeModal(): void {
-    if (this.modalRef) {
-      this.modalRef.hide();
-    }
-    this.selectedMovie = undefined;
-  }
 }
