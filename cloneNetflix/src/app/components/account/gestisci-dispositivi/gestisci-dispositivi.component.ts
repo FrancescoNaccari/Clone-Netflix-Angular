@@ -10,13 +10,13 @@ export class GestisciDispositiviComponent {
     {
       nome: 'PC Chrome - Browser web',
       profilo: 'Nessun profilo da mostrare',
-      data: '25/11/24, 18:38 GMT+1',
+      data: '26/11/24, 12:11 GMT+1',
       attuale: true,
     },
     {
       nome: 'PC Chrome - Browser web',
       profilo: 'Concetta (ultima visione)',
-      data: '25/11/24, 12:03 GMT+1',
+      data: '26/11/24, 00:33 GMT+1',
       attuale: false,
     },
     {
@@ -31,20 +31,19 @@ export class GestisciDispositiviComponent {
       data: '24/11/24, 23:57 GMT+1',
       attuale: false,
     },
-    {
-      nome: 'LG - Smart TV',
-      profilo: 'Vincenzo (ultima visione)',
-      data: '24/11/24, 22:07 GMT+1',
-      attuale: false,
-    },
   ];
 
-  disconnetti(device: any) {
-    const conferma = confirm(`Sei sicuro di voler disconnettere ${device.nome}?`);
-    if (conferma) {
-      console.log(`${device.nome} disconnesso.`);
-      // Logica per rimuovere il dispositivo dalla lista
-      this.dispositivi = this.dispositivi.filter((d) => d !== device);
+  disconnettiDispositivo(dispositivo: any) {
+    if (confirm(`Sei sicuro di voler disconnettere ${dispositivo.nome}?`)) {
+      console.log(`Dispositivo disconnesso: ${dispositivo.nome}`);
+      this.dispositivi = this.dispositivi.filter((d) => d !== dispositivo);
+    }
+  }
+
+  disconnettiTutti() {
+    if (confirm('Sei sicuro di voler disconnettere tutti i dispositivi?')) {
+      console.log('Tutti i dispositivi disconnessi.');
+      this.dispositivi = [];
     }
   }
 }

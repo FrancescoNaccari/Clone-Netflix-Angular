@@ -7,7 +7,8 @@
   border-radius: 10px;
 }
 
-.card-body h4 {
+.card-body h4,
+.card-body h5 {
   font-weight: bold;
 }
 
@@ -20,7 +21,20 @@
   border-bottom: none;
 }
 
-.text-center button {
-  font-size: 1rem;
+.badge-primary {
+  background-color: #007bff;
+  color: white;
+  font-size: 0.75rem;
+}
+
+.btn-danger {
   font-weight: bold;
+  font-size: 1rem;
+}
+
+.text-muted {
+  color: #6c757d !important;
+}
+a{
+  color: black;
 }
