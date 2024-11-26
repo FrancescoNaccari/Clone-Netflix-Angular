@@ -3,13 +3,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { CommonModule } from '@angular/common'; 
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { AccountComponent } from './components/account/account.component';
-import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileComponent } from './components/account/profile/profile.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { GoogleLoginProvider, FacebookLoginProvider, SocialAuthServiceConfig ,SocialLoginModule} from '@abacritt/angularx-social-login';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -27,12 +29,15 @@ import { GestisciPagamentoComponent } from './components/account/gestisci-pagame
 import { GestisciDispositiviComponent } from './components/account/gestisci-dispositivi/gestisci-dispositivi.component';
 import { AggiornaPasswordComponent } from './components/account/aggiorna-password/aggiorna-password.component';
 import { ImpostazioniComponent } from './components/account/impostazioni/impostazioni.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { SicurezzaComponent } from './components/account/sicurezza/sicurezza.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 @NgModule({
   declarations: [
     AppComponent,
+
     FooterComponent,
     HomeComponent,
     AccountComponent,
@@ -47,10 +52,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     GestisciDispositiviComponent,
     AggiornaPasswordComponent,
     ImpostazioniComponent,
+    SidebarComponent,
+    SicurezzaComponent,
     
   ],
   imports: [
-    BrowserModule,
+    BrowserModule,    
+    CommonModule,
     AppRoutingModule,
     ModalModule.forRoot(),
     CarouselModule.forRoot(),

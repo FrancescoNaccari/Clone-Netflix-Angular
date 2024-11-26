@@ -1,0 +1,43 @@
+<div class="d-flex ">
+    <!-- Sidebar -->
+    <div class="sidebar bg-light p-3 pt-5">
+      <div class="mb-4 pt-5">
+        <a href="#" class="text-decoration-none text-danger d-flex align-items-center">
+          <i class="bi bi-arrow-left mr-2"></i> Torna su Netflix
+        </a>
+      </div>
+      <ul class="nav flex-column">
+        <li class="nav-item mb-3">
+          <a  class="nav-link text-dark" [routerLink]="['/sidebar/account']">
+            <i class="bi bi-house-fill mr-2"></i> Account
+          </a>
+        </li>
+        <li class="nav-item mb-3">
+          <a  class="nav-link text-dark" [routerLink]="['/sidebar/abbonamento']">
+            <i class="bi bi-card-list mr-2"></i> Abbonamento
+          </a>
+        </li>
+        <li class="nav-item mb-3">
+          <a  class="nav-link text-dark" [routerLink]="['/sidebar/sicurezza']">
+            <i class="bi bi-shield-lock-fill mr-2"></i> Sicurezza
+          </a>
+        </li>
+        <li class="nav-item mb-3">
+          <a class="nav-link text-dark" [routerLink]="['/sidebar/gestisci-dispositivi']">
+            <i class="bi bi-display-fill mr-2"></i> Dispositivi
+          </a>
+        </li>
+        <li class="nav-item">
+          <a  class="nav-link text-dark" [routerLink]="['/sidebar/profilo']">
+            <i class="bi bi-people-fill mr-2"></i> Profili
+          </a>
+        </li>
+      </ul>
+    </div>
+  
+    <!-- Contenuto principale -->
+    <div class="content flex-grow-1 p-4">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  

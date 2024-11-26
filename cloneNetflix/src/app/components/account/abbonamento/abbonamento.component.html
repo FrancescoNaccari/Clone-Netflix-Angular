@@ -1,25 +1,25 @@
 <div class="container-fluid p-5 bg-white">
+  <div class="container">
     <h2 class="mb-4">Abbonamento</h2>
   
     <!-- Dettagli piano -->
-    <div class="card mb-4 border-light shadow-sm">
+    <div class="card shadow-sm mb-4">
       <div class="card-body">
-        <h5 class="card-title">Piano Premium</h5>
+        <h4 class="mb-3">Piano Premium</h4>
         <p class="text-muted">
           Risoluzione video 4K con audio spaziale, visione senza pubblicità e molto altro.
         </p>
-        <ul class="list-unstyled mb-3">
-          <li>
-            <a [routerLink]="['/modifica-piano']"class="text-decoration-none">
-              Modifica piano
-              <i class="bi bi-chevron-right float-right"></i>
+        <ul class="list-unstyled">
+          <li class="mb-2">
+            <a routerLink="/modifica-piano" class="text-decoration-none d-flex justify-content-between align-items-center">
+              <span>Modifica piano</span>
+              <i class="bi bi-chevron-right"></i>
             </a>
           </li>
           <li>
-            <a [routerLink]="['/utentExtra']" class="text-decoration-none">
-              Acquista uno slot per utente extra
-              <span class="badge badge-primary ml-2">Nuovo</span>
-              <i class="bi bi-chevron-right float-right"></i>
+            <a routerLink="/utente-extra" class="text-decoration-none d-flex justify-content-between align-items-center">
+              <span>Acquista uno slot per utente extra</span>
+              <span class="badge badge-primary">Nuovo</span>
             </a>
           </li>
         </ul>
@@ -27,9 +27,9 @@
     </div>
   
     <!-- Dati di pagamento -->
-    <div class="card mb-4 border-light shadow-sm">
+    <div class="card shadow-sm mb-4">
       <div class="card-body">
-        <h5 class="card-title">Dati di pagamento</h5>
+        <h5 class="mb-3">Dati di pagamento</h5>
         <div class="mb-3">
           <p class="mb-1">Prossimo pagamento</p>
           <p class="text-muted">23 dicembre 2024</p>
@@ -37,35 +37,39 @@
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Mastercard_2019_logo.svg"
               alt="Mastercard Logo"
-              style="height: 20px;"
+              style="height: 20px; margin-right: 10px;"
             />
             **** 8523
           </p>
         </div>
         <ul class="list-unstyled">
-          <li>
-            <a href="#" class="text-decoration-none">
-              Gestisci metodo di pagamento
-              <i class="bi bi-chevron-right float-right"></i>
+          <li class="mb-2">
+            <a routerLink="/gestisci-pagamenti" class="text-decoration-none d-flex justify-content-between align-items-center">
+              <span>Gestisci metodo di pagamento</span>
+              <i class="bi bi-chevron-right"></i>
+            </a>
+          </li>
+          <li class="mb-2">
+            <a routerLink="/codice-regalo" class="text-decoration-none d-flex justify-content-between align-items-center">
+              <span>Riscatta codice regalo o promozionale</span>
+              <i class="bi bi-chevron-right"></i>
             </a>
           </li>
           <li>
-            <a href="#" class="text-decoration-none">
-              Riscatta codice regalo o promozionale
-              <i class="bi bi-chevron-right float-right"></i>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="text-decoration-none">
-              Visualizza cronologia dei pagamenti
-              <i class="bi bi-chevron-right float-right"></i>
+            <a routerLink="/cronologia-pagamenti" class="text-decoration-none d-flex justify-content-between align-items-center">
+              <span>Visualizza cronologia dei pagamenti</span>
+              <i class="bi bi-chevron-right"></i>
             </a>
           </li>
         </ul>
       </div>
     </div>
   
-    <!-- Disdici abbonamento -->
-    <button class="btn btn-danger btn-block">Disdici abbonamento</button>
+    <!-- Pulsante per disdire l'abbonamento -->
+    <div class="text-center">
+      <button class="btn btn-danger btn-sm" (click)="disdiciAbbonamento()">Disdici abbonamento</button>
+    </div>
+  </div>
+  
   </div>
   

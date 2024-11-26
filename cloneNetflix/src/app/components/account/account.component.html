@@ -1,90 +1,96 @@
- 
-  <div class="container-fluid bg-white py-5 text-black">
-    <div class="container p-5">
-        <h1 class="mb-3">Account</h1>
-        <div class="card mb-4">
-          <div class="card-header bg-light text-dark">
-            <h5 class="m-0">Dettagli abbonamento</h5>
-          </div>
-          <div class="card-body p-0">
-            <div class="d-flex justify-content-between align-items-center p-3 ">
-              <div>
-                <h6>Piano Premium</h6>
-                <p class="mb-0 text-muted">Prossimo pagamento: 23 dicembre 2024</p>
-              </div>
-              <div>
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Mastercard_2019_logo.svg"
-                  alt="Mastercard Logo"
-                  style="height: 20px;"
-                />
-                <span class="ml-2">**** 8523</span>
-              </div>
-            </div>
-        
-            <ul class="list-group rounded-top-0">
-                <li class="list-group-item d-flex justify-content-between align-items-center " [routerLink]="['/abbonamento']">
-                    Gestisci abbonamento
-                  <i class="bi bi-chevron-right"></i>
-                </li>
-            </ul>
-          </div>
-        </div>
-      
-        <div>
-          <h5 class="mb-3">Link rapidi</h5>
-          <ul class="list-group">
-            <li class="list-group-item d-flex justify-content-between align-items-center " [routerLink]="['/modifica-piano']">
-              Modifica piano
-              <i class="bi bi-chevron-right"></i>
-            </li> 
-            <li class="list-group-item d-flex justify-content-between align-items-center" [routerLink]="['/gestisci-pagamenti']">
-              Gestisci metodo di pagamento
-              <i class="bi bi-chevron-right"></i>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center" [routerLink]="['/utentExtra']">
-              Acquista uno slot per utente extra
-              <span class="badge badge-primary">Nuovo</span>
-              <i class="bi bi-chevron-right"></i>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center" [routerLink]="['/gestisci-dispositivi']">
-              Gestisci accessi e dispositivi
-              <i class="bi bi-chevron-right"></i>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center" [routerLink]="['/aggiorna-password']">
-              Aggiorna la password
-              <i class="bi bi-chevron-right"></i>
-            </li>
+<div class="container-fluid bg-white py-5 text-black">
+  <div class="container mt-5">
+    <h2 class="mb-4">Account</h2>
 
-            <li class="list-group-item d-flex justify-content-between align-items-center" [routerLink]="['/impostazioni']">
-              Modifica impostazioni
-              <i class="bi bi-chevron-right"></i>
-            </li>
-          </ul>
-        </div>
-      
-        <!-- <div class="mt-4">
-          <h5 class="mb-3">Gestisci i profili</h5>
-          <div class="d-flex">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Smiley_face.svg"
-              alt="Profile"
-              class="rounded-circle border"
-              style="width: 50px; height: 50px; margin-right: 10px;"
-            />
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Smiley_face.svg"
-              alt="Profile"
-              class="rounded-circle border"
-              style="width: 50px; height: 50px; margin-right: 10px;"
-            />
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Smiley_face.svg"
-              alt="Profile"
-              class="rounded-circle border"
-              style="width: 50px; height: 50px; margin-right: 10px;"
-            />
-          </div>
-        </div> -->
+    <!-- Dettagli abbonamento -->
+    <div class="card shadow-sm mb-4">
+      <div class="card-header bg-light d-flex justify-content-between align-items-center">
+        <span>Dettagli abbonamento</span>
+        <span class="badge badge-danger">Inizio abbonamento: agosto 2024</span>
       </div>
+      <div class="card-body">
+        <h5>Piano Premium</h5>
+        <p class="text-muted">Prossimo pagamento: 23 dicembre 2024</p>
+        <div class="d-flex align-items-center">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Mastercard_2019_logo.svg" alt="Mastercard Logo"
+            style="height: 20px; margin-right: 10px" />
+          <span>**** 8523</span>
+        </div>
+        <a class="list-group-item list-group-item-action d-flex justify-content-between py-2 mt-3  align-items-center " [routerLink]="['/sidebar/abbonamento']">
+          <span> Gestisci abbonamento</span> <i class="bi bi-chevron-right"></i></a>
+      </div>
+    </div>
+
+    <!-- Link rapidi -->
+    <h5 class="mb-3">Link rapidi</h5>
+    <div class="list-group">
+      <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" [routerLink]="['/sidebar/modifica-piano']">
+        <span><i class="bi bi-pencil-square mr-2"></i> Modifica piano</span>
+        <i class="bi bi-chevron-right"></i>
+      </a>
+      <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" [routerLink]="['/sidebar/gestisci-pagamenti']">
+        <span><i class="bi bi-credit-card mr-2"></i> Gestisci metodo di
+          pagamento</span>
+        <i class="bi bi-chevron-right"></i>
+      </a>
+      <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" [routerLink]="['/sidebar/utentExtra']">
+        <span>
+          <i class="bi bi-people mr-2"></i> Acquista uno slot per utente extra
+          <span class="badge badge-primary ml-2">Nuovo</span>
+        </span>
+        <i class="bi bi-chevron-right"></i>
+      </a>
+      <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" [routerLink]="['/sidebar/gestisci-dispositivi']">
+        <span><i class="bi bi-display mr-2"></i> Gestisci accessi e
+          dispositivi</span>
+        <i class="bi bi-chevron-right"></i>
+      </a>
+      <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" [routerLink]="['/sidebar/aggiorna-password']">
+        <span><i class="bi bi-key-fill mr-2"></i> Aggiorna la password</span>
+        <i class="bi bi-chevron-right"></i>
+      </a>
+      <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" >
+        <span><i class="bi bi-arrow-right-square mr-2"></i> Trasferisci un
+          profilo</span>
+        <i class="bi bi-chevron-right"></i>
+      </a>
+      <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+        <span><i class="bi bi-sliders mr-2"></i> Modifica filtro famiglia</span>
+        <i class="bi bi-chevron-right"></i>
+      </a>
+      <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"[routerLink]="['/sidebar/impostazioni']">
+        <span>
+          <i class="bi bi-gear-fill mr-2"></i> Modifica impostazioni
+        </span>
+        <i class="bi bi-chevron-right"></i>
+      </a>
+    </div>
+
+    <!-- Gestisci profili -->
+
+    <div class="list-group mt-2 ">
+      <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" [routerLink]="['/sidebar/profilo']">
+<div>   <h5 class="m-0">Gestisci i profili</h5>
+        <p class="p-0 m-0">5 profili</p></div>
+   
+        <i class="bi bi-chevron-right"></i></a>
+    </div>
+    <div class="mt-4 d-flex">
+      <div>
+        
+      </div>
+      <!-- <div class="d-flex align-items-center">
+        <img src="https://via.placeholder.com/50" alt="Profile 1" class="rounded-circle mr-2"
+          style="border: 2px solid blue" />
+        <img src="https://via.placeholder.com/50" alt="Profile 2" class="rounded-circle mr-2"
+          style="border: 2px solid red" />
+        <img src="https://via.placeholder.com/50" alt="Profile 3" class="rounded-circle mr-2"
+          style="border: 2px solid green" />
+        <img src="https://via.placeholder.com/50" alt="Profile 4" class="rounded-circle mr-2"
+          style="border: 2px solid yellow" />
+        <img src="https://via.placeholder.com/50" alt="Profile 5" class="rounded-circle mr-2"
+          style="border: 2px solid gray" />
+      </div> -->
+    </div>
   </div>
+</div>
