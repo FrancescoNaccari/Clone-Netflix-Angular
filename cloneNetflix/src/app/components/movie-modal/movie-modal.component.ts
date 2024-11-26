@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { MovieWithTrailer } from 'src/app/interface/movie-with-trailer.interface';
 import { MoviesService } from 'src/app/services/movies.service';
 
@@ -18,7 +19,8 @@ export class MovieModalComponent implements OnInit {
 
   constructor(
     private moviesService: MoviesService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    public modal:NgbActiveModal
   ) {}
 
   ngOnInit(): void {

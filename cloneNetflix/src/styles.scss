@@ -17,73 +17,72 @@ html, body{
 /* Stili generali */
 /* Stili generali */
 .carousel-control-next {
-    right: -70px;
-  }
+  right: -8.5%;  }
   
   .carousel-control-prev {
-    left: -80px;
+    left: -9%;
   }
   
   .carousel-indicators {
     bottom: -35px;
   }
   
-  /* Dispositivi medi (tablet) */
-  @media (max-width: 992px) {
-    .carousel-control-next {
-      right: -30px; /* Riduci la distanza a destra */
-    }
+  // /* Dispositivi medi (tablet) */
+  // @media (max-width: 992px) {
+  //   .carousel-control-next {
+  //     right: -30px; /* Riduci la distanza a destra */
+  //   }
   
-    .carousel-control-prev {
-      left: -30px; /* Riduci la distanza a sinistra */
-    }
+  //   .carousel-control-prev {
+  //     left: -30px; /* Riduci la distanza a sinistra */
+  //   }
   
-    .carousel-indicators {
-      bottom: -20px; /* Indicatori più vicini al carousel */
-    }
-  }
+  //   .carousel-indicators {
+  //     bottom: -20px; /* Indicatori più vicini al carousel */
+  //   }
+  // }
   
-  /* Dispositivi piccoli (smartphone) */
-  @media (max-width: 768px) {
-    .carousel-control-next,
-    .carousel-control-prev {
-      width: 40px; /* Riduci la dimensione delle frecce */
-      height: 40px;
-      top: 50%;
-      transform: translateY(-50%);
-    }
+  // /* Dispositivi piccoli (smartphone) */
+  // @media (max-width: 768px) {
+  //   .carousel-control-next,
+  //   .carousel-control-prev {
+  //     width: 40px; /* Riduci la dimensione delle frecce */
+  //     height: 40px;
+  //     top: 50%;
+  //     transform: translateY(-50%);
+  //   }
   
-    .carousel-control-next {
-      right: 5px; /* Posizione interna al carousel */
-    }
+  //   .carousel-control-next {
+  //     right: 5px; /* Posizione interna al carousel */
+  //   }
   
-    .carousel-control-prev {
-      left: 5px; /* Posizione interna al carousel */
-    }
+  //   .carousel-control-prev {
+  //     left: 5px; /* Posizione interna al carousel */
+  //   }
   
-    .carousel-indicators {
-      bottom: -10px; /* Indicatori ancora più vicini */
-    }
-  }
+  //   .carousel-indicators {
+  //     bottom: -10px; /* Indicatori ancora più vicini */
+  //   }
+  // }
   
-  /* Dispositivi extra piccoli (schermi molto piccoli) */
-  @media (max-width: 576px) {
-    .carousel-control-next,
-    .carousel-control-prev {
-      width: 30px; /* Ancora più piccole */
-      height: 30px;
-    }
+  // /* Dispositivi extra piccoli (schermi molto piccoli) */
+  // @media (max-width: 576px) {
+  //   .carousel-control-next,
+  //   .carousel-control-prev {
+  //     width: 30px; /* Ancora più piccole */
+  //     height: 30px;
+  //   }
   
-    .carousel-control-next {
-      right: 2px;
-    }
+  //   .carousel-control-next {
+  //     right: 2px;
+  //   }
   
-    .carousel-control-prev {
-      left: 2px;
-    }
+  //   .carousel-control-prev {
+  //     left: 2px;
+  //   }
   
-    .carousel-indicators {
-      bottom: 0px; /* Indicatori quasi attaccati al carousel */
-    }
-  }
+  //   .carousel-indicators {
+  //     bottom: 0px; /* Indicatori quasi attaccati al carousel */
+  //   }
+  // }
   

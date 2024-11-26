@@ -1,10 +1,8 @@
 import { Component, ElementRef, OnDestroy, OnInit, QueryList, TemplateRef, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { forkJoin, Subscription } from 'rxjs';
 import { MovieWithTrailer } from 'src/app/interface/movie-with-trailer.interface';
-import { Movie } from 'src/app/interface/movie.interface';
 import { FilterService, FilterType } from 'src/app/services/filter.service';
 import { MoviesService } from 'src/app/services/movies.service';
 import { MovieModalComponent } from '../movie-modal/movie-modal.component';
@@ -161,6 +159,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   closeModal(): void {
     this.isModalOpen = false;
     this.selectedMovie = undefined;
+    
   }
 
   updateDisplayedSimilarMovies(): void {

@@ -15,7 +15,7 @@
 
 <div class="carousel-section  p-5" *ngIf="movieCategories.length > 0">
   <div *ngFor="let category of movieCategories">
-    <h2 class="category-title">{{ category.name }}</h2>
+    <h2 class="category-title mb-1 mt-3 ">{{ category.name }}</h2>
 
     <carousel [itemsPerSlide]="6" [interval]="0" [noWrap]="false" [startFromIndex]="0">
       <ng-container *ngFor="let movie of category.movies">

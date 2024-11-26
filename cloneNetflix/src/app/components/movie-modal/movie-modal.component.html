@@ -4,8 +4,10 @@
 
   <button type="button" class="btn-close m-2 text-bg-light rounded-circle" aria-label="Close" (click)="closeModal()"></button>
 
-</div> -->
+         </div> -->
     <!-- Trailer -->
+    <button type="button" class="btn-close m-2 text-bg-light rounded-circle z-3 position-absolute top-0 end-0" aria-label="Close" (click)="modal.close()"></button>
+
     <div class="trailer-container">
       <iframe *ngIf="selectedMovie?.trailerUrl" [src]="selectedMovie?.trailerUrl" frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
