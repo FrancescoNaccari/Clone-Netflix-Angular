@@ -19,8 +19,8 @@ import { SearchResultsComponent } from './components/search-results/search-resul
 const routes: Routes = [
   // { path: "", component: DashboardComponent , canActivate: [AuthGuard] },
 
-  { path: "login", component: LoginComponent },
-  { path: '', component: HomeComponent },
+  { path: "", component: LoginComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'search', component: SearchResultsComponent },
   // {path: 'account', component: AccountComponent},
   // { path: "profilo", component: ProfileComponent },
